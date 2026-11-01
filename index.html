@@ -1,1254 +1,179 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>宏盛酒庄 · 进销存工作台</title>
-<style>
-  :root{
-    --bg: #F5EFE3;
-    --paper: #FFFDF8;
-    --paper-2: #FBF6EA;
-    --ink: #2B231A;
-    --ink-soft: #6B5F50;
-    --ink-faint: #A79B89;
-    --line: #E3D9C4;
-    --wine: #7A2A31;
-    --wine-deep: #5A1E24;
-    --gold: #A9761F;
-    --gold-soft: #D9B769;
-    --sage: #4C6B4F;
-    --sage-soft: #E4EBE1;
-    --warn: #B5482A;
-    --warn-soft: #F6E2D8;
-    --shadow: 0 2px 10px rgba(43,35,26,0.06);
-    --shadow-lg: 0 12px 30px rgba(43,35,26,0.10);
-    --radius: 10px;
-    --serif: "Songti SC","STSong","SimSun","Noto Serif SC",serif;
-    --sans: "PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
-    --mono: "SF Mono","Consolas","Menlo","Courier New",monospace;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html,body{height:100%;}
-  body{
-    font-family: var(--sans);
-    background: var(--bg);
-    background-image:
-      radial-gradient(circle at 15% 8%, rgba(169,118,31,0.06), transparent 40%),
-      radial-gradient(circle at 85% 92%, rgba(122,42,49,0.05), transparent 45%);
-    color: var(--ink);
-    -webkit-font-smoothing: antialiased;
-  }
-  .app{ display:flex; min-height:100vh; }
-
-  /* ---------- Sidebar ---------- */
-  .sidebar{
-    width: 232px;
-    flex-shrink:0;
-    background: linear-gradient(165deg,#332619 0%, #241A14 55%, #1C1410 100%);
-    color: #EDE3D3;
-    padding: 26px 16px 20px;
-    display:flex;
-    flex-direction:column;
-    position: sticky;
-    top:0;
-    height:100vh;
-  }
-  .brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding: 4px 6px 22px;
-    border-bottom: 1px solid rgba(237,227,211,0.12);
-    margin-bottom: 18px;
-  }
-  .seal{
-    width:44px; height:44px; border-radius:6px;
-    background: linear-gradient(155deg, #B8434C 0%, #7A2A31 45%, #4E161B 100%);
-    border: 1.5px solid rgba(255,255,255,0.25);
-    display:flex; align-items:center; justify-content:center;
-    color:#F3D9B1; font-family: var(--serif); font-weight:700; font-size:15px;
-    letter-spacing:1px;
-    transform: rotate(-3deg);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.08);
-    flex-shrink:0;
-  }
-  .brand-text .name{ font-family: var(--serif); font-size:16.5px; font-weight:700; letter-spacing:1px;
-    background: linear-gradient(90deg, #F8ECD4, #D9B769);
-    -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
-  }
-  .brand-text .sub{ font-size:10.5px; color:#B7A98E; letter-spacing:2px; margin-top:3px; font-family: var(--mono); text-transform:uppercase;}
-
-  nav.navlist{ display:flex; flex-direction:column; gap:5px; flex:1; }
-  .navitem{
-    display:flex; align-items:center; gap:11px;
-    padding: 11px 12px;
-    border-radius: 8px;
-    cursor:pointer;
-    color:#C9BBA0;
-    border-left: 3px solid transparent;
-    transition: background .15s ease, color .15s ease;
-    user-select:none;
-  }
-  .navitem:hover{ background: linear-gradient(90deg, rgba(237,227,211,0.08), rgba(237,227,211,0.02)); color:#EDE3D3; }
-  .navitem.active{
-    background: linear-gradient(90deg, rgba(169,118,31,0.28), rgba(169,118,31,0.05));
-    color:#F3E4C4;
-    border-left: 3px solid var(--gold-soft);
-  }
-  .navitem .num{ font-family: var(--mono); font-size:11px; color:#8E8067; width:18px; }
-  .navitem.active .num{ color: var(--gold-soft); }
-  .navitem .label{ font-size:13.5px; letter-spacing:.5px; }
-
-  .sidebar-foot{
-    padding-top:14px; margin-top:12px;
-    border-top:1px solid rgba(237,227,211,0.12);
-    font-size:10px; color:#8E8067; line-height:1.7; letter-spacing:.5px;
-  }
-  .sidebar-foot b{ color:#C9BBA0; }
-
-  /* ---------- Main ---------- */
-  main{ flex:1; padding: 30px 40px 60px; max-width: 1360px; }
-  .topbar{
-    display:flex; align-items:flex-end; justify-content:space-between;
-    margin-bottom: 26px; flex-wrap:wrap; gap:14px;
-  }
-  .topbar h1{
-    font-family: var(--serif); font-size: 25px; font-weight:700;
-    letter-spacing:.5px;
-    background: linear-gradient(90deg, var(--wine-deep), var(--wine) 55%, var(--gold) 130%);
-    -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;
-    display:inline-block;
-  }
-  .topbar .desc{ font-size:12.5px; color:var(--ink-soft); margin-top:6px; }
-  .topbar .today{
-    font-family: var(--mono); font-size:11.5px; color:var(--ink-faint);
-    text-align:right; letter-spacing:.5px;
-  }
-
-  .section{ display:none; animation: fadeIn .25s ease; }
-  .section.active{ display:block; }
-  @keyframes fadeIn{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
-
-  /* ---------- Cards / KPIs ---------- */
-  .kpi-row{ display:grid; grid-template-columns: repeat(6, 1fr); gap:14px; margin-bottom:24px; }
-  @media (max-width: 1180px){ .kpi-row{ grid-template-columns: repeat(3,1fr);} }
-  @media (max-width: 700px){ .kpi-row{ grid-template-columns: repeat(2,1fr);} }
-  .kpi{
-    background: linear-gradient(165deg, #FFFEFB 0%, var(--paper-2) 100%);
-    border: 1px solid var(--line);
-    border-top: 2.5px solid var(--gold-soft);
-    border-radius: var(--radius);
-    padding: 14px 15px 12px;
-    box-shadow: var(--shadow);
-    position:relative; overflow:hidden;
-  }
-  .kpi::before{
-    content:''; position:absolute; top:0; left:0; right:0; height:2.5px;
-    background: linear-gradient(90deg, var(--gold-soft), var(--gold) 60%, var(--wine));
-  }
-  .kpi.warn::before{ background: linear-gradient(90deg, #E4966B, var(--warn)); }
-  .kpi.neg::before{ background: linear-gradient(90deg, var(--wine), var(--wine-deep)); }
-  .kpi .label{ font-size:11px; color: var(--ink-soft); letter-spacing:.3px; margin-bottom:8px;}
-  .kpi .value{ font-family: var(--mono); font-size:22px; font-weight:700; color:var(--ink); }
-  .kpi .value small{ font-size:12px; font-weight:500; color:var(--ink-faint); margin-left:2px;}
-
-  .panel{
-    background: linear-gradient(175deg, #FFFEFB 0%, var(--paper) 60%, var(--paper-2) 100%);
-    border:1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 20px 22px 22px;
-    margin-bottom: 22px;
-  }
-  .panel-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:10px;}
-  .panel-head h2{ font-family: var(--serif); font-size:16px; color:var(--wine-deep); font-weight:700; }
-  .panel-head .hint{ font-size:11px; color:var(--ink-faint); }
-
-  .grid-2{ display:grid; grid-template-columns: 1.3fr 1fr; gap:20px; }
-  @media (max-width: 1050px){ .grid-2{ grid-template-columns:1fr; } }
-
-  /* category bars */
-  .cat-row{ display:grid; grid-template-columns: 76px 1fr 60px; align-items:center; gap:10px; padding:8px 0; border-bottom:1px dashed var(--line); font-size:12px;}
-  .cat-row:last-child{ border-bottom:none;}
-  .cat-row .catname{ color:var(--ink); font-weight:600; }
-  .bar-track{ position:relative; height:16px; background:var(--paper-2); border-radius:4px; overflow:hidden; border:1px solid var(--line);}
-  .bar-in{ position:absolute; left:0; top:0; height:100%; background: linear-gradient(90deg, #6E9772, var(--sage)); opacity:.7;}
-  .bar-out{ position:absolute; left:0; top:0; height:100%; background: linear-gradient(90deg, var(--wine), #9C3A42); opacity:.7;}
-  .cat-amt{ font-family:var(--mono); font-size:11px; text-align:right; color:var(--ink-soft);}
-  .legend{ display:flex; gap:16px; font-size:11px; color:var(--ink-soft); margin-top:10px;}
-  .legend span{ display:inline-flex; align-items:center; gap:5px;}
-  .dot{ width:9px; height:9px; border-radius:2px; display:inline-block;}
-
-  .warn-list{ display:flex; flex-direction:column; gap:8px; max-height: 300px; overflow:auto; }
-  .warn-item{ display:flex; justify-content:space-between; align-items:center; background:linear-gradient(120deg, #F8E9DE, var(--warn-soft)); border:1px solid #EAC2AC; border-radius:8px; padding:8px 12px; font-size:12px;}
-  .warn-item .nm{ font-weight:600; color:var(--wine-deep); }
-  .warn-item .qty{ font-family:var(--mono); color:var(--warn); font-weight:700;}
-  .empty-note{ font-size:12px; color:var(--ink-faint); padding:14px 4px; text-align:center;}
-
-  /* ---------- Forms ---------- */
-  .form-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:12px 14px; align-items:end; }
-  @media (max-width: 900px){ .form-grid{ grid-template-columns: repeat(2,1fr);} }
-  .field{ display:flex; flex-direction:column; gap:5px; }
-  .field label{ font-size:10.5px; color:var(--ink-soft); letter-spacing:.4px; }
-  .field input, .field select{
-    font-family: var(--sans);
-    font-size:12.5px;
-    padding: 8px 9px;
-    border-radius:6px;
-    border:1px solid var(--line);
-    background: var(--paper-2);
-    color: var(--ink);
-    outline:none;
-  }
-  .field input:focus, .field select:focus{ border-color: var(--gold-soft); background:#fff;}
-  .field.readonly input{ color: var(--ink-soft); background:#F1EBDC; }
-  .btn{
-    font-family: var(--sans);
-    font-size:12.5px; font-weight:600;
-    padding: 9px 16px;
-    border-radius: 6px;
-    border:none;
-    cursor:pointer;
-    background: linear-gradient(135deg, #8E3339 0%, var(--wine) 45%, var(--wine-deep) 100%);
-    color:#F6EBE1;
-    letter-spacing:.4px;
-    transition: filter .15s ease, transform .1s ease, box-shadow .15s ease;
-    box-shadow: 0 2px 6px rgba(90,30,36,0.25);
-  }
-  .btn:hover{ filter: brightness(1.08); box-shadow: 0 4px 10px rgba(90,30,36,0.32); }
-  .btn:active{ transform: translateY(1px); }
-  .btn.ghost{ background: transparent; border:1px solid var(--line); color:var(--ink-soft); box-shadow:none;}
-  .btn.ghost:hover{ background: var(--paper-2); filter:none; }
-  .btn.sm{ padding:5px 10px; font-size:11px; }
-  .btn.gold{ background: linear-gradient(135deg, var(--gold-soft) 0%, var(--gold) 100%); color:#2B231A; box-shadow: 0 2px 6px rgba(169,118,31,0.28);}
-  .btn.gold:hover{ filter: brightness(1.06); }
-
-  .preview-strip{
-    margin-top:12px; padding:10px 12px; background: var(--paper-2); border:1px dashed var(--line); border-radius:8px;
-    display:flex; gap:22px; flex-wrap:wrap; font-size:12px; color:var(--ink-soft);
-  }
-  .preview-strip b{ color:var(--ink); font-weight:700; }
-
-  /* ---------- Tables ---------- */
-  .table-wrap{ overflow:auto; max-height: 480px; border:1px solid var(--line); border-radius:8px;}
-  table{ width:100%; border-collapse:collapse; font-size:12px; }
-  thead th{
-    position:sticky; top:0; background: linear-gradient(135deg, #8E3339, var(--wine) 55%, var(--wine-deep)); color:#F6EBE1;
-    text-align:left; padding:9px 10px; font-weight:600; font-size:11px; letter-spacing:.3px;
-    white-space:nowrap;
-  }
-  tbody td{ padding:8px 10px; border-bottom:1px solid var(--line); color:var(--ink); white-space:nowrap;}
-  tbody tr:nth-child(even){ background: var(--paper-2); }
-  tbody tr:hover{ background: #F1E6CE; }
-  .mono{ font-family: var(--mono); }
-  .tag{ display:inline-block; padding:2px 8px; border-radius:20px; font-size:10.5px; font-weight:600;}
-  .tag.in{ background: linear-gradient(120deg, #EFF5EE, var(--sage-soft)); color: var(--sage); }
-  .tag.out{ background: linear-gradient(120deg, #FBEDE6, var(--warn-soft)); color: var(--wine); }
-  .badge{ padding:2px 8px; border-radius:20px; font-size:10.5px; font-weight:700; }
-  .badge.ok{ background:linear-gradient(120deg, #EFF5EE, var(--sage-soft)); color:var(--sage); }
-  .badge.low{ background:linear-gradient(120deg, #FBEDE6, var(--warn-soft)); color:var(--warn); }
-  .del-btn{ background:none; border:none; color:var(--ink-faint); cursor:pointer; font-size:13px; }
-  .del-btn:hover{ color: var(--wine); }
-
-  .toolbar{ display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap; align-items:center; }
-  .toolbar input[type=text]{
-    padding:8px 10px; border-radius:6px; border:1px solid var(--line); background:var(--paper-2); font-size:12px; min-width:200px;
-  }
-  .toolbar select{ padding:8px 10px; border-radius:6px; border:1px solid var(--line); background:var(--paper-2); font-size:12px;}
-
-  /* ---------- Instructions ---------- */
-  .howto h3{ font-family: var(--serif); font-size:14px; color: var(--wine-deep); margin: 18px 0 6px;}
-  .howto h3:first-child{ margin-top:0; }
-  .howto p{ font-size:12.5px; color: var(--ink-soft); line-height:1.9; }
-  .howto ul{ margin: 4px 0 0 18px; font-size:12.5px; color:var(--ink-soft); line-height:1.9;}
-
-  .toast{
-    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
-    background: linear-gradient(135deg, #6E2027, var(--wine-deep)); color:#F6EBE1; padding:10px 20px; border-radius:8px;
-    font-size:12.5px; opacity:0; pointer-events:none; transition: all .25s ease; box-shadow: var(--shadow-lg);
-    z-index:50;
-  }
-  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
-
-  ::-webkit-scrollbar{ width:8px; height:8px;}
-  ::-webkit-scrollbar-thumb{ background: var(--gold-soft); border-radius:8px;}
-  ::-webkit-scrollbar-track{ background: transparent;}
-</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-</head>
-<body>
-<div class="app">
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="seal">宏盛</div>
-      <div class="brand-text">
-        <div class="name">宏盛酒庄</div>
-        <div class="sub">LEDGER TOOLS</div>
-      </div>
-    </div>
-    <nav class="navlist" id="navlist">
-      <div class="navitem active" data-section="dashboard"><span class="num">01</span><span class="label">总看板</span></div>
-      <div class="navitem" data-section="products"><span class="num">02</span><span class="label">商品档案</span></div>
-      <div class="navitem" data-section="ledger"><span class="num">03</span><span class="label">出入库登记</span></div>
-      <div class="navitem" data-section="inventory"><span class="num">04</span><span class="label">库存明细</span></div>
-      <div class="navitem" data-section="backup"><span class="num">05</span><span class="label">数据备份</span></div>
-      <div class="navitem" data-section="help"><span class="num">06</span><span class="label">使用说明</span></div>
-    </nav>
-    <div class="sidebar-foot">
-      数据自动保存在<b>本浏览器</b>中<br>
-      建议定期到「数据备份」导出一份
-    </div>
-  </aside>
-
-  <main>
-    <!-- DASHBOARD -->
-    <section class="section active" id="sec-dashboard">
-      <div class="topbar">
-        <div>
-          <h1>数据总看板</h1>
-          <div class="desc">今日 / 本月出入库变化，一眼看清库存与预警</div>
-        </div>
-        <div class="today" id="todayLabel"></div>
-      </div>
-
-      <div class="kpi-row" id="kpiRow"></div>
-
-      <div class="grid-2">
-        <div class="panel">
-          <div class="panel-head">
-            <h2>分类别 出入库 · 结存</h2>
-            <span class="hint">条形长度按金额比例</span>
-          </div>
-          <div id="catRows"></div>
-          <div class="legend">
-            <span><i class="dot" style="background:var(--sage)"></i>入库金额</span>
-            <span><i class="dot" style="background:var(--wine)"></i>出库金额</span>
-          </div>
-        </div>
-        <div class="panel">
-          <div class="panel-head">
-            <h2>库存预警</h2>
-            <span class="hint" id="warnCount"></span>
-          </div>
-          <div class="warn-list" id="warnList"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PRODUCTS -->
-    <section class="section" id="sec-products">
-      <div class="topbar">
-        <div>
-          <h1>商品档案</h1>
-          <div class="desc">新增商品在此登记一次，出入库登记时自动带出信息</div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-head"><h2>新增 / 编辑商品</h2><span class="hint" id="editingHint"></span></div>
-        <div class="form-grid" id="productForm">
-          <div class="field"><label>产品编码 *</label><input type="text" id="p_code" placeholder="例如 D1000109"></div>
-          <div class="field"><label>商品名称 *</label><input type="text" id="p_name" placeholder="商品名称"></div>
-          <div class="field"><label>类目</label>
-            <select id="p_category">
-              <option value="米面粮油">米面粮油</option>
-              <option value="香烟">香烟</option>
-              <option value="茶叶">茶叶</option>
-              <option value="白酒">白酒</option>
-              <option value="滋补品">滋补品</option>
-              <option value="药品、水果">药品、水果</option>
-              <option value="饮品">饮品</option>
-              <option value="消耗品">消耗品</option>
-              <option value="红酒">红酒</option>
-              <option value="其他">其他</option>
-            </select>
-          </div>
-          <div class="field"><label>规格</label><input type="text" id="p_spec" placeholder="如 1*6"></div>
-          <div class="field"><label>单位</label><input type="text" id="p_unit" placeholder="瓶 / 条 / 盒"></div>
-          <div class="field"><label>参考进货价</label><input type="number" step="0.01" id="p_purchase" placeholder="0.00"></div>
-          <div class="field"><label>参考零售价</label><input type="number" step="0.01" id="p_retail" placeholder="0.00"></div>
-          <div class="field"><label>安全库存（预警线）</label><input type="number" step="1" id="p_safety" placeholder="不填=不预警"></div>
-          <div class="field" style="flex-direction:row; gap:8px; align-items:center;">
-            <button class="btn" id="p_save">保存商品</button>
-            <button class="btn ghost" id="p_cancel" style="display:none;">取消编辑</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-head">
-          <h2>全部商品（<span id="prodCount">0</span>）</h2>
-        </div>
-        <div class="toolbar">
-          <input type="text" id="prodSearch" placeholder="搜索编码或名称…">
-          <select id="prodCatFilter"><option value="">全部类目</option></select>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr>
-              <th>编码</th><th>商品名称</th><th>类目</th><th>规格</th><th>单位</th>
-              <th>参考进货价</th><th>参考零售价</th><th>安全库存</th><th></th>
-            </tr></thead>
-            <tbody id="productTbody"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- LEDGER -->
-    <section class="section" id="sec-ledger">
-      <div class="topbar">
-        <div>
-          <h1>出入库登记</h1>
-          <div class="desc">选产品编码或商品名称都行，规格/单位/参考价自动带出，和商品档案保持一致</div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-head"><h2>登记一笔出入库</h2><span class="hint" id="txEditingHint"></span></div>
-        <div class="form-grid">
-          <div class="field"><label>日期</label><input type="date" id="t_date"></div>
-          <div class="field"><label>类型</label>
-            <select id="t_type"><option value="入库">入库</option><option value="出库">出库</option></select>
-          </div>
-          <div class="field"><label>产品编码</label><select id="t_code"><option value="">请选择产品编码…</option></select></div>
-          <div class="field"><label>商品名称</label><select id="t_name"><option value="">请选择商品名称…</option></select></div>
-          <div class="field readonly"><label>规格（自动）</label><input type="text" id="t_spec_auto" disabled placeholder="-"></div>
-          <div class="field readonly"><label>单位（自动）</label><input type="text" id="t_unit_auto" disabled placeholder="-"></div>
-          <div class="field readonly"><label id="t_refprice_label">参考零售价（自动）</label><input type="text" id="t_refprice_auto" disabled placeholder="-"></div>
-          <div class="field"><label>数量</label><input type="number" step="1" id="t_qty" placeholder="0"></div>
-          <div class="field"><label>单价（默认取参考价，可改）</label><input type="number" step="0.01" id="t_price" placeholder="0.00"></div>
-          <div class="field"><label>往来单位 / 摘要</label><input type="text" id="t_memo" placeholder="采购入库 / 客户名称…"></div>
-          <div class="field" style="flex-direction:row; gap:8px; align-items:center;">
-            <button class="btn" id="t_save">登记入账</button>
-            <button class="btn ghost" id="t_cancel" style="display:none;">取消编辑</button>
-          </div>
-        </div>
-        <div class="preview-strip" id="t_preview">选择产品编码或商品名称后，这里会显示类目和当前结存</div>
-        <p style="font-size:11px; color:var(--ink-faint); margin-top:8px;">规格 / 单位 / 参考价三个自动字段，实时取自「商品档案」对应商品的记录，两边始终保持一致；想调整参考价，去「商品档案」改这个商品，所有出入库登记会自动跟着用最新的参考价。</p>
-      </div>
-
-      <div class="panel">
-        <div class="panel-head"><h2>出入库流水（<span id="txCount">0</span> 条）</h2></div>
-        <div class="toolbar">
-          <input type="text" id="txSearch" placeholder="搜索编码 / 名称 / 摘要…">
-          <select id="txTypeFilter"><option value="">全部类型</option><option value="入库">仅入库</option><option value="出库">仅出库</option></select>
-          <select id="txSort"><option value="desc">日期 新→旧</option><option value="asc">日期 旧→新</option></select>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr>
-              <th>日期</th><th>类型</th><th>编码</th><th>商品名称</th><th>类目</th><th>单位</th>
-              <th>数量</th><th>单价</th><th>金额</th><th>摘要</th><th></th>
-            </tr></thead>
-            <tbody id="txTbody"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- INVENTORY -->
-    <section class="section" id="sec-inventory">
-      <div class="topbar">
-        <div>
-          <h1>库存明细</h1>
-          <div class="desc">按商品自动计算累计入库 / 出库 / 结存，不需要手动维护</div>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="toolbar">
-          <input type="text" id="invSearch" placeholder="搜索编码或名称…">
-          <select id="invCatFilter"><option value="">全部类目</option></select>
-          <select id="invStatusFilter"><option value="">全部状态</option><option value="low">仅预警</option></select>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr>
-              <th>编码</th><th>商品名称</th><th>类目</th><th>单位</th>
-              <th>累计入库</th><th>累计出库</th><th>结存数量</th>
-              <th>参考进货价</th><th>结存金额</th><th>安全库存</th><th>状态</th>
-            </tr></thead>
-            <tbody id="invTbody"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- BACKUP -->
-    <section class="section" id="sec-backup">
-      <div class="topbar">
-        <div>
-          <h1>数据备份</h1>
-          <div class="desc">导出存档、批量导入出入库记录、换设备时恢复数据</div>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div class="panel">
-          <div class="panel-head"><h2>导出备份</h2></div>
-          <p style="font-size:12px; color:var(--ink-soft); line-height:1.8; margin-bottom:12px;">
-            导出的文件保存到你自己的电脑里。建议每周导一次，换设备、清浏览器缓存后可以用 JSON 文件恢复。
-          </p>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="btn gold" id="exportExcelBtn">⇩ 导出 Excel 备份 (.xlsx)</button>
-            <button class="btn ghost" id="exportJsonBtn">⇩ 导出 JSON 备份 (.json)</button>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-head"><h2>恢复 JSON 备份</h2></div>
-          <p style="font-size:12px; color:var(--ink-soft); line-height:1.8; margin-bottom:12px;">
-            选择之前导出的 <b>.json</b> 备份文件，会<b style="color:var(--wine);">整体覆盖</b>当前所有商品和出入库数据，操作前会再次确认。
-          </p>
-          <input type="file" id="importJsonFile" accept=".json" style="font-size:12px;">
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-head">
-          <h2>批量导入出入库记录</h2>
-          <span class="hint">支持 .xlsx / .csv</span>
-        </div>
-        <p style="font-size:12px; color:var(--ink-soft); line-height:1.8;">
-          表格需要包含这些列（顺序不限，按列名匹配）：<b>日期、类型、产品编码、数量、单价、摘要</b>（摘要可留空）。
-          类型请填「入库」或「出库」；产品编码需要已经在「商品档案」里存在。
-        </p>
-        <div style="display:flex; gap:10px; align-items:center; margin: 12px 0; flex-wrap:wrap;">
-          <button class="btn ghost sm" id="downloadTemplateBtn">⇩ 下载导入模板</button>
-          <input type="file" id="importTxFile" accept=".xlsx,.xls,.csv" style="font-size:12px;">
-        </div>
-        <div id="importResult" style="font-size:12px; color:var(--ink-soft);"></div>
-      </div>
-
-      <div class="panel" style="border-color:#EAC2AC;">
-        <div class="panel-head"><h2 style="color:var(--wine);">危险操作</h2></div>
-        <p style="font-size:12px; color:var(--ink-soft); margin-bottom:10px;">清空所有数据、重新开始录入。此操作不可恢复，请先导出备份。</p>
-        <button class="btn" style="background:linear-gradient(135deg,#C1633B,var(--warn));" id="wipeBtn">清空全部数据</button>
-      </div>
-    </section>
-
-    <!-- HELP -->
-    <section class="section" id="sec-help">
-      <div class="topbar">
-        <div>
-          <h1>使用说明</h1>
-          <div class="desc">开工前先看一眼</div>
-        </div>
-      </div>
-      <div class="panel howto">
-        <h3>① 新增一个商品</h3>
-        <p>去「商品档案」，填写编码、名称、类目、规格、单位、参考进货价 / 零售价，点「保存商品」。编码自己定，建议延用原来的规则（如 D 开头 = 白酒），方便一眼看出类目。</p>
-
-        <h3>② 每天登记出入库</h3>
-        <p>去「出入库登记」，选日期、类型（入库/出库）、产品编码——选完编码后名称、类目、单位、建议单价、当前结存会自动显示在下方提示条里。填好数量和单价（可直接用建议价，也可以按实际成交价改），点「登记入账」。</p>
-
-        <h3>③ 看总账变化</h3>
-        <p>去「总看板」：顶部 6 个数字是今日/本月入库出库金额、库存总值、预警商品数；中间是按类目的入库出库金额条形对比；右边是库存预警清单。所有数字登记完出入库后自动更新，不用手动汇总。</p>
-
-        <h3>④ 查某个商品的库存</h3>
-        <p>去「库存明细」，能看到每个商品自动算出的累计入库、累计出库、结存数量、结存金额，以及库存状态（结存 ≤ 安全库存会标红提醒）。</p>
-
-        <h3>⑤ 设置库存预警</h3>
-        <p>在「商品档案」编辑某个商品，填「安全库存」，比如低于 10 瓶要补货就填 10，库存明细和总看板会自动提醒。不填就不会预警。</p>
-
-        <h3>⑥ 备份 / 批量导入 / 换设备</h3>
-        <p>去「数据备份」：</p>
-        <ul>
-          <li><b>导出 Excel 备份</b>——导出商品档案、出入库登记、库存明细三张表，可以在 Excel 里查看或存档；</li>
-          <li><b>导出 JSON 备份</b>——完整的数据快照，换设备或清了浏览器缓存后，用「恢复 JSON 备份」整体导回来；</li>
-          <li><b>批量导入出入库记录</b>——如果你已经有一份 Excel/CSV 流水（列名：日期、类型、产品编码、数量、单价、摘要），可以直接上传批量追加，不用一条条手录；先点「下载导入模板」照着格式填最省心。</li>
-        </ul>
-
-        <h3>⚠ 数据保存在哪里</h3>
-        <ul>
-          <li>数据自动保存在这个对话 / 这台设备的浏览器里，下次打开同一个工作台会自动读取，不需要重新导入。</li>
-          <li>换设备或清空浏览器数据会看不到之前录入的内容，重要数据建议定期到「数据备份」导出一份。</li>
-          <li>产品编码必须唯一；出入库登记时如果编码不在商品档案里，记录仍会导入，但需要尽快去「商品档案」补建，否则名称/类目显示不出来。</li>
-        </ul>
-      </div>
-    </section>
-  </main>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-const SEED_PRODUCTS = [{"code": "A1000101", "category": "米面粮油", "name": "东巩官米", "spec": "", "unit": "提", "purchasePrice": 120, "retailPrice": 220, "safetyStock": null}, {"code": "B1000101", "category": "香烟", "name": "黄鹤楼1916红爆珠", "spec": "1*10", "unit": "条", "purchasePrice": 750, "retailPrice": 1050, "safetyStock": null}, {"code": "B1000102", "category": "香烟", "name": "黄鹤楼1916-15年细支", "spec": "1*10", "unit": "条", "purchasePrice": 890, "retailPrice": 890, "safetyStock": null}, {"code": "B1000103", "category": "香烟", "name": "黄鹤楼1916细支平安", "spec": "1*10", "unit": "条", "purchasePrice": 720, "retailPrice": 850, "safetyStock": null}, {"code": "B1000104", "category": "香烟", "name": "黄鹤楼1916中支", "spec": "", "unit": "条", "purchasePrice": 1040, "retailPrice": 1040, "safetyStock": null}, {"code": "B1000105", "category": "香烟", "name": "黄鹤楼1916普通版", "spec": "1*10", "unit": "条", "purchasePrice": 750, "retailPrice": 900, "safetyStock": null}, {"code": "B1000106", "category": "香烟", "name": "黄鹤楼软珍", "spec": "1*10", "unit": "条", "purchasePrice": 530, "retailPrice": 610, "safetyStock": null}, {"code": "B1000107", "category": "香烟", "name": "黄鹤楼1916软粗", "spec": "1*10", "unit": "条", "purchasePrice": 825, "retailPrice": 825, "safetyStock": null}, {"code": "B1000108", "category": "香烟", "name": "黄鹤楼1916-15年粗支", "spec": "1*10", "unit": "条", "purchasePrice": 920, "retailPrice": 1200, "safetyStock": null}, {"code": "C1000101", "category": "茶叶", "name": "正岩高山肉桂", "spec": "", "unit": "盒", "purchasePrice": 800, "retailPrice": 1000, "safetyStock": null}, {"code": "C1000102", "category": "茶叶", "name": "高山肉桂+老枞组合", "spec": "", "unit": "盒", "purchasePrice": 180, "retailPrice": 500, "safetyStock": null}, {"code": "C1000103", "category": "茶叶", "name": "水仙茶叶", "spec": "", "unit": "盒", "purchasePrice": 600, "retailPrice": 1000, "safetyStock": null}, {"code": "C1000104", "category": "茶叶", "name": "正山小种红茶", "spec": "", "unit": "盒", "purchasePrice": 500, "retailPrice": 500, "safetyStock": null}, {"code": "C1000105", "category": "茶叶", "name": "正岩高山肉桂", "spec": "", "unit": "盒", "purchasePrice": 300, "retailPrice": 300, "safetyStock": null}, {"code": "C1000106", "category": "茶叶", "name": "高山水仙茶叶", "spec": "", "unit": "盒", "purchasePrice": 300, "retailPrice": 500, "safetyStock": null}, {"code": "C1000107", "category": "茶叶", "name": "正嚴肉桂", "spec": "1*1", "unit": "盒", "purchasePrice": 420, "retailPrice": 1000, "safetyStock": null}, {"code": "D1000101", "category": "白酒", "name": "飞天53°贵州茅台酒（1*6）", "spec": "", "unit": "瓶", "purchasePrice": 1700, "retailPrice": 2100, "safetyStock": null}, {"code": "D1000102", "category": "白酒", "name": "汾酒30年陈酿", "spec": "1*1", "unit": "瓶", "purchasePrice": 742, "retailPrice": 930, "safetyStock": null}, {"code": "D1000103", "category": "白酒", "name": "五粮液普五", "spec": "1*6", "unit": "瓶", "purchasePrice": 816.67, "retailPrice": 1070, "safetyStock": null}, {"code": "D1000104", "category": "白酒", "name": "君品习酒（1*6）", "spec": "1*6", "unit": "瓶", "purchasePrice": 650, "retailPrice": 930, "safetyStock": null}, {"code": "D1000105", "category": "白酒", "name": "霸王醉1*4", "spec": "1*4", "unit": "瓶", "purchasePrice": 750, "retailPrice": 750, "safetyStock": null}, {"code": "D1000106", "category": "白酒", "name": "42°一品石花（1*4）", "spec": "1*4", "unit": "瓶", "purchasePrice": 345, "retailPrice": 420, "safetyStock": null}, {"code": "D1000107", "category": "白酒", "name": "茅台酒（公斤装）", "spec": "", "unit": "瓶", "purchasePrice": 3400, "retailPrice": 4200, "safetyStock": null}, {"code": "D1000108", "category": "白酒", "name": "52°一品石花（1*4）", "spec": "", "unit": "瓶", "purchasePrice": 445, "retailPrice": 445, "safetyStock": null}, {"code": "E1000101", "category": "滋补品", "name": "虫草", "spec": "", "unit": "盒", "purchasePrice": 4160, "retailPrice": 8000, "safetyStock": null}, {"code": "E1000102", "category": "滋补品", "name": "燕窝", "spec": "", "unit": "盒", "purchasePrice": 1845, "retailPrice": 3600, "safetyStock": null}, {"code": "F1000101", "category": "药品、水果", "name": "水果礼盒", "spec": "1*1", "unit": "盒", "purchasePrice": 300, "retailPrice": 500, "safetyStock": null}, {"code": "F1000102", "category": "药品、水果", "name": "片仔癀1*2", "spec": "1*2", "unit": "盒", "purchasePrice": 1460, "retailPrice": 1460, "safetyStock": null}, {"code": "G1000101", "category": "饮品", "name": "东方树叶（中瓶)（1*15)", "spec": "1*15", "unit": "箱", "purchasePrice": 53, "retailPrice": 110, "safetyStock": null}, {"code": "G1000102", "category": "饮品", "name": "百岁山瓶装矿泉水（1*24）", "spec": "", "unit": "箱", "purchasePrice": 40, "retailPrice": 80, "safetyStock": null}, {"code": "H1000101", "category": "消耗品", "name": "心相印抽纸（1*8提=1箱）", "spec": "", "unit": "提", "purchasePrice": 20, "retailPrice": null, "safetyStock": null}, {"code": "H1000102", "category": "消耗品", "name": "洁柔抽纸（1*8提=1箱）", "spec": "1*8", "unit": "提", "purchasePrice": 20, "retailPrice": 40, "safetyStock": null}, {"code": "H1000103", "category": "消耗品", "name": "维达卷纸（1*6提=1箱）", "spec": "1*6", "unit": "提", "purchasePrice": 19, "retailPrice": 40, "safetyStock": null}];
-const SEED_TRANSACTIONS = [{"id": "tx1", "date": "2026-02-03", "type": "入库", "code": "A1000101", "qty": 50, "price": 120, "memo": "采购入库"}, {"id": "tx2", "date": "2026-02-04", "type": "出库", "code": "A1000101", "qty": 40, "price": 220, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx3", "date": "2026-02-04", "type": "入库", "code": "B1000101", "qty": 10, "price": 760, "memo": "采购入库"}, {"id": "tx4", "date": "2026-02-04", "type": "入库", "code": "B1000102", "qty": 10, "price": 890, "memo": "采购入库"}, {"id": "tx5", "date": "2026-02-04", "type": "入库", "code": "B1000103", "qty": 10, "price": 720, "memo": "采购入库"}, {"id": "tx6", "date": "2026-02-04", "type": "入库", "code": "B1000104", "qty": 10, "price": 1040, "memo": "采购入库"}, {"id": "tx7", "date": "2026-02-04", "type": "出库", "code": "B1000101", "qty": 2, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx8", "date": "2026-02-04", "type": "出库", "code": "B1000101", "qty": 6, "price": 760, "memo": "盛总自用"}, {"id": "tx9", "date": "2026-02-04", "type": "出库", "code": "B1000102", "qty": 2, "price": 890, "memo": "盛总自用"}, {"id": "tx10", "date": "2026-02-04", "type": "出库", "code": "B1000103", "qty": 2, "price": 720, "memo": "盛总自用"}, {"id": "tx11", "date": "2026-02-04", "type": "出库", "code": "B1000104", "qty": 4, "price": 1040, "memo": "盛总自用"}, {"id": "tx12", "date": "2026-02-04", "type": "入库", "code": "C1000101", "qty": 10, "price": 800, "memo": "采购入库"}, {"id": "tx13", "date": "2026-02-04", "type": "入库", "code": "C1000102", "qty": 20, "price": 180, "memo": "采购入库"}, {"id": "tx14", "date": "2026-02-04", "type": "入库", "code": "C1000103", "qty": 2, "price": 600, "memo": "采购入库"}, {"id": "tx15", "date": "2026-02-04", "type": "入库", "code": "C1000104", "qty": 10, "price": 500, "memo": "采购入库"}, {"id": "tx16", "date": "2026-02-04", "type": "入库", "code": "C1000105", "qty": 10, "price": 300, "memo": "采购入库"}, {"id": "tx17", "date": "2026-02-04", "type": "出库", "code": "C1000103", "qty": 2, "price": 1000, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx18", "date": "2026-02-05", "type": "入库", "code": "A1000101", "qty": 30, "price": 120, "memo": "采购入库"}, {"id": "tx19", "date": "2026-02-08", "type": "入库", "code": "D1000101", "qty": 24, "price": 1750, "memo": "采购入库"}, {"id": "tx20", "date": "2026-02-08", "type": "入库", "code": "B1000101", "qty": 20, "price": 760, "memo": "采购入库"}, {"id": "tx21", "date": "2026-02-08", "type": "出库", "code": "D1000101", "qty": 24, "price": 2100, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx22", "date": "2026-02-06", "type": "出库", "code": "C1000101", "qty": 4, "price": 800, "memo": "盛总自用"}, {"id": "tx23", "date": "2026-02-06", "type": "出库", "code": "C1000102", "qty": 6, "price": 180, "memo": "盛总自用"}, {"id": "tx24", "date": "2026-02-09", "type": "入库", "code": "D1000105", "qty": 8, "price": 750, "memo": "采购入库"}, {"id": "tx25", "date": "2026-02-11", "type": "出库", "code": "B1000102", "qty": 3, "price": 890, "memo": "盛总自用"}, {"id": "tx26", "date": "2026-02-08", "type": "出库", "code": "B1000103", "qty": 6, "price": 850, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx27", "date": "2026-02-08", "type": "出库", "code": "B1000101", "qty": 10, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx28", "date": "2026-02-11", "type": "出库", "code": "C1000102", "qty": 20, "price": 500, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx29", "date": "2026-02-11", "type": "出库", "code": "C1000105", "qty": 6, "price": 1000, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx30", "date": "2026-02-08", "type": "出库", "code": "B1000101", "qty": 6, "price": 760, "memo": "盛总自用"}, {"id": "tx31", "date": "2026-02-12", "type": "出库", "code": "B1000104", "qty": 6, "price": 1040, "memo": "盛总自用"}, {"id": "tx32", "date": "2026-02-12", "type": "入库", "code": "D1000105", "qty": 16, "price": 750, "memo": "采购入库"}, {"id": "tx33", "date": "2026-02-13", "type": "入库", "code": "E1000101", "qty": 4, "price": 4160, "memo": "采购入库"}, {"id": "tx34", "date": "2026-02-13", "type": "入库", "code": "E1000102", "qty": 4, "price": 1845, "memo": "采购入库"}, {"id": "tx35", "date": "2026-02-13", "type": "出库", "code": "B1000102", "qty": 2, "price": 890, "memo": "盛总自用"}, {"id": "tx36", "date": "2026-02-13", "type": "出库", "code": "C1000101", "qty": 2, "price": 800, "memo": "盛总自用"}, {"id": "tx37", "date": "2026-02-20", "type": "入库", "code": "D1000101", "qty": 6, "price": 1750, "memo": "采购入库"}, {"id": "tx38", "date": "2026-02-20", "type": "入库", "code": "B1000101", "qty": 6, "price": 760, "memo": "采购入库"}, {"id": "tx39", "date": "2026-02-20", "type": "出库", "code": "D1000101", "qty": 4, "price": 2100, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx40", "date": "2026-02-20", "type": "出库", "code": "B1000101", "qty": 2, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx41", "date": "2026-02-20", "type": "出库", "code": "B1000101", "qty": 4, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx42", "date": "2026-02-13", "type": "出库", "code": "E1000101", "qty": 4, "price": 8000, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx43", "date": "2026-02-13", "type": "出库", "code": "E1000102", "qty": 4, "price": 3600, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx44", "date": "2026-02-13", "type": "出库", "code": "D1000105", "qty": 16, "price": 1100, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx45", "date": "2026-02-04", "type": "出库", "code": "B1000101", "qty": 3, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx46", "date": "2026-02-27", "type": "入库", "code": "B1000102", "qty": 6, "price": 890, "memo": "采购入库"}, {"id": "tx47", "date": "2026-02-27", "type": "入库", "code": "B1000101", "qty": 20, "price": 760, "memo": "采购入库"}, {"id": "tx48", "date": "2026-02-27", "type": "出库", "code": "B1000102", "qty": 6, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx49", "date": "2026-02-27", "type": "出库", "code": "B1000101", "qty": 4, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx50", "date": "2026-02-27", "type": "出库", "code": "B1000101", "qty": 10, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx51", "date": "2026-03-03", "type": "入库", "code": "D1000106", "qty": 16, "price": 345, "memo": "采购入库"}, {"id": "tx52", "date": "2026-03-03", "type": "入库", "code": "B1000103", "qty": 6, "price": 725, "memo": "采购入库"}, {"id": "tx53", "date": "2026-03-03", "type": "入库", "code": "B1000106", "qty": 6, "price": 540, "memo": "采购入库"}, {"id": "tx54", "date": "2026-03-03", "type": "出库", "code": "D1000106", "qty": 4, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx55", "date": "2026-03-03", "type": "出库", "code": "B1000103", "qty": 3, "price": 850, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx56", "date": "2026-03-03", "type": "出库", "code": "B1000106", "qty": 2, "price": 610, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx57", "date": "2026-03-03", "type": "出库", "code": "B1000102", "qty": 2, "price": 890, "memo": "盛总自用"}, {"id": "tx58", "date": "2026-03-03", "type": "出库", "code": "D1000105", "qty": 2, "price": 1000, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx59", "date": "2026-03-03", "type": "出库", "code": "C1000101", "qty": 2, "price": 1000, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx60", "date": "2026-03-05", "type": "出库", "code": "B1000101", "qty": 3, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx61", "date": "2026-03-05", "type": "出库", "code": "C1000105", "qty": 1, "price": 1000, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx62", "date": "2026-02-09", "type": "出库", "code": "D1000105", "qty": 8, "price": 1000, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx63", "date": "2026-03-09", "type": "入库", "code": "D1000101", "qty": 12, "price": 1750, "memo": "采购入库"}, {"id": "tx64", "date": "2026-03-09", "type": "入库", "code": "B1000102", "qty": 10, "price": 890, "memo": "采购入库"}, {"id": "tx65", "date": "2026-03-09", "type": "入库", "code": "B1000101", "qty": 10, "price": 760, "memo": "采购入库"}, {"id": "tx66", "date": "2026-03-09", "type": "出库", "code": "D1000101", "qty": 12, "price": 2100, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx67", "date": "2026-03-09", "type": "出库", "code": "D1000106", "qty": 8, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx68", "date": "2026-03-09", "type": "出库", "code": "B1000102", "qty": 4, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx69", "date": "2026-03-09", "type": "出库", "code": "B1000101", "qty": 4, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx70", "date": "2026-03-09", "type": "出库", "code": "B1000103", "qty": 2, "price": 850, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx71", "date": "2026-03-09", "type": "出库", "code": "B1000101", "qty": 3, "price": 760, "memo": "盛总自用"}, {"id": "tx72", "date": "2026-03-09", "type": "出库", "code": "C1000104", "qty": 1, "price": 500, "memo": "盛总自用"}, {"id": "tx73", "date": "2026-03-10", "type": "出库", "code": "C1000104", "qty": 2, "price": 1000, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx74", "date": "2026-03-11", "type": "出库", "code": "D1000106", "qty": 4, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx75", "date": "2026-03-11", "type": "入库", "code": "D1000105", "qty": 16, "price": 750, "memo": "采购入库"}, {"id": "tx76", "date": "2026-03-11", "type": "入库", "code": "D1000106", "qty": 16, "price": 345, "memo": "采购入库"}, {"id": "tx77", "date": "2026-03-11", "type": "出库", "code": "B1000103", "qty": 2, "price": 850, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx78", "date": "2026-03-13", "type": "出库", "code": "A1000101", "qty": 4, "price": 220, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx79", "date": "2026-03-13", "type": "出库", "code": "C1000105", "qty": 2, "price": 1000, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx80", "date": "2026-03-15", "type": "入库", "code": "D1000102", "qty": 6, "price": 742, "memo": "采购入库"}, {"id": "tx81", "date": "2026-03-15", "type": "出库", "code": "D1000102", "qty": 4, "price": 930, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx82", "date": "2026-03-16", "type": "入库", "code": "B1000103", "qty": 10, "price": 725, "memo": "采购入库"}, {"id": "tx83", "date": "2026-03-16", "type": "出库", "code": "B1000103", "qty": 2, "price": 850, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx84", "date": "2026-03-16", "type": "出库", "code": "B1000102", "qty": 4, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx85", "date": "2026-03-16", "type": "出库", "code": "B1000101", "qty": 4, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx86", "date": "2026-03-16", "type": "出库", "code": "D1000105", "qty": 8, "price": 1000, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx87", "date": "2026-03-16", "type": "出库", "code": "C1000101", "qty": 2, "price": 1000, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx88", "date": "2026-03-17", "type": "出库", "code": "B1000103", "qty": 2, "price": 850, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx89", "date": "2026-03-18", "type": "出库", "code": "B1000103", "qty": 6, "price": 850, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx90", "date": "2026-03-18", "type": "出库", "code": "D1000106", "qty": 5, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx91", "date": "2026-03-18", "type": "入库", "code": "F1000101", "qty": 6, "price": 300, "memo": "采购入库"}, {"id": "tx92", "date": "2026-03-18", "type": "出库", "code": "F1000101", "qty": 6, "price": 500, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx93", "date": "2026-03-19", "type": "入库", "code": "D1000101", "qty": 7, "price": 1750, "memo": "采购入库"}, {"id": "tx94", "date": "2026-03-19", "type": "入库", "code": "B1000101", "qty": 13, "price": 760, "memo": "采购入库"}, {"id": "tx95", "date": "2026-03-19", "type": "入库", "code": "B1000102", "qty": 2, "price": 890, "memo": "采购入库"}, {"id": "tx96", "date": "2026-03-19", "type": "入库", "code": "B1000103", "qty": 4, "price": 725, "memo": "采购入库"}, {"id": "tx97", "date": "2026-03-19", "type": "入库", "code": "F1000102", "qty": 9, "price": 1460, "memo": "采购入库"}, {"id": "tx98", "date": "2026-03-21", "type": "出库", "code": "B1000101", "qty": 1, "price": 760, "memo": "盛总自用"}, {"id": "tx99", "date": "2026-03-24", "type": "出库", "code": "D1000106", "qty": 4, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx100", "date": "2026-03-25", "type": "入库", "code": "C1000106", "qty": 20, "price": 300, "memo": "采购入库"}, {"id": "tx101", "date": "2026-03-25", "type": "入库", "code": "C1000107", "qty": 20, "price": 420, "memo": "采购入库"}, {"id": "tx102", "date": "2026-03-25", "type": "入库", "code": "H1000101", "qty": 16, "price": 20, "memo": "采购入库"}, {"id": "tx103", "date": "2026-03-25", "type": "入库", "code": "H1000102", "qty": 16, "price": 20, "memo": "采购入库"}, {"id": "tx104", "date": "2026-03-25", "type": "入库", "code": "H1000103", "qty": 6, "price": 19, "memo": "采购入库"}, {"id": "tx105", "date": "2026-03-25", "type": "入库", "code": "G1000101", "qty": 10, "price": 53, "memo": "采购入库"}, {"id": "tx106", "date": "2026-03-25", "type": "入库", "code": "G1000102", "qty": 3, "price": 40, "memo": "采购入库"}, {"id": "tx107", "date": "2026-03-25", "type": "出库", "code": "C1000106", "qty": 1, "price": 300, "memo": "盛总自用"}, {"id": "tx108", "date": "2026-03-25", "type": "出库", "code": "C1000107", "qty": 1, "price": 420, "memo": "盛总自用"}, {"id": "tx109", "date": "2026-03-25", "type": "出库", "code": "G1000101", "qty": 2, "price": 110, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx110", "date": "2026-03-25", "type": "出库", "code": "G1000102", "qty": 1, "price": 80, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx111", "date": "2026-03-25", "type": "出库", "code": "H1000103", "qty": 1, "price": 40, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx112", "date": "2026-03-25", "type": "出库", "code": "H1000102", "qty": 2, "price": 40, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx113", "date": "2026-03-25", "type": "入库", "code": "D1000101", "qty": 12, "price": 1700, "memo": "采购入库"}, {"id": "tx114", "date": "2026-03-25", "type": "入库", "code": "B1000102", "qty": 10, "price": 890, "memo": "采购入库"}, {"id": "tx115", "date": "2026-03-25", "type": "出库", "code": "D1000101", "qty": 12, "price": 2100, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx116", "date": "2026-03-25", "type": "出库", "code": "B1000102", "qty": 10, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx117", "date": "2026-03-25", "type": "出库", "code": "B1000101", "qty": 10, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx118", "date": "2026-03-25", "type": "出库", "code": "D1000106", "qty": 4, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx119", "date": "2026-03-25", "type": "出库", "code": "B1000101", "qty": 1, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx120", "date": "2026-03-29", "type": "入库", "code": "D1000106", "qty": 12, "price": 345, "memo": "采购入库"}, {"id": "tx121", "date": "2026-03-29", "type": "出库", "code": "D1000106", "qty": 4, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx122", "date": "2026-03-29", "type": "入库", "code": "D1000106", "qty": 8, "price": 345, "memo": "采购入库"}, {"id": "tx123", "date": "2026-04-01", "type": "出库", "code": "D1000106", "qty": 4, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx124", "date": "2026-04-05", "type": "入库", "code": "B1000105", "qty": 5, "price": 760, "memo": "采购入库"}, {"id": "tx125", "date": "2026-04-06", "type": "出库", "code": "B1000105", "qty": 3, "price": 900, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx126", "date": "2026-04-07", "type": "出库", "code": "B1000101", "qty": 1, "price": 720, "memo": "盛总自用"}, {"id": "tx127", "date": "2026-04-07", "type": "出库", "code": "C1000105", "qty": 1, "price": 300, "memo": "盛总自用"}, {"id": "tx128", "date": "2026-04-07", "type": "出库", "code": "A1000101", "qty": 2, "price": 120, "memo": "盛总自用"}, {"id": "tx129", "date": "2026-04-07", "type": "出库", "code": "B1000101", "qty": 2, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx130", "date": "2026-03-18", "type": "出库", "code": "D1000105", "qty": -4, "price": 1000, "memo": "中建三局2月份出库未提货本月退库"}, {"id": "tx131", "date": "2026-04-09", "type": "入库", "code": "B1000107", "qty": 4, "price": 848, "memo": "采购入库"}, {"id": "tx132", "date": "2026-04-09", "type": "入库", "code": "B1000103", "qty": 2, "price": 720.8, "memo": "采购入库"}, {"id": "tx133", "date": "2026-04-09", "type": "入库", "code": "B1000105", "qty": 2, "price": 763.2, "memo": "采购入库"}, {"id": "tx134", "date": "2026-04-09", "type": "入库", "code": "B1000101", "qty": 1, "price": 720, "memo": "采购入库"}, {"id": "tx135", "date": "2026-04-09", "type": "入库", "code": "B1000106", "qty": 10, "price": 530, "memo": "采购入库"}, {"id": "tx136", "date": "2026-04-09", "type": "出库", "code": "F1000102", "qty": 1, "price": 2000, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx137", "date": "2026-04-09", "type": "出库", "code": "F1000102", "qty": 1, "price": 1460, "memo": "盛总自用"}, {"id": "tx138", "date": "2026-04-09", "type": "出库", "code": "D1000106", "qty": 16, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx139", "date": "2026-04-11", "type": "出库", "code": "D1000105", "qty": 4, "price": 1000, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx140", "date": "2026-04-11", "type": "出库", "code": "B1000102", "qty": 1, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx141", "date": "2026-04-11", "type": "出库", "code": "B1000101", "qty": 4, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx142", "date": "2026-04-12", "type": "入库", "code": "B1000101", "qty": 10, "price": 760, "memo": "采购入库"}, {"id": "tx143", "date": "2026-04-12", "type": "入库", "code": "B1000102", "qty": 10, "price": 890, "memo": "采购入库"}, {"id": "tx144", "date": "2026-04-12", "type": "入库", "code": "B1000108", "qty": 4, "price": 925, "memo": "采购入库"}, {"id": "tx145", "date": "2026-04-12", "type": "出库", "code": "B1000103", "qty": 1, "price": 850, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx146", "date": "2026-04-12", "type": "出库", "code": "D1000106", "qty": 4, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx147", "date": "2026-04-12", "type": "出库", "code": "B1000102", "qty": 4, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx148", "date": "2026-04-12", "type": "出库", "code": "B1000101", "qty": 2, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx149", "date": "2026-04-12", "type": "出库", "code": "B1000106", "qty": 2, "price": 610, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx150", "date": "2026-04-13", "type": "出库", "code": "B1000101", "qty": 6, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx151", "date": "2026-04-15", "type": "入库", "code": "D1000103", "qty": 6, "price": 816.666666666667, "memo": "采购入库"}, {"id": "tx152", "date": "2026-04-15", "type": "出库", "code": "D1000103", "qty": 6, "price": 1070, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx153", "date": "2026-04-16", "type": "出库", "code": "A1000101", "qty": 6, "price": 220, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx154", "date": "2026-04-16", "type": "出库", "code": "C1000106", "qty": 5, "price": 500, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx155", "date": "2026-04-17", "type": "出库", "code": "B1000102", "qty": 2, "price": 890, "memo": "盛总自用"}, {"id": "tx156", "date": "2026-04-18", "type": "出库", "code": "B1000105", "qty": 2, "price": 760, "memo": "盛总自用"}, {"id": "tx157", "date": "2026-04-18", "type": "出库", "code": "B1000105", "qty": 1, "price": 760, "memo": "盛总自用"}, {"id": "tx158", "date": "2026-04-18", "type": "出库", "code": "F1000102", "qty": 1, "price": 1460, "memo": "盛总自用"}, {"id": "tx159", "date": "2026-04-19", "type": "入库", "code": "B1000101", "qty": 10, "price": 760, "memo": "采购入库"}, {"id": "tx160", "date": "2026-04-19", "type": "出库", "code": "B1000101", "qty": 6, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx161", "date": "2026-04-21", "type": "出库", "code": "C1000106", "qty": 5, "price": 500, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx162", "date": "2026-04-24", "type": "出库", "code": "B1000105", "qty": 2, "price": 900, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx163", "date": "2026-04-24", "type": "出库", "code": "B1000101", "qty": 2, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx164", "date": "2026-04-24", "type": "出库", "code": "B1000106", "qty": 1, "price": 610, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx165", "date": "2026-04-24", "type": "出库", "code": "B1000107", "qty": 2, "price": 980, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx166", "date": "2026-04-25", "type": "出库", "code": "G1000101", "qty": 2, "price": 110, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx167", "date": "2026-04-25", "type": "出库", "code": "G1000102", "qty": 2, "price": 80, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx168", "date": "2026-04-25", "type": "出库", "code": "B1000102", "qty": 1, "price": 890, "memo": "盛总自用"}, {"id": "tx169", "date": "2026-04-28", "type": "入库", "code": "D1000101", "qty": 6, "price": 1800, "memo": "采购入库"}, {"id": "tx170", "date": "2026-04-28", "type": "出库", "code": "B1000101", "qty": 4, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx171", "date": "2026-04-28", "type": "出库", "code": "B1000102", "qty": 6, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx172", "date": "2026-04-28", "type": "出库", "code": "D1000101", "qty": 6, "price": 2100, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx173", "date": "2026-04-29", "type": "出库", "code": "B1000107", "qty": 3, "price": 980, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx174", "date": "2026-04-29", "type": "出库", "code": "B1000106", "qty": 2, "price": 610, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx175", "date": "2026-04-29", "type": "入库", "code": "B1000101", "qty": 10, "price": 760, "memo": "采购入库"}, {"id": "tx176", "date": "2026-04-29", "type": "入库", "code": "B1000102", "qty": 10, "price": 890, "memo": "采购入库"}, {"id": "tx177", "date": "2026-04-29", "type": "入库", "code": "B1000107", "qty": 10, "price": 825, "memo": "采购入库"}, {"id": "tx178", "date": "2026-04-18", "type": "入库", "code": "B1000105", "qty": 1, "price": 760, "memo": "采购入库"}, {"id": "tx179", "date": "2026-04-09", "type": "入库", "code": "D1000106", "qty": 12, "price": 345, "memo": "采购入库"}, {"id": "tx180", "date": "2026-05-04", "type": "入库", "code": "D1000106", "qty": 12, "price": 345, "memo": "采购入库"}, {"id": "tx181", "date": "2026-05-02", "type": "出库", "code": "D1000101", "qty": 2, "price": 2100, "memo": "盛总自用"}, {"id": "tx182", "date": "2026-05-02", "type": "出库", "code": "B1000102", "qty": 1, "price": 890, "memo": "盛总自用"}, {"id": "tx183", "date": "2026-05-05", "type": "出库", "code": "D1000106", "qty": 4, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx184", "date": "2026-05-05", "type": "出库", "code": "B1000102", "qty": 2, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx185", "date": "2026-05-06", "type": "出库", "code": "B1000101", "qty": 2, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx186", "date": "2026-05-06", "type": "出库", "code": "B1000108", "qty": 1, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx187", "date": "2026-05-07", "type": "入库", "code": "G1000102", "qty": 3, "price": 39, "memo": "采购入库"}, {"id": "tx188", "date": "2026-05-09", "type": "入库", "code": "D1000106", "qty": 12, "price": 345, "memo": "采购入库"}, {"id": "tx189", "date": "2026-05-09", "type": "出库", "code": "D1000106", "qty": 16, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx190", "date": "2026-05-07", "type": "出库", "code": "D1000106", "qty": 2, "price": 345, "memo": "盛总自用"}, {"id": "tx191", "date": "2026-05-11", "type": "出库", "code": "B1000103", "qty": 2, "price": 850, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx192", "date": "2026-05-15", "type": "入库", "code": "D1000106", "qty": 12, "price": 345, "memo": "采购入库"}, {"id": "tx193", "date": "2026-05-15", "type": "出库", "code": "D1000106", "qty": 8, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx194", "date": "2026-05-15", "type": "出库", "code": "B1000102", "qty": 2, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx195", "date": "2026-05-12", "type": "出库", "code": "G1000102", "qty": 2, "price": 80, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx196", "date": "2026-05-19", "type": "出库", "code": "D1000106", "qty": 8, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx197", "date": "2026-05-20", "type": "入库", "code": "D1000106", "qty": 12, "price": 345, "memo": "采购入库"}, {"id": "tx198", "date": "2026-05-20", "type": "出库", "code": "D1000106", "qty": 8, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx199", "date": "2026-05-21", "type": "出库", "code": "D1000102", "qty": 2, "price": 930, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx200", "date": "2026-05-22", "type": "入库", "code": "D1000101", "qty": 6, "price": 1750, "memo": "采购入库"}, {"id": "tx201", "date": "2026-05-22", "type": "出库", "code": "B1000101", "qty": 4, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx202", "date": "2026-05-22", "type": "出库", "code": "B1000102", "qty": 2, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx203", "date": "2026-05-22", "type": "出库", "code": "D1000101", "qty": 6, "price": 2100, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx204", "date": "2026-05-25", "type": "出库", "code": "C1000106", "qty": 2, "price": 500, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx205", "date": "2026-05-28", "type": "入库", "code": "B1000102", "qty": 8, "price": 890, "memo": "采购入库"}, {"id": "tx206", "date": "2026-05-27", "type": "出库", "code": "B1000102", "qty": 2, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx207", "date": "2026-05-28", "type": "出库", "code": "B1000102", "qty": 6, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx208", "date": "2026-05-28", "type": "出库", "code": "B1000103", "qty": 1, "price": 850, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx209", "date": "2026-05-29", "type": "出库", "code": "D1000106", "qty": -2, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx210", "date": "2026-05-29", "type": "出库", "code": "B1000106", "qty": 0, "price": 610, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx211", "date": "2026-05-29", "type": "出库", "code": "C1000106", "qty": -2, "price": 500, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx212", "date": "2026-05-29", "type": "出库", "code": "B1000101", "qty": 3, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx213", "date": "2026-05-29", "type": "入库", "code": "B1000101", "qty": 4, "price": 760, "memo": "采购入库"}, {"id": "tx214", "date": "2026-05-29", "type": "入库", "code": "D1000101", "qty": 6, "price": 1700, "memo": "采购入库"}, {"id": "tx215", "date": "2026-05-29", "type": "出库", "code": "B1000101", "qty": 4, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx216", "date": "2026-05-29", "type": "出库", "code": "D1000101", "qty": 6, "price": 2100, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx217", "date": "2026-05-31", "type": "出库", "code": "D1000101", "qty": 2, "price": 1700, "memo": "盛总自用"}, {"id": "tx218", "date": "2026-05-31", "type": "出库", "code": "B1000103", "qty": 2, "price": 720, "memo": "盛总自用"}, {"id": "tx219", "date": "2026-05-31", "type": "出库", "code": "D1000105", "qty": 4, "price": 750, "memo": "盛总自用"}, {"id": "tx220", "date": "2026-05-31", "type": "出库", "code": "C1000107", "qty": 2, "price": 420, "memo": "盛总自用"}, {"id": "tx221", "date": "2026-05-31", "type": "入库", "code": "B1000102", "qty": 5, "price": 890, "memo": "采购入库"}, {"id": "tx222", "date": "2026-05-31", "type": "入库", "code": "B1000108", "qty": 5, "price": 920, "memo": "采购入库"}, {"id": "tx223", "date": "2026-05-31", "type": "出库", "code": "D1000106", "qty": 6, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx224", "date": "2026-05-31", "type": "出库", "code": "B1000103", "qty": 1, "price": 850, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx225", "date": "2026-05-31", "type": "入库", "code": "D1000104", "qty": 6, "price": 650, "memo": "采购入库"}, {"id": "tx226", "date": "2026-05-31", "type": "出库", "code": "B1000102", "qty": 5, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx227", "date": "2026-05-31", "type": "出库", "code": "B1000108", "qty": 5, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx228", "date": "2026-05-31", "type": "出库", "code": "D1000104", "qty": 2, "price": 930, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx229", "date": "2026-05-28", "type": "出库", "code": "A1000101", "qty": 8, "price": 220, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx230", "date": "2026-05-05", "type": "出库", "code": "F1000102", "qty": 1, "price": 1460, "memo": "盛总自用"}, {"id": "tx231", "date": "2026-05-25", "type": "出库", "code": "D1000101", "qty": 1, "price": 1700, "memo": "盛总自用"}, {"id": "tx232", "date": "2026-06-02", "type": "出库", "code": "D1000101", "qty": 1, "price": 1700, "memo": "盛总自用"}, {"id": "tx233", "date": "2026-06-04", "type": "出库", "code": "B1000108", "qty": 1, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx234", "date": "2026-06-05", "type": "出库", "code": "B1000106", "qty": 2, "price": 610, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx235", "date": "2026-06-05", "type": "出库", "code": "G1000102", "qty": 1, "price": 80, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx236", "date": "2026-06-05", "type": "出库", "code": "H1000103", "qty": 1, "price": 40, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx237", "date": "2026-06-05", "type": "出库", "code": "H1000102", "qty": 1, "price": 40, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx238", "date": "2026-06-05", "type": "入库", "code": "B1000101", "qty": 8, "price": 760, "memo": "采购入库"}, {"id": "tx239", "date": "2026-06-05", "type": "出库", "code": "B1000101", "qty": 2, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx240", "date": "2026-06-05", "type": "入库", "code": "G1000102", "qty": 4, "price": 40, "memo": "采购入库"}, {"id": "tx241", "date": "2026-06-06", "type": "入库", "code": "D1000107", "qty": 2, "price": 3400, "memo": "采购入库"}, {"id": "tx242", "date": "2026-06-06", "type": "入库", "code": "B1000103", "qty": 6, "price": 720, "memo": "采购入库"}, {"id": "tx243", "date": "2026-06-06", "type": "出库", "code": "D1000106", "qty": 4, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx244", "date": "2026-06-06", "type": "出库", "code": "B1000103", "qty": 1, "price": 850, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx245", "date": "2026-06-07", "type": "出库", "code": "C1000104", "qty": 2, "price": 500, "memo": "盛总自用"}, {"id": "tx246", "date": "2026-06-07", "type": "出库", "code": "D1000101", "qty": 3, "price": 2100, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx247", "date": "2026-06-07", "type": "出库", "code": "D1000107", "qty": 2, "price": 4200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx248", "date": "2026-06-08", "type": "出库", "code": "C1000107", "qty": 2, "price": 1000, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx249", "date": "2026-06-08", "type": "出库", "code": "C1000106", "qty": 1, "price": 500, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx250", "date": "2026-06-08", "type": "出库", "code": "B1000107", "qty": 1, "price": 980, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx251", "date": "2026-06-11", "type": "入库", "code": "D1000106", "qty": 12, "price": 345, "memo": "采购入库"}, {"id": "tx252", "date": "2026-06-11", "type": "出库", "code": "D1000106", "qty": 4, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx253", "date": "2026-06-11", "type": "出库", "code": "B1000103", "qty": 1, "price": 850, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx254", "date": "2026-06-11", "type": "出库", "code": "B1000102", "qty": 2, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx255", "date": "2026-06-11", "type": "出库", "code": "C1000106", "qty": 2, "price": 500, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx256", "date": "2026-06-12", "type": "出库", "code": "B1000102", "qty": 1, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx257", "date": "2026-06-15", "type": "出库", "code": "D1000106", "qty": 4, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx258", "date": "2026-06-15", "type": "出库", "code": "B1000101", "qty": 1, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx259", "date": "2026-06-16", "type": "入库", "code": "D1000101", "qty": 6, "price": 1700, "memo": "采购入库"}, {"id": "tx260", "date": "2026-06-16", "type": "入库", "code": "B1000102", "qty": 8, "price": 890, "memo": "采购入库"}, {"id": "tx261", "date": "2026-06-16", "type": "出库", "code": "D1000101", "qty": 6, "price": 2100, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx262", "date": "2026-06-16", "type": "出库", "code": "B1000102", "qty": 4, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx263", "date": "2026-06-16", "type": "出库", "code": "B1000101", "qty": 4, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx264", "date": "2026-06-16", "type": "出库", "code": "B1000103", "qty": 1, "price": 850, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx265", "date": "2026-06-16", "type": "出库", "code": "B1000106", "qty": 1, "price": 610, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx266", "date": "2026-06-16", "type": "出库", "code": "D1000106", "qty": 4, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx267", "date": "2026-06-18", "type": "出库", "code": "B1000107", "qty": 1, "price": 980, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx268", "date": "2026-06-18", "type": "出库", "code": "C1000106", "qty": 2, "price": 500, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx269", "date": "2026-06-24", "type": "入库", "code": "B1000102", "qty": 15, "price": 890, "memo": "采购入库"}, {"id": "tx270", "date": "2026-06-24", "type": "出库", "code": "B1000102", "qty": 15, "price": 1200, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx271", "date": "2026-06-24", "type": "入库", "code": "D1000101", "qty": 6, "price": 1700, "memo": "采购入库"}, {"id": "tx272", "date": "2026-06-24", "type": "出库", "code": "D1000101", "qty": 6, "price": 2100, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx273", "date": "2026-06-24", "type": "出库", "code": "G1000102", "qty": 1, "price": 80, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx274", "date": "2026-06-24", "type": "出库", "code": "B1000107", "qty": 2, "price": 825, "memo": "盛总自用"}, {"id": "tx275", "date": "2026-06-24", "type": "出库", "code": "B1000102", "qty": 2, "price": 890, "memo": "盛总自用"}, {"id": "tx276", "date": "2026-06-27", "type": "入库", "code": "D1000108", "qty": 8, "price": 445, "memo": "采购入库"}, {"id": "tx277", "date": "2026-06-27", "type": "入库", "code": "D1000106", "qty": 12, "price": 345, "memo": "采购入库"}, {"id": "tx278", "date": "2026-06-27", "type": "入库", "code": "B1000105", "qty": 6, "price": 750, "memo": "采购入库"}, {"id": "tx279", "date": "2026-06-27", "type": "出库", "code": "D1000106", "qty": 8, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx280", "date": "2026-06-27", "type": "出库", "code": "D1000108", "qty": 8, "price": 445, "memo": "盛总自用"}, {"id": "tx281", "date": "2026-06-27", "type": "出库", "code": "C1000104", "qty": 2, "price": 500, "memo": "盛总自用"}, {"id": "tx282", "date": "2026-06-27", "type": "出库", "code": "B1000101", "qty": 1, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx283", "date": "2026-06-27", "type": "出库", "code": "B1000105", "qty": 1, "price": 900, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx284", "date": "2026-06-28", "type": "出库", "code": "D1000106", "qty": 2, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx285", "date": "2026-06-28", "type": "出库", "code": "B1000103", "qty": 1, "price": 850, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx286", "date": "2026-06-29", "type": "出库", "code": "B1000106", "qty": 1, "price": 610, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx287", "date": "2026-07-01", "type": "出库", "code": "C1000106", "qty": 1, "price": 500, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx288", "date": "2026-07-01", "type": "出库", "code": "B1000106", "qty": 1, "price": 610, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx289", "date": "2026-07-01", "type": "出库", "code": "B1000105", "qty": 1, "price": 900, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx290", "date": "2026-07-05", "type": "入库", "code": "D1000106", "qty": 8, "price": 345, "memo": "采购入库"}, {"id": "tx291", "date": "2026-07-05", "type": "入库", "code": "B1000103", "qty": 4, "price": 720, "memo": "采购入库"}, {"id": "tx292", "date": "2026-07-05", "type": "入库", "code": "B1000101", "qty": 8, "price": 750, "memo": "采购入库"}, {"id": "tx293", "date": "2026-07-05", "type": "出库", "code": "D1000106", "qty": 3, "price": 420, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx294", "date": "2026-07-05", "type": "出库", "code": "B1000101", "qty": 6, "price": 1050, "memo": "中建三局基础设施建设投资有限公司"}, {"id": "tx295", "date": "2026-07-05", "type": "出库", "code": "B1000103", "qty": 1, "price": 850, "memo": "中建三局基础设施建设投资有限公司"}];
-const CATEGORIES = ["米面粮油","香烟","茶叶","白酒","滋补品","药品、水果","饮品","消耗品","红酒","其他"];
-
-let PRODUCTS = [];
-let TX = [];
-let editingCode = null;
-let editingTxId = null;
-
-function todayStr(){
-  const d = new Date();
-  const p = n => String(n).padStart(2,'0');
-  return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#59171b"><title>宏盛酒庄 · 库存与经营工作台</title><style>*{box-sizing:border-box} :root{--wine:#59171b;--wine2:#863f3d;--peach:#fed7b8;--ink:#382b2a;--muted:#8a7770;--line:#eaddd4;--cream:#fbf6ef;--green:#4f7560}body{margin:0;color:var(--ink);font:14px/1.65 -apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif;background:var(--cream)}button,input,select,textarea{font:inherit}button,a{ -webkit-tap-highlight-color:transparent}button{cursor:pointer;border:1px solid var(--line);background:#fffaf5;border-radius:10px;padding:9px 15px;color:var(--wine);transition:transform .15s,background .15s}button:hover{background:#f3e5d9;transform:translateY(-1px)}button:disabled{opacity:.5;cursor:not-allowed}button:focus-visible,a:focus-visible{outline:3px solid #bd8e61;outline-offset:3px}.primary{background:var(--wine);color:#fff5ec;border-color:var(--wine)}.primary:hover{background:#7b3033}.ghost{background:transparent}.danger{color:#a82d34}.app{display:flex;min-height:100vh}aside{width:244px;position:fixed;inset:0 auto 0 0;padding:32px 23px;color:#ffe6d0;background:radial-gradient(ellipse at 0 95%,#b4816a60,transparent 62%),linear-gradient(165deg,#441115,#702b2d 70%,#8b5046);z-index:30;display:flex;flex-direction:column}a{text-decoration:none;color:inherit}.brand{display:flex;align-items:center;gap:13px;font-size:22px;letter-spacing:3px;font-family:serif}.brandmark{display:grid;place-items:center;border:1px solid #e6ba976e;border-radius:50%;width:43px;height:48px;font-size:24px;flex-shrink:0}.brand small{display:block;font:8px/2.4 sans-serif;letter-spacing:2px;color:#deb6a2}.navcaption{font-size:9px;letter-spacing:2px;margin:54px 12px 15px;color:#d9aa97}nav{display:grid;gap:8px}nav a{padding:12px 14px;border-radius:11px;color:#eac8b8;display:flex;gap:13px;align-items:center}nav a.active{background:linear-gradient(100deg,#fed7b8,#e9bda1);color:#59171b;box-shadow:0 5px 20px #2e0c1722}nav a:hover{background-color:#ffffff10}nav i{font:19px/1 sans-serif;width:21px;text-align:center}.sidebottom{margin-top:auto;padding:40px 9px 0;font-size:12px}.sidebottom p{font-size:11px;color:#ddb9a8}.sidebottom button{width:100%;color:#ffe6d0;border-color:#e1ad9560;margin:8px 0 24px}.sidebottom small{display:block;color:#c99c8b;font-size:10px}.statusdot{width:6px;height:6px;display:inline-block;background:#d9c29e;border-radius:50%;margin-right:6px}.main{margin-left:244px;min-width:0;width:calc(100% - 244px)}header{height:84px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);background:#fcf8f2dc;gap:12px}.headerRight{display:flex;align-items:center;gap:22px;font-size:11px;color:var(--muted)}#menutoggle{display:none}main{max-width:1600px;margin:auto;padding:32px 40px 38px}footer{padding:14px 40px;border-top:1px solid var(--line);font-size:10px;color:var(--muted);display:flex;justify-content:space-between;gap:12px}.eyebrow{font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase}h1{font:normal 30px/1.35 Georgia,'Songti SC',SimSun,serif;margin:7px 0 12px;letter-spacing:1px}h2{font:600 18px/1.4 Georgia,'Songti SC',serif;margin:0}h3{font-size:14px;margin:0}.sub{color:var(--muted);font-size:12px;margin:5px 0 20px}.pageheading{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:24px}.pageheading .sub{margin-bottom:0}.hero{position:relative;overflow:hidden;min-height:246px;border-radius:20px;background:radial-gradient(ellipse at 70% 10%,#fed7b850,transparent 50%),linear-gradient(115deg,#59171b 5%,#883f3c 55%,#d19c80);color:#ffedde;padding:32px 36px;margin-bottom:25px;display:flex;align-items:center;justify-content:space-between}.hero .eyebrow{color:#ebc4aa}.hero h1{font-size:34px;line-height:1.45;margin:12px 0}.hero p{font-size:12px;color:#efcdbd}.hero button{background:#fed7b8;border:0;margin-top:8px}.heroArt{width:280px;height:220px;position:relative;flex-shrink:0;display:grid;place-items:center}.heroArt:before,.heroArt:after{content:'';position:absolute;border:1px solid #fed7b82b;border-radius:50%;width:210px;height:210px}.heroArt:after{width:275px;height:275px}.bottle{height:151px;width:54px;background:linear-gradient(100deg,#260b10,#5f2326 45%,#330e14);border-radius:17px 17px 9px 9px;position:relative;box-shadow:18px 24px 24px #41151b45;transform:rotate(12deg);z-index:1}.bottle:before{content:'';position:absolute;top:-50px;left:18px;width:18px;height:58px;background:linear-gradient(90deg,#ca9f76,#f4d2a1,#a87755);border-radius:4px 4px 0 0}.bottle:after{content:'宏 盛\a RESERVE';white-space:pre;text-align:center;position:absolute;top:50px;left:4px;width:46px;height:57px;background:#f6d4b7;color:#59171b;font:10px/2.4 serif;border:1px solid #cfaa83}.yearmark{position:absolute;right:7px;bottom:18px;letter-spacing:3px;font-size:9px;color:#ffe1c8}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:20px 0 26px}.stat{background:linear-gradient(145deg,#fffcf8,#f8ece0);border:1px solid var(--line);border-radius:15px;padding:19px 20px}.stat .label{font-size:11px;color:var(--muted)}.stat .num{font-size:27px;font-family:Georgia,serif;color:var(--wine);margin:8px 0 5px;line-height:1.4;font-variant-numeric:tabular-nums}.stat small{color:var(--muted);font-size:10px}.grid2{display:grid;grid-template-columns:1.6fr 1fr;gap:22px}.card{background:#fffdf9;border:1px solid var(--line);border-radius:16px;padding:23px;margin-bottom:22px;min-width:0}.cardhead{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px}.cardhead a{font-size:11px;color:var(--wine)}.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0 20px}.toolbar input{min-width:220px}.toolbar .spacer{flex:1}input,select,textarea{border:1px solid #dfcfc3;background:#fffcf8;border-radius:9px;padding:10px 12px;color:var(--ink);max-width:100%;min-width:0}input:focus,select:focus,textarea:focus{outline:2px solid #cb9c83;outline-offset:1px}input[readonly]{background:#f0e8e0;color:#8a7770}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:12px;text-align:left;white-space:nowrap}th{color:#958076;background:#f9f2e9;font-weight:500;padding:12px 14px;font-size:10px}td{padding:13px 14px;border-bottom:1px solid #f0e6dd;font-variant-numeric:tabular-nums}td small{display:block;color:var(--muted);font-size:10px}tr:last-child td{border-bottom:0}td.amount{text-align:right;color:var(--wine);font-family:Georgia,serif;font-size:14px}th.right{text-align:right}.pill{display:inline-block;border-radius:20px;background:#f0e3d8;color:#754839;padding:3px 9px;font-size:10px}.pill.green{background:#e8eee5;color:#4f7560}.pill.red{background:#f6e4df;color:#9a493e}.empty{text-align:center;padding:46px 15px;color:var(--muted)}.empty strong{display:block;font:23px/1.7 Georgia,serif;color:var(--wine);margin-bottom:8px}.empty button{margin-top:15px}.quicklinks{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.quicklinks button{padding:18px 6px;background:linear-gradient(145deg,#fbf1e6,#f0dbca);border:0;font-size:12px}.quicklinks button span{display:block;font:24px/1.6 Georgia,serif}.notice{padding:13px 16px;border:1px solid #ecd6c0;background:#fcf0e1;color:#936344;border-radius:10px;font-size:12px;margin:16px 0}.notice.wine{background:#f5e6e2;border-color:#ead0c9;color:#834547}.barchart{height:172px;display:flex;align-items:flex-end;gap:20px;padding:20px 4px 28px;border-bottom:1px solid var(--line)}.bargroup{flex:1;display:flex;align-items:flex-end;justify-content:center;gap:5px;height:100%;position:relative}.bar{width:25%;max-width:20px;background:linear-gradient(#a36357,#59171b);border-radius:4px 4px 0 0;min-height:2px}.bar.peach{background:linear-gradient(#fed7b8,#d0a18a)}.bargroup label{position:absolute;bottom:-25px;font-size:10px;color:var(--muted)}.legend{display:flex;gap:18px;font-size:10px;color:var(--muted);margin-top:18px}.legend i{display:inline-block;width:7px;height:7px;background:var(--wine);border-radius:2px;margin-right:5px}.legend i.light{background:#ddb297}.issue{padding:15px 0;border-bottom:1px solid var(--line)}.issue p{font-size:12px;color:var(--muted);margin:5px 0}.issue button{font-size:11px;padding:5px 10px}.fieldgrid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:12px;color:var(--muted)}.field.full{grid-column:1/-1}.field input,.field select,.field textarea{width:100%}.field small{font-size:10px;color:var(--muted)}.formbuttons{display:flex;justify-content:flex-end;gap:10px;margin-top:24px;flex-wrap:wrap}.productpreview{border:1px solid #ead4c3;border-radius:12px;background:linear-gradient(110deg,#f9eee2,#f4d9c4);padding:16px;margin:18px 0}.productpreview strong{display:block;font-size:16px;color:var(--wine)}.productpreview p{font-size:12px;color:#8a6755;margin:5px 0}.flowsteps{display:flex;gap:14px;margin-bottom:20px;font-size:11px;color:var(--muted)}.flowsteps span{border-radius:30px;padding:6px 12px;background:#f5e8dc}.amountbox{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;background:#f5e8dc;border-radius:12px;margin-top:18px}.amountbox strong{font-size:26px;font-family:Georgia,serif;color:var(--wine)}dialog{border:1px solid var(--line);border-radius:18px;width:650px;max-width:94vw;max-height:90vh;padding:0;color:var(--ink);box-shadow:0 30px 100px #30090c44}dialog::backdrop{background:#30171c80;backdrop-filter:blur(5px)}.dialogtop{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fffaf4;z-index:1}.dialogtop button{border:0;font-size:23px;padding:0 7px;background:transparent}#modalBody{padding:24px}#toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#59171b;color:#ffe6d0;box-shadow:0 8px 35px #59171b33;padding:12px 24px;border-radius:12px;z-index:100;display:none;max-width:90vw}.auditrow{font-size:12px;padding:10px 0;border-bottom:1px solid var(--line)}.mobilehide{display:inline}.savedbad{color:#a82d34!important}.wraptext{white-space:normal;min-width:210px;max-width:360px}.printtitle{display:none}.reporttitle{font-family:Georgia,'Songti SC',serif;letter-spacing:1px}.reportheader{display:flex;justify-content:space-between;gap:15px;align-items:center}.reportheader small{color:var(--muted)}.bigempty{max-width:650px;margin:0 auto}.guide p,.guide li{font-size:13px;line-height:1.9;color:#806e65}.muted{color:var(--muted)}
+[hidden]{display:none!important}
+@media(prefers-reduced-motion:no-preference){.bottle{animation:breathe 7s ease-in-out infinite}.hero:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--px,70%) var(--py,40%),#fed7b81c,transparent 40%);pointer-events:none}@keyframes breathe{50%{transform:rotate(8deg) translateY(-7px)}}}
+@media(min-width:1500px){main{padding-top:40px}.hero{min-height:275px}.hero h1{font-size:40px}}
+@media(max-width:1150px){aside{width:210px;padding:30px 16px}.main{margin-left:210px;width:calc(100% - 210px)}header{padding:0 24px}main{padding:25px 24px}.headerRight{gap:12px}.heroArt{width:200px}.grid2{grid-template-columns:1fr}.stats{gap:10px}.stat{padding:16px 12px}.stat .num{font-size:23px}}
+@media(max-width:760px){aside{transform:translateX(-100%);transition:transform .2s;width:244px;box-shadow:10px 0 60px #300a1a25}body.navopen aside{transform:translateX(0)}.main{margin-left:0;width:100%}#menutoggle{display:block;border:0;padding:6px;background:transparent}header{height:70px;padding:0 16px}#breadcrumb{margin-right:auto;font-size:12px}.headerRight #today,.headerRight #saved{display:none}.headerRight .primary{font-size:12px;padding:8px 10px}main{padding:20px 16px}.hero{padding:25px;min-height:235px}.hero h1{font-size:28px}.heroArt{width:95px;opacity:.55}.heroArt:before{width:140px;height:140px}.heroArt:after{width:185px;height:185px}.yearmark{display:none}.stats{grid-template-columns:repeat(2,1fr)}.card{padding:18px}.pageheading{align-items:flex-start}h1{font-size:25px}.pageheading button{font-size:11px}.fieldgrid{gap:12px}.field.full{grid-column:1/-1}footer{padding:14px 16px;display:block}footer span{display:block}.toolbar input{min-width:150px;flex:1}.toolbar select{flex:1}.reportheader{display:block}.mobilehide{display:none}.flowsteps{gap:4px;font-size:10px}.flowsteps span{padding:5px 8px}}
+@media print{body{background:white;font-size:10px}aside,header,footer,.toolbar,.pageheading,.no-print,.notice,dialog,#toast{display:none!important}.main{margin:0;width:100%}main{padding:0;max-width:none}.card{border:0;padding:0;margin:0}.tablewrap{overflow:visible}table{font-size:9px;white-space:normal}td,th{padding:7px 5px}.printtitle{display:block}.stats{display:none}.reportheader{margin-bottom:20px}.pill{padding:0;background:none}.amountbox{background:none}button{display:none!important}@page{size:A4 landscape;margin:12mm}
+</style></head>
+<body><div class="app"><aside><a class="brand" href="#dashboard"><span class="brandmark">宏</span><span>宏盛酒庄<small>HONGSHENG · ATELIER</small></span></a><div class="navcaption">日常经营 / WORKSPACE</div><nav id="nav"></nav><div class="sidebottom"><div class="statusdot"></div><b>本机数据工作区</b><p>录入即计算 · 自动保存在当前浏览器</p><button class="ghost" data-action="backup">↓ 导出完整备份</button><small>Developer · Rachel Hu</small></div></aside><div class="main"><header><button id="menutoggle" aria-label="展开导航">☰</button><div id="breadcrumb">经营概览</div><div class="headerRight"><span id="saved">本机存储</span><span id="today"></span><button class="primary" data-action="new">＋ 快速录单</button></div></header><main id="content"></main><footer>宏盛酒庄 · 库存与经营工作台 <span>本机版 v1.0 · 数据不会自动上传至 GitHub</span></footer></div></div><dialog id="modal"><div class="dialogtop"><h2 id="modalTitle"></h2><button id="closeModal" aria-label="关闭">×</button></div><div id="modalBody"></div></dialog><div id="toast" role="status" aria-live="polite"></div><input hidden type="file" id="jsonFile" accept=".json,application/json"><input hidden type="file" id="csvFile" accept=".csv,text/csv"><script>(function(root){
+'use strict';
+const TYPES={purchase:'采购入库',sale:'三局出库',self:'老板自用',saleReturn:'三局退回',selfReturn:'自用退回',purchaseReturn:'采购退货'};
+const sign=t=>['purchase','saleReturn','selfReturn'].includes(t)?1:-1;
+const round=n=>Math.round((n+Number.EPSILON)*100)/100;
+function calc(data,until='9999-12-31'){
+ const stocks=Object.fromEntries(data.products.map(p=>[p.code,{qty:0,value:0,avg:0,uncertain:!!p.review}]));
+ const costs={}, processed={};
+ const rows=data.transactions.filter(t=>!t.void&&t.date<=until).sort((a,b)=>a.date.localeCompare(b.date)||a.seq-b.seq);
+ for(const t of rows){
+  const s=stocks[t.code];if(!s)continue;
+  if(t.qty===0){costs[t.id]=0;processed[t.id]=t;continue;}
+  const before=s.qty;let unit=s.avg;
+  if(t.type==='purchase')unit=t.price;
+  else if(t.original&&processed[t.original]?.qty>0)unit=costs[t.original]/processed[t.original].qty;
+  else if(t.type.endsWith('Return'))s.uncertain=true;
+  costs[t.id]=unit*t.qty;processed[t.id]=t;
+  s.qty+=sign(t.type)*t.qty;s.value+=sign(t.type)*t.qty*unit;
+  if(t.review||s.qty< -0.000001||before<0)s.uncertain=true;
+  if(Math.abs(s.qty)<1e-8){s.qty=0;s.value=0;}
+  s.avg=s.qty>0?s.value/s.qty:0;
+ }
+ for(const p of data.products){const s=stocks[p.code];s.reserved=data.orders.filter(o=>!o.void&&o.code===p.code&&o.date<=until).reduce((sum,o)=>sum+Math.max(0,o.qty-delivered(data,o.id,until)),0);s.available=s.qty-s.reserved;}
+ return {stocks,costs};
 }
-function fmtMoney(n){
-  if(n === null || n === undefined || isNaN(n)) return '-';
-  return Number(n).toLocaleString('zh-CN',{maximumFractionDigits:2});
+function delivered(data,id,until='9999-12-31'){return data.transactions.filter(t=>!t.void&&t.orderId===id&&t.date<=until).reduce((a,t)=>a+(t.type==='sale'?t.qty:t.type==='saleReturn'?-t.qty:0),0);}
+function priceAt(data,code,type,date){
+ const rows=data.transactions.filter(t=>!t.void&&t.code===code&&t.type===type&&t.date<=date).sort((a,b)=>b.date.localeCompare(a.date)||b.seq-a.seq);
+ const p=data.products.find(p=>p.code===code);return rows[0]?.price??(type==='purchase'?p?.purchasePrice:type==='sale'?p?.salePrice:0)??0;
 }
-function showToast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(showToast._tm);
-  showToast._tm = setTimeout(()=>t.classList.remove('show'), 1800);
+function report(data,month,client){
+ const end=month+'-31',c=calc(data,end),types=client==='sale'?['sale','saleReturn']:['self','selfReturn'];
+ return data.transactions.filter(t=>!t.void&&t.date.startsWith(month)&&types.includes(t.type)).sort((a,b)=>a.date.localeCompare(b.date)||a.seq-b.seq).map(t=>({...t,net:t.qty*(t.type.endsWith('Return')?-1:1),amount:round(t.qty*t.price*(t.type.endsWith('Return')?-1:1)),cost:round((c.costs[t.id]||0)*(t.type.endsWith('Return')?-1:1)),uncertain:c.stocks[t.code]?.uncertain}));
 }
-
-/* ---------------- storage abstraction (works inside Claude artifacts AND as a standalone file) ---------------- */
-const hasClaudeStorage = (typeof window.storage !== 'undefined' && window.storage && typeof window.storage.get === 'function');
-const hasLocalStorage = (function(){ try{ localStorage.setItem('__t','1'); localStorage.removeItem('__t'); return true; }catch(e){ return false; } })();
-let memoryStore = {};
-
-const Store = {
-  async get(key){
-    if(hasClaudeStorage){
-      try{ const r = await window.storage.get(key, false); return r ? r.value : null; }catch(e){ return null; }
-    }
-    if(hasLocalStorage){ return localStorage.getItem('hsjz_'+key); }
-    return memoryStore[key] ?? null;
-  },
-  async set(key, value){
-    if(hasClaudeStorage){
-      try{ await window.storage.set(key, value, false); return; }catch(e){ /* fall through */ }
-    }
-    if(hasLocalStorage){ try{ localStorage.setItem('hsjz_'+key, value); return; }catch(e){ /* fall through */ } }
-    memoryStore[key] = value;
-  }
-};
-let storageWarned = false;
-function warnIfNoPersistence(){
-  if(!hasClaudeStorage && !hasLocalStorage && !storageWarned){
-    storageWarned = true;
-    showToast('当前环境无法保存数据，刷新页面后录入内容会丢失，建议在数据备份页导出');
-  }
+function valid(data){
+ if(!data||data.schema!==1||!Array.isArray(data.products)||!Array.isArray(data.transactions)||!Array.isArray(data.orders)||!Array.isArray(data.issues)||!data.meta||typeof data.meta!=='object'||!Array.isArray(data.audit))throw Error('文件不是本工作台的数据备份');
+ const codes=new Set(),ids=new Set(),seqs=new Set();
+ for(const p of data.products){if(!p.code||typeof p.code!=='string'||!/^[A-Za-z0-9_-]+$/.test(p.code)||['__proto__','constructor','prototype'].includes(p.code)||typeof p.name!=='string'||!p.name||typeof p.unit!=='string'||!p.unit||codes.has(p.code)||!Number.isFinite(p.threshold)||p.threshold<0||['purchasePrice','salePrice'].some(k=>p[k]!==undefined&&(!Number.isFinite(p[k])||p[k]<0)))throw Error('商品资料缺失、重复或价格预警值不正确');codes.add(p.code);}
+ const dateOK=d=>typeof d==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(d)&&!isNaN(Date.parse(d))&&new Date(d).toISOString().slice(0,10)===d;
+ for(const t of data.transactions){if(typeof t.id!=='string'||!t.id||ids.has(t.id)||!codes.has(t.code)||!Object.hasOwn(TYPES,t.type)||!dateOK(t.date)||!Number.isFinite(t.qty)||t.qty<0||!Number.isFinite(t.price)||t.price<0||!Number.isFinite(t.seq)||seqs.has(t.seq))throw Error('流水字段无效、编号重复或引用商品缺失');ids.add(t.id);seqs.add(t.seq);}
+ const orderIds=new Set();for(const o of data.orders){if(!o.id||orderIds.has(o.id)||!codes.has(o.code)||!dateOK(o.date)||!Number.isFinite(o.qty)||o.qty<=0||!Number.isFinite(o.price)||o.price<0)throw Error('提货订单格式错误');orderIds.add(o.id);}
+ const tx=Object.fromEntries(data.transactions.map(t=>[t.id,t]));
+ for(const t of data.transactions){if(t.original){const orig=tx[t.original];const match={saleReturn:'sale',selfReturn:'self',purchaseReturn:'purchase'};if(!orig||orig.code!==t.code||match[t.type]!==orig.type||t.date<orig.date||(!t.void&&orig.void))throw Error('退回流水与原单不匹配');}if(t.orderId&&!orderIds.has(t.orderId))throw Error('提货订单不存在');}
+ for(const t of data.transactions.filter(t=>!t.void&&!t.type.endsWith('Return'))){if(data.transactions.filter(r=>!r.void&&r.original===t.id).reduce((a,r)=>a+r.qty,0)>t.qty+1e-8)throw Error('退回数量超过原单');}
+ for(const o of data.orders){if(delivered(data,o.id)>o.qty+1e-8)throw Error('提货数量超过订单');}
+ return data;
 }
-
-async function loadData(){
-  const pRaw = await Store.get('products');
-  PRODUCTS = pRaw ? JSON.parse(pRaw) : null;
-  if(!PRODUCTS){
-    PRODUCTS = JSON.parse(JSON.stringify(SEED_PRODUCTS));
-    await Store.set('products', JSON.stringify(PRODUCTS));
-  }
-  const tRaw = await Store.get('transactions');
-  TX = tRaw ? JSON.parse(tRaw) : null;
-  if(!TX){
-    TX = JSON.parse(JSON.stringify(SEED_TRANSACTIONS));
-    await Store.set('transactions', JSON.stringify(TX));
-  }
-  warnIfNoPersistence();
+const api={TYPES,sign,round,calc,report,priceAt,delivered,valid};root.WineCore=api;if(typeof module!=='undefined')module.exports=api;
+})(typeof window!=='undefined'?window:globalThis);
+</script><script>'use strict';
+const C=WineCore,KEY='hongsheng-workstation-v1', $=s=>document.querySelector(s);
+const empty=()=>({schema:1,products:[],transactions:[],orders:[],issues:[],audit:[],meta:{name:'宏盛酒庄',opening:'未核定'}});
+let data=empty(),page='dashboard',search='',month='',client='sale',txType='',stockFilter='',storageOK=true,tab='detail',modalContext=null;
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;};
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money=n=>Number(n||0).toLocaleString('zh-CN',{minimumFractionDigits:2,maximumFractionDigits:2});
+const num=n=>Number(n||0).toLocaleString('zh-CN',{maximumFractionDigits:3});
+const uid=()=>globalThis.crypto?.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`;
+function toast(msg){$('#toast').textContent=msg;$('#toast').style.display='block';clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('#toast').style.display='none',4500);}
+function load(){try{const raw=localStorage.getItem(KEY);if(raw)data=C.valid(JSON.parse(raw));localStorage.setItem('hongsheng-probe','1');localStorage.removeItem('hongsheng-probe');}catch(e){storageOK=false;toast('本机数据读取或存储不可用，请先导出备份。'+e.message);}}
+function commit(next,action){try{C.valid(next);next.audit=Array.isArray(next.audit)?next.audit:[];next.audit.push({time:new Date().toISOString(),action});localStorage.setItem(KEY,JSON.stringify(next));data=next;storageOK=true;$('#saved').textContent='已保存 · '+new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});$('#saved').classList.remove('savedbad');return true;}catch(e){toast('未保存：'+e.message);$('#saved').textContent='保存失败 · 请备份';$('#saved').classList.add('savedbad');storageOK=false;return false;}}
+function mutate(fn,action){const next=JSON.parse(JSON.stringify(data));fn(next);return commit(next,action);}
+const product=code=>data.products.find(p=>p.code===code);
+const pill=(text,cls='')=>`<span class="pill ${cls}">${esc(text)}</span>`;
+const kind=t=>pill(C.TYPES[t],t==='purchase'?'green':t.endsWith('Return')?'red':'');
+function heading(en,title,subtitle,buttons=''){return `<div class="pageheading"><div><div class="eyebrow">${en}</div><h1>${title}</h1><p class="sub">${subtitle}</p></div><div>${buttons}</div></div>`;}
+function table(headers,rows,emptyText='暂无记录'){return `<div class="tablewrap"><table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.length?rows.join(''):`<tr><td colspan="${headers.length}" class="empty">${emptyText}</td></tr>`}</tbody></table></div>`;}
+function stat(label,value,note){return `<div class="stat"><div class="label">${label}</div><div class="num">${value}</div><small>${note}</small></div>`;}
+function dateMonth(){return month||today().slice(0,7);}
+function matches(p){return !search||(p.code+' '+p.name+' '+p.category).toLowerCase().includes(search.toLowerCase());}
+function monthInput(){return `<input aria-label="统计月份" type="month" id="month" value="${esc(dateMonth())}">`;}
+function provisional(){return data.meta?.opening!=='已核定'?'<div class="notice">历史期初库存尚未核定，库存与成本为按现有流水暂算。出库金额保留原表口径；自用报表以原记录金额展示。请在「数据与设置」完成异常核对。</div>':'';}
+const navs=[['dashboard','◈','经营概览'],['entry','＋','快速录单'],['products','▤','商品档案'],['inventory','▦','库存与流水'],['reports','▥','月度统计'],['orders','◇','对账与提货'],['settings','⚙','数据与设置']];
+function render(){
+ $('#nav').innerHTML=navs.map(([id,icon,label])=>`<a href="#${id}" class="${page===id?'active':''}"><i>${icon}</i>${label}</a>`).join('');$('#breadcrumb').textContent=navs.find(x=>x[0]===page)?.[2]||'经营概览';
+ const views={dashboard,entry,products,inventory,reports,orders,settings};$('#content').innerHTML=(views[page]||dashboard)();
+ if(page==='entry')bindEntry($('#entryForm'));
+ if(data.meta.name==='演示')$('#content').insertAdjacentHTML('afterbegin','<div class="notice wine no-print">当前显示虚构演示数据。正式使用请导入随附的历史JSON，或恢复自己的完整备份。</div>');
+ if(!storageOK)$('#content').insertAdjacentHTML('afterbegin','<div class="notice wine">本机存储不可用。录单前请检查浏览器存储权限，并导出已有数据。</div>');
+ const hero=$('.hero');if(hero)hero.onpointermove=e=>{const r=hero.getBoundingClientRect();hero.style.setProperty('--px',`${(e.clientX-r.left)/r.width*100}%`);hero.style.setProperty('--py',`${(e.clientY-r.top)/r.height*100}%`);};
 }
-async function persistProducts(){ await Store.set('products', JSON.stringify(PRODUCTS)); }
-async function persistTx(){ await Store.set('transactions', JSON.stringify(TX)); }
-
-function findProduct(code){ return PRODUCTS.find(p => p.code === code); }
-
-function categoryFromCode(code){
-  const map = {A:'米面粮油',B:'香烟',C:'茶叶',D:'白酒',E:'滋补品',F:'药品、水果',G:'饮品',H:'消耗品',J:'红酒'};
-  return map[(code||'').charAt(0).toUpperCase()] || '';
+function dashboard(){
+ const m=dateMonth(),end=m+'-31',asof=end<today()?end:today(),s=C.calc(data,asof).stocks,rs=C.report(data,m,'sale'),own=C.report(data,m,'self');
+ const purchase=data.transactions.filter(t=>!t.void&&t.date.startsWith(m)&&['purchase','purchaseReturn'].includes(t.type)).reduce((a,t)=>a+t.qty*t.price*(t.type==='purchase'?1:-1),0);
+ const low=data.products.filter(p=>s[p.code]?.available<=p.threshold);const recent=data.transactions.filter(t=>!t.void).slice().sort((a,b)=>b.date.localeCompare(a.date)||b.seq-a.seq).slice(0,5);
+ const months=Array.from({length:6},(_,i)=>{const d=new Date(+m.slice(0,4),+m.slice(5)-1-5+i,1);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;});
+ const chart=months.map(mm=>({month:mm,sale:C.report(data,mm,'sale').reduce((a,t)=>a+t.amount,0),self:C.report(data,mm,'self').reduce((a,t)=>a+t.amount,0)}));const max=Math.max(1,...chart.flatMap(x=>[Math.abs(x.sale),Math.abs(x.self)]));
+ return `<section class="hero"><div><div class="eyebrow">HONGSHENG / DAILY OPERATIONS</div><h1>每一笔流转，<br>都有清晰的去向。</h1><p>商品一键带出 · 库存即时计算 · 月报自动归集</p><button data-action="new">＋ 记录一笔出入库　↗</button></div><div class="heroArt" aria-hidden="true"><div class="bottle"></div><div class="yearmark">THE CELLAR / 2026</div></div></section>
+ <div class="cardhead"><div><h2>经营概览</h2><div class="sub" style="margin-bottom:0">按业务发生月份统计 · 库存截至 ${esc(asof)}</div></div>${monthInput()}</div>
+ <div class="stats">${stat('本月采购净额',`¥ ${money(purchase)}`,'采购入库减采购退货')}${stat('中建三局 · 本月净出库金额',`¥ ${money(rs.reduce((a,t)=>a+t.amount,0))}`,'原成交口径 · 未含对账价差')}${stat('老板自用 · 本月记录净额',`¥ ${money(own.reduce((a,t)=>a+t.amount,0))}`,'历史按原表金额；新增按暂算成本')}${stat('在库商品 / 预警',`${data.products.filter(p=>s[p.code]?.qty>0).length} <span style="font-size:16px">/ ${low.length}</span>`,'商品种数，不混加瓶、条、盒')}</div>
+ ${!data.products.length?`<div class="card empty"><strong>从一份商品档案开始</strong>网站已就绪。导入之前下载的历史JSON，或先建立商品，即可开始使用。<br><button class="primary" data-action="import">导入历史数据 / 备份</button> <button data-action="product">＋ 新建商品</button></div>`:provisional()}
+ <div class="grid2"><section class="card"><div class="cardhead"><h2>近六个月 · 出库金额</h2><small class="muted">人民币 / 元</small></div><div class="barchart">${chart.map(x=>`<div class="bargroup"><div class="bar" style="height:${Math.abs(x.sale)/max*100}%" title="${esc(x.month)} 三局净额 ${money(x.sale)}"></div><div class="bar peach" style="height:${Math.abs(x.self)/max*100}%" title="${esc(x.month)} 自用净额 ${money(x.self)}"></div><label>${x.month.slice(2).replace('-',' / ')}</label></div>`).join('')}</div><div class="legend"><span><i></i>中建三局净出库金额</span><span><i class="light"></i>老板自用记录净额</span><span>柱高按绝对值，净额见悬停</span></div></section><section class="card"><div class="cardhead"><h2>日常操作</h2><a href="#settings">数据管理 ↗</a></div><div class="quicklinks"><button data-action="new" data-type="purchase"><span>↙</span>采购入库</button><button data-action="new" data-type="sale"><span>↗</span>三局出库</button><button data-action="new" data-type="self"><span>◇</span>老板自用</button></div><div class="notice">保存一次，库存和月报同步更新。新建商品后，重复录单只需选商品、填数量和核实价格。</div></section></div>
+ <div class="grid2"><section class="card"><div class="cardhead"><h2>最近流水</h2><a href="#inventory">查看全部 ↗</a></div>${table(['日期 / 类型','商品','数量','记录金额'],recent.map(t=>`<tr><td>${esc(t.date)}<br>${kind(t.type)}</td><td>${esc(product(t.code)?.name)}<small>${esc(t.code)}</small></td><td>${num(t.qty)} ${esc(product(t.code)?.unit)}</td><td class="amount">${money(t.qty*t.price)}</td></tr>`))}</section><section class="card"><div class="cardhead"><h2>库存提醒</h2><a href="#inventory">查看库存 ↗</a></div>${low.length?low.slice(0,5).map(p=>`<div class="issue"><b>${esc(p.name)}</b><p>可用 ${num(s[p.code].available)} ${esc(p.unit)} · 预警线 ${num(p.threshold)} ${esc(p.unit)}</p></div>`).join(''):'<div class="empty">库存充足，或尚未设置预警线。</div>'}</section></div>`;
 }
-
-/* ---------------- computed inventory ---------------- */
-function computeInventory(){
-  return PRODUCTS.map(p=>{
-    let inQty=0, outQty=0;
-    for(const tx of TX){
-      if(tx.code !== p.code) continue;
-      if(tx.type === '入库') inQty += Number(tx.qty)||0;
-      else if(tx.type === '出库') outQty += Number(tx.qty)||0;
-    }
-    const balance = inQty - outQty;
-    const refPrice = p.purchasePrice || 0;
-    const balanceValue = balance * refPrice;
-    const safety = p.safetyStock;
-    const low = safety !== null && safety !== undefined && safety !== '' && balance <= Number(safety);
-    return {...p, inQty, outQty, balance, balanceValue, low};
-  });
+function entry(){return heading('QUICK ENTRY','一笔录入，全表更新','先选择业务，再选商品。名称、单位和参考价格自动带出。')+`<div class="grid2"><section class="card"><div class="flowsteps"><span>01 选择业务</span><span>02 选择商品</span><span>03 核实并保存</span></div>${entryForm()}</section><div><section class="card"><div class="cardhead"><h2>少填一些，更准确一些</h2></div><div class="issue"><b>商品资料自动带出</b><p>输入商品编码或名称，选择匹配商品后自动读取基础资料。</p></div><div class="issue"><b>价格按场景读取</b><p>采购参考该日期以前最近进价；三局出库参考最近成交价；自用按流水暂算成本。</p></div><div class="issue"><b>退回关联原单</b><p>价格沿用原单，数量不能超过原单剩余可退数量。</p></div><div class="issue"><b>库存不足会阻止保存</b><p>有订单占用时，可用库存等于实物库存减去未提货占用。</p></div><button class="ghost" data-action="product" style="margin-top:18px">＋ 找不到商品？新建档案</button></section>${provisional()}</div></div>`;}
+function entryForm(defaults={}){return `<form id="entryForm"><div class="fieldgrid"><div class="field"><label for="entryDate">业务日期</label><input id="entryDate" name="date" type="date" value="${defaults.date||today()}" required></div><div class="field"><label for="entryType">业务类型</label><select id="entryType" name="type">${Object.entries(C.TYPES).map(([k,v])=>`<option value="${k}" ${(defaults.type||txType||'purchase')===k?'selected':''}>${v}</option>`).join('')}</select></div><div class="field full"><label for="entryProduct">商品编码 / 商品名称</label><input id="entryProduct" name="query" list="productOptions" placeholder="输入编码或名称，然后选择商品" autocomplete="off" required><datalist id="productOptions">${data.products.map(p=>`<option value="${esc(p.code+' · '+p.name)}"></option>`).join('')}</datalist></div><div class="field full" id="originalWrap" hidden><label for="entryOriginal">原始单据</label><select id="entryOriginal" name="original"><option value="">请先选择商品</option></select></div></div><div id="productPreview" class="productpreview"><strong>等待选择商品</strong><p>资料由商品档案带出，无需重复输入。</p></div><div class="fieldgrid"><div class="field"><label for="entryQty">本次数量</label><input id="entryQty" name="qty" type="number" min="0.001" step="0.001" placeholder="输入数量" required></div><div class="field"><label for="entryPrice">本次单价（元）</label><input id="entryPrice" name="price" type="number" min="0" step="0.000001" required><small id="priceHint">参考价可调整，保存时使用本次单价。</small></div><div class="field full"><label for="entryNote">备注（选填）</label><textarea id="entryNote" name="note" rows="2" maxlength="300" placeholder="例如：送货、临时调价原因"></textarea></div></div><div class="amountbox"><span>本笔记录金额</span><strong id="entryAmount">¥ 0.00</strong></div><div class="formbuttons"><button type="submit" class="primary" name="mode" value="keep">保存并继续录入</button><button type="submit" name="mode" value="done">保存并查看流水</button></div></form>`;}
+function selectedProduct(form){const query=form.elements.query.value.trim();return data.products.find(p=>query===p.code+' · '+p.name||query===p.code);}
+function bindEntry(form){
+ let dirty=false;const el=name=>form.elements[name];
+ const update=(resetPrice=true)=>{
+  const p=selectedProduct(form),type=el('type').value,ret=type.endsWith('Return');$('#originalWrap').hidden=!ret;
+  if(!p){$('#productPreview').innerHTML='<strong>请选择有效商品</strong><p>从列表选择，或输入完整编码。</p>';el('price').value='';return;}
+  const stock=C.calc(data,el('date').value).stocks[p.code];$('#productPreview').innerHTML=`<strong>${esc(p.name)}</strong><p>${esc(p.code)} · ${esc(p.category)} · ${esc(p.spec||'规格待补充')} · ${esc(p.unit)}</p><p>当日实物库存 ${num(stock.qty)} ${esc(p.unit)}　/　可用 ${num(stock.available)} ${esc(p.unit)} ${p.review?' · 商品信息待核对':''}</p>`;
+  if(ret){const originalType={saleReturn:'sale',selfReturn:'self',purchaseReturn:'purchase'}[type];const prev=el('original').value;el('original').innerHTML='<option value="">请选择原单</option>'+data.transactions.filter(t=>!t.void&&t.code===p.code&&t.type===originalType&&t.date<=el('date').value).map(t=>{const used=data.transactions.filter(r=>!r.void&&r.original===t.id).reduce((a,r)=>a+r.qty,0);return `<option value="${esc(t.id)}">${esc(t.date)} / ${num(t.qty-used)} ${esc(p.unit)}可退 / ¥${money(t.price)} / #${t.seq}</option>`;}).join('');if([...el('original').options].some(o=>o.value===prev))el('original').value=prev;const orig=data.transactions.find(t=>t.id===el('original').value);el('price').value=orig?.price??'';el('price').readOnly=true;$('#priceHint').textContent='退回单价沿用原单，不覆盖历史成交价。';}
+  else{el('price').readOnly=type==='self';if(resetPrice)el('price').value=type==='self'?Math.max(0,stock.avg).toFixed(6):C.priceAt(data,p.code,type,el('date').value);$('#priceHint').textContent=type==='self'?'按该日期已有流水的移动平均成本暂算，保存后保留本次金额。':type==='purchase'?'最近采购价仅供参考；确认本次实际采购价。':'最近三局成交价仅供参考；确认本次实际结算价。';}
+  amount();
+ };
+ const amount=()=>{$('#entryAmount').textContent='¥ '+money((+el('qty').value||0)*(+el('price').value||0));};
+ el('query').oninput=()=>{dirty=false;update();};el('type').onchange=()=>{dirty=false;update();};el('date').onchange=()=>update(!dirty);el('original').onchange=()=>update();el('qty').oninput=amount;el('price').oninput=()=>{dirty=true;amount();};
+ form.onsubmit=e=>{e.preventDefault();const p=selectedProduct(form);if(!p)return toast('请先选择商品档案中的商品。');const type=el('type').value,date=el('date').value,qty=+el('qty').value,price=+el('price').value;if(date>today())return toast('实际出入库不能使用未来日期；待提货请建立订单。');if(!(qty>0)||price<0||!Number.isFinite(price))return toast('请填写有效数量和单价。');
+  const original=el('original').value;if(type.endsWith('Return')&&!original)return toast('退回必须选择原始单据。');
+  const stock=C.calc(data,date).stocks[p.code];if(C.sign(type)<0&&qty>stock.available+1e-8)return toast('可用库存不足，请先核对库存或处理待提货订单。');
+  const t={id:uid(),seq:Math.max(0,...data.transactions.map(t=>t.seq))+1,date,type,code:p.code,qty,price,note:el('note').value.trim(),...(type.endsWith('Return')?{original,...(data.transactions.find(r=>r.id===original)?.orderId?{orderId:data.transactions.find(r=>r.id===original).orderId}:{})}:{})};
+  const next=JSON.parse(JSON.stringify(data));next.transactions.push(t);
+  // Backdated changes must not introduce a later stock shortage.
+  if(!noNewShortages(data,next))return toast('这笔补录会使后续日期库存不足，请先核对历史流水。');
+  if(commit(next,`新增${C.TYPES[type]} #${t.seq}`)){toast('已保存，库存和月报已更新。');if(e.submitter?.value==='done'){txType='';location.hash='inventory';}else{el('query').value='';el('qty').value='';el('price').value='';el('note').value='';$('#entryAmount').textContent='¥ 0.00';$('#productPreview').innerHTML='<strong>已保存，继续选择下一件商品</strong><p>日期和业务类型已保留。</p>';el('query').focus();}}
+ };
+ update();
 }
-
-/* ---------------- Dashboard ---------------- */
-function renderDashboard(){
-  const today = todayStr();
-  const now = new Date();
-  const inv = computeInventory();
-
-  let todayIn=0, todayOut=0, monthIn=0, monthOut=0;
-  for(const tx of TX){
-    const amt = (Number(tx.qty)||0) * (Number(tx.price)||0);
-    const d = new Date(tx.date+'T00:00:00');
-    if(tx.date === today){
-      if(tx.type==='入库') todayIn += amt; else if(tx.type==='出库') todayOut += amt;
-    }
-    if(!isNaN(d) && d.getFullYear()===now.getFullYear() && d.getMonth()===now.getMonth()){
-      if(tx.type==='入库') monthIn += amt; else if(tx.type==='出库') monthOut += amt;
-    }
-  }
-  const stockValue = inv.reduce((s,p)=>s+p.balanceValue,0);
-  const warnCount = inv.filter(p=>p.low).length;
-
-  const kpis = [
-    {label:'今日入库金额', value: fmtMoney(todayIn), cls:''},
-    {label:'今日出库金额', value: fmtMoney(todayOut), cls:'neg'},
-    {label:'本月入库金额', value: fmtMoney(monthIn), cls:''},
-    {label:'本月出库金额', value: fmtMoney(monthOut), cls:'neg'},
-    {label:'库存总值（参考成本）', value: fmtMoney(stockValue), cls:''},
-    {label:'库存预警商品数', value: warnCount, cls: warnCount>0?'warn':''},
-  ];
-  document.getElementById('kpiRow').innerHTML = kpis.map(k=>`
-    <div class="kpi ${k.cls}">
-      <div class="label">${k.label}</div>
-      <div class="value">${k.value}</div>
-    </div>`).join('');
-
-  document.getElementById('todayLabel').innerHTML = `${today}<br>${['周日','周一','周二','周三','周四','周五','周六'][now.getDay()]}`;
-
-  // category rows
-  const catStats = CATEGORIES.filter(c=>c!=='其他').map(cat=>{
-    let inAmt=0, outAmt=0, balVal=0;
-    for(const tx of TX){
-      const p = findProduct(tx.code);
-      if(!p || p.category !== cat) continue;
-      const amt = (Number(tx.qty)||0)*(Number(tx.price)||0);
-      if(tx.type==='入库') inAmt+=amt; else outAmt+=amt;
-    }
-    inv.filter(p=>p.category===cat).forEach(p=> balVal += p.balanceValue);
-    return {cat, inAmt, outAmt, balVal};
-  });
-  const maxAmt = Math.max(1, ...catStats.map(c=>Math.max(c.inAmt,c.outAmt)));
-  document.getElementById('catRows').innerHTML = catStats.map(c=>`
-    <div class="cat-row">
-      <div class="catname">${c.cat}</div>
-      <div>
-        <div class="bar-track" style="margin-bottom:3px;"><div class="bar-in" style="width:${(c.inAmt/maxAmt*100).toFixed(1)}%"></div></div>
-        <div class="bar-track"><div class="bar-out" style="width:${(c.outAmt/maxAmt*100).toFixed(1)}%"></div></div>
-      </div>
-      <div class="cat-amt">入 ${fmtMoney(c.inAmt)}<br>出 ${fmtMoney(c.outAmt)}</div>
-    </div>`).join('');
-
-  // warn list
-  const warns = inv.filter(p=>p.low);
-  document.getElementById('warnCount').textContent = warns.length + ' 项';
-  document.getElementById('warnList').innerHTML = warns.length
-    ? warns.map(p=>`<div class="warn-item"><span class="nm">${p.name}　<span style="color:var(--ink-faint); font-weight:400;">${p.code}</span></span><span class="qty">结存 ${p.balance} ${p.unit||''}</span></div>`).join('')
-    : `<div class="empty-note">暂无预警，库存充足 🍷</div>`;
+function noNewShortages(old,next){const dates=[...new Set([...old.transactions,...next.transactions,...old.orders,...next.orders].map(t=>t.date))];for(const d of dates){const a=C.calc(old,d).stocks,b=C.calc(next,d).stocks;for(const code of Object.keys(b))if(b[code].available<Math.min(0,a[code]?.available||0)-1e-8)return false;}return true;}
+function products(){const rows=data.products.filter(matches);return heading('PRODUCT LIBRARY','商品档案','维护一次，后续录单自动读取。历史价格不随档案修改而改变。','<button class="primary" data-action="product">＋ 新建商品</button>')+`<div class="toolbar"><input id="search" value="${esc(search)}" placeholder="搜索编码、名称或类别" aria-label="搜索商品"><span class="spacer"></span><button data-action="productCSV">导出商品 CSV</button><button data-action="csvImport">导入商品 CSV</button></div><section class="card">${table(['编码 / 类别','商品名称 / 规格','单位','参考进价','三局参考价','预警线','状态','操作'],rows.map(p=>`<tr><td>${esc(p.code)}<small>${esc(p.category)}</small></td><td>${esc(p.name)}<small>${esc(p.spec||'规格待补充')}</small></td><td>${esc(p.unit)}</td><td>${money(p.purchasePrice)}</td><td>${money(p.salePrice)}</td><td>${num(p.threshold)}</td><td>${p.review?pill('待核对','red'):pill('可用','green')}</td><td><button data-action="product" data-id="${esc(p.code)}">编辑</button></td></tr>`))}</section>`;}
+function productModal(code){const p=product(code)||{code:'',name:'',category:'白酒',spec:'',unit:'瓶',purchasePrice:0,salePrice:0,threshold:0,review:false};showModal(code?'编辑商品档案':'新建商品档案',`<form id="productForm"><div class="fieldgrid">${[['code','商品编码',p.code,'text'],['name','商品名称',p.name,'text'],['category','类别',p.category,'text'],['spec','规格 / 换算说明',p.spec,'text'],['unit','基础单位',p.unit,'text'],['threshold','库存预警线',p.threshold,'number'],['purchasePrice','参考采购价',p.purchasePrice,'number'],['salePrice','三局参考结算价',p.salePrice,'number']].map(([k,label,value,type])=>`<div class="field"><label for="p_${k}">${label}</label><input id="p_${k}" name="${k}" type="${type}" value="${esc(value)}" ${k==='code'&&code?'readonly':''} ${type==='number'?'min="0" step="0.000001"':''} ${['spec'].includes(k)?'':'required'} maxlength="100"></div>`).join('')}</div><div class="notice">单价默认对应基础单位。箱与瓶暂不自动互换：请按基础单位录入数量；规格栏仅用于说明。编码有业务后不能改名，发现重复编码请先核实。</div><label><input name="review" type="checkbox" ${p.review?'checked':''}> 此商品仍需核对包装或编码</label><div class="formbuttons"><button class="primary" type="submit">保存商品档案</button></div></form>`);
+ $('#productForm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.target),v=Object.fromEntries(f.entries());for(const k of ['code','name','category','spec','unit'])v[k]=(v[k]||'').trim();for(const k of ['purchasePrice','salePrice','threshold'])v[k]=+v[k];v.review=f.has('review');if(!/^[A-Za-z0-9_-]+$/.test(v.code))return toast('编码仅使用字母、数字、下划线或短横线。');if(!v.name||!v.unit)return toast('请补齐名称与单位。');if(!code&&product(v.code))return toast('编码已存在，请直接编辑。');if(code&&data.transactions.some(t=>t.code===code)&&v.unit!==p.unit)return toast('已有流水的商品不能直接改单位，请新建不同规格的商品。');if(mutate(d=>{const i=d.products.findIndex(p=>p.code===v.code);if(i>=0)d.products[i]=v;else d.products.push(v);},`保存商品 ${v.code}`)){closeModal();render();toast('商品档案已保存。');}};
 }
-
-/* ---------------- Products ---------------- */
-function fillCategoryFilters(){
-  const opts = CATEGORIES.map(c=>`<option value="${c}">${c}</option>`).join('');
-  document.getElementById('prodCatFilter').innerHTML = '<option value="">全部类目</option>' + opts;
-  document.getElementById('invCatFilter').innerHTML = '<option value="">全部类目</option>' + opts;
-}
-
-function renderProducts(){
-  const q = (document.getElementById('prodSearch').value||'').trim().toLowerCase();
-  const catF = document.getElementById('prodCatFilter').value;
-  let list = PRODUCTS.filter(p=>{
-    if(catF && p.category!==catF) return false;
-    if(q && !(p.code.toLowerCase().includes(q) || p.name.toLowerCase().includes(q))) return false;
-    return true;
-  });
-  document.getElementById('prodCount').textContent = PRODUCTS.length;
-  document.getElementById('productTbody').innerHTML = list.map(p=>`
-    <tr>
-      <td class="mono">${p.code}</td>
-      <td>${p.name}</td>
-      <td>${p.category||''}</td>
-      <td>${p.spec||''}</td>
-      <td>${p.unit||''}</td>
-      <td class="mono">${p.purchasePrice!=null?fmtMoney(p.purchasePrice):'-'}</td>
-      <td class="mono">${p.retailPrice!=null?fmtMoney(p.retailPrice):'-'}</td>
-      <td class="mono">${p.safetyStock!=null && p.safetyStock!==''?p.safetyStock:'-'}</td>
-      <td>
-        <button class="del-btn" title="编辑" onclick="editProduct('${p.code}')">✎</button>
-        <button class="del-btn" title="删除" onclick="deleteProduct('${p.code}')">🗑</button>
-      </td>
-    </tr>`).join('') || `<tr><td colspan="9" style="text-align:center; color:var(--ink-faint); padding:20px;">没有匹配的商品</td></tr>`;
-
-  refreshLedgerCodeSelect();
-}
-
-window.editProduct = function(code){
-  const p = findProduct(code);
-  if(!p) return;
-  editingCode = code;
-  document.getElementById('p_code').value = p.code;
-  document.getElementById('p_code').disabled = true;
-  document.getElementById('p_name').value = p.name;
-  document.getElementById('p_category').value = p.category || '其他';
-  document.getElementById('p_spec').value = p.spec || '';
-  document.getElementById('p_unit').value = p.unit || '';
-  document.getElementById('p_purchase').value = p.purchasePrice ?? '';
-  document.getElementById('p_retail').value = p.retailPrice ?? '';
-  document.getElementById('p_safety').value = p.safetyStock ?? '';
-  document.getElementById('editingHint').textContent = `正在编辑 ${p.code}`;
-  document.getElementById('p_cancel').style.display = 'inline-block';
-  document.getElementById('p_code').scrollIntoView({behavior:'smooth', block:'center'});
-}
-window.deleteProduct = async function(code){
-  if(!confirm(`确定删除商品 ${code} 吗？（不会删除已登记的出入库流水）`)) return;
-  PRODUCTS = PRODUCTS.filter(p=>p.code!==code);
-  await persistProducts();
-  renderAll();
-  showToast('已删除商品');
-}
-function resetProductForm(){
-  editingCode = null;
-  document.getElementById('p_code').disabled = false;
-  ['p_code','p_name','p_spec','p_unit','p_purchase','p_retail','p_safety'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('p_category').value = '白酒';
-  document.getElementById('editingHint').textContent = '';
-  document.getElementById('p_cancel').style.display = 'none';
-}
-
-async function saveProduct(){
-  const code = document.getElementById('p_code').value.trim();
-  const name = document.getElementById('p_name').value.trim();
-  if(!code || !name){ showToast('请填写产品编码和商品名称'); return; }
-  if(!editingCode && findProduct(code)){ showToast('该编码已存在，请换一个'); return; }
-
-  const data = {
-    code,
-    name,
-    category: document.getElementById('p_category').value,
-    spec: document.getElementById('p_spec').value.trim(),
-    unit: document.getElementById('p_unit').value.trim(),
-    purchasePrice: document.getElementById('p_purchase').value === '' ? null : Number(document.getElementById('p_purchase').value),
-    retailPrice: document.getElementById('p_retail').value === '' ? null : Number(document.getElementById('p_retail').value),
-    safetyStock: document.getElementById('p_safety').value === '' ? null : Number(document.getElementById('p_safety').value),
-  };
-  if(editingCode){
-    const idx = PRODUCTS.findIndex(p=>p.code===editingCode);
-    PRODUCTS[idx] = data;
-  } else {
-    PRODUCTS.push(data);
-  }
-  await persistProducts();
-  resetProductForm();
-  renderAll();
-  showToast('商品已保存');
-}
-
-/* ---------------- Ledger (transactions) ---------------- */
-function refreshLedgerCodeSelect(){
-  const selCode = document.getElementById('t_code');
-  const selName = document.getElementById('t_name');
-  const curCode = selCode.value;
-  const byCat = {};
-  PRODUCTS.forEach(p=>{ (byCat[p.category||'其他'] ??= []).push(p); });
-
-  let htmlCode = '<option value="">请选择产品编码…</option>';
-  let htmlName = '<option value="">请选择商品名称…</option>';
-  Object.keys(byCat).forEach(cat=>{
-    htmlCode += `<optgroup label="${cat}">`;
-    htmlName += `<optgroup label="${cat}">`;
-    byCat[cat].forEach(p=>{
-      htmlCode += `<option value="${p.code}">${p.code} · ${p.name}</option>`;
-      htmlName += `<option value="${p.code}">${p.name}${p.spec?'（'+p.spec+'）':''}</option>`;
-    });
-    htmlCode += `</optgroup>`;
-    htmlName += `</optgroup>`;
-  });
-  selCode.innerHTML = htmlCode;
-  selName.innerHTML = htmlName;
-  if(curCode){ selCode.value = curCode; selName.value = curCode; }
-}
-
-function currentBalance(code){
-  let inQ=0,outQ=0;
-  TX.forEach(tx=>{ if(tx.code===code){ if(tx.type==='入库') inQ+=Number(tx.qty)||0; else outQ+=Number(tx.qty)||0; } });
-  return inQ-outQ;
-}
-
-function updateLedgerPreview(){
-  const code = document.getElementById('t_code').value;
-  const type = document.getElementById('t_type').value;
-  const box = document.getElementById('t_preview');
-  const priceInput = document.getElementById('t_price');
-  const specAuto = document.getElementById('t_spec_auto');
-  const unitAuto = document.getElementById('t_unit_auto');
-  const refAuto = document.getElementById('t_refprice_auto');
-  const refLabel = document.getElementById('t_refprice_label');
-
-  refLabel.textContent = type==='入库' ? '参考进货价（自动）' : '参考零售价（自动）';
-
-  if(!code){
-    box.textContent = '选择产品编码或商品名称后，这里会显示类目和当前结存';
-    specAuto.value=''; unitAuto.value=''; refAuto.value='';
-    return;
-  }
-  const p = findProduct(code);
-  if(!p){
-    box.textContent = '未找到该商品，请先在商品档案新增';
-    specAuto.value=''; unitAuto.value=''; refAuto.value='';
-    return;
-  }
-  const suggest = type === '入库' ? p.purchasePrice : p.retailPrice;
-  specAuto.value = p.spec || '-';
-  unitAuto.value = p.unit || '-';
-  refAuto.value = suggest != null ? fmtMoney(suggest) : '-';
-  if(!priceInput.dataset.userEdited && suggest != null) priceInput.value = suggest;
-  box.innerHTML = `类目 <b>${p.category||'-'}</b>　当前结存 <b>${currentBalance(code)} ${p.unit||''}</b>`;
-}
-
-async function saveTransaction(){
-  const date = document.getElementById('t_date').value || todayStr();
-  const type = document.getElementById('t_type').value;
-  const code = document.getElementById('t_code').value;
-  const qty = Number(document.getElementById('t_qty').value);
-  const price = Number(document.getElementById('t_price').value);
-  const memo = document.getElementById('t_memo').value.trim();
-  if(!code){ showToast('请选择产品编码'); return; }
-  if(!qty || qty<=0){ showToast('请填写数量'); return; }
-  if(price===undefined || isNaN(price)){ showToast('请填写单价'); return; }
-
-  if(editingTxId){
-    const idx = TX.findIndex(t=>t.id===editingTxId);
-    if(idx>-1) TX[idx] = { id: editingTxId, date, type, code, qty, price, memo };
-    await persistTx();
-    resetTxForm();
-    renderAll();
-    showToast('记录已更新');
-    return;
-  }
-
-  TX.push({ id:'tx_'+Date.now(), date, type, code, qty, price, memo });
-  await persistTx();
-
-  document.getElementById('t_qty').value='';
-  document.getElementById('t_memo').value='';
-  document.getElementById('t_price').dataset.userEdited='';
-  renderAll();
-  showToast('已登记 1 条出入库记录');
-}
-
-window.editTx = function(id){
-  const tx = TX.find(t=>t.id===id);
-  if(!tx) return;
-  editingTxId = id;
-  document.getElementById('t_date').value = tx.date;
-  document.getElementById('t_type').value = tx.type;
-  refreshLedgerCodeSelect();
-  document.getElementById('t_code').value = tx.code;
-  document.getElementById('t_name').value = tx.code;
-  document.getElementById('t_qty').value = tx.qty;
-  document.getElementById('t_price').value = tx.price;
-  document.getElementById('t_price').dataset.userEdited = '1';
-  document.getElementById('t_memo').value = tx.memo || '';
-  document.getElementById('t_save').textContent = '更新记录';
-  document.getElementById('t_cancel').style.display = 'inline-block';
-  document.getElementById('txEditingHint').textContent = `正在编辑 ${tx.date} · ${tx.code}`;
-  updateLedgerPreview();
-  switchSection('ledger');
-  document.getElementById('t_code').scrollIntoView({behavior:'smooth', block:'center'});
-}
-
-function resetTxForm(){
-  editingTxId = null;
-  document.getElementById('t_date').value = todayStr();
-  document.getElementById('t_type').value = '入库';
-  document.getElementById('t_code').value = '';
-  document.getElementById('t_name').value = '';
-  document.getElementById('t_qty').value = '';
-  document.getElementById('t_price').value = '';
-  document.getElementById('t_price').dataset.userEdited = '';
-  document.getElementById('t_memo').value = '';
-  document.getElementById('t_save').textContent = '登记入账';
-  document.getElementById('t_cancel').style.display = 'none';
-  document.getElementById('txEditingHint').textContent = '';
-  updateLedgerPreview();
-}
-
-window.deleteTx = async function(id){
-  if(!confirm('确定删除这条出入库记录吗？')) return;
-  TX = TX.filter(t=>t.id!==id);
-  await persistTx();
-  if(editingTxId===id) resetTxForm();
-  renderAll();
-  showToast('已删除记录');
-}
-
-function renderLedgerTable(){
-  const q = (document.getElementById('txSearch').value||'').trim().toLowerCase();
-  const typeF = document.getElementById('txTypeFilter').value;
-  const sortDir = document.getElementById('txSort').value;
-  let list = TX.map(tx=>{
-    const p = findProduct(tx.code) || {};
-    return {...tx, name:p.name||'(未在档案)', category:p.category||'', unit:p.unit||''};
-  });
-  if(typeF) list = list.filter(t=>t.type===typeF);
-  if(q) list = list.filter(t=> t.code.toLowerCase().includes(q) || (t.name||'').toLowerCase().includes(q) || (t.memo||'').toLowerCase().includes(q));
-  list.sort((a,b)=> sortDir==='desc' ? b.date.localeCompare(a.date) : a.date.localeCompare(b.date));
-
-  document.getElementById('txCount').textContent = list.length;
-  document.getElementById('txTbody').innerHTML = list.map(t=>`
-    <tr>
-      <td class="mono">${t.date}</td>
-      <td><span class="tag ${t.type==='入库'?'in':'out'}">${t.type}</span></td>
-      <td class="mono">${t.code}</td>
-      <td>${t.name}</td>
-      <td>${t.category}</td>
-      <td>${t.unit}</td>
-      <td class="mono">${t.qty}</td>
-      <td class="mono">${fmtMoney(t.price)}</td>
-      <td class="mono">${fmtMoney((Number(t.qty)||0)*(Number(t.price)||0))}</td>
-      <td>${t.memo||''}</td>
-      <td>
-        <button class="del-btn" title="编辑" onclick="editTx('${t.id}')">✎</button>
-        <button class="del-btn" title="删除" onclick="deleteTx('${t.id}')">🗑</button>
-      </td>
-    </tr>`).join('') || `<tr><td colspan="11" style="text-align:center; color:var(--ink-faint); padding:20px;">没有匹配的记录</td></tr>`;
-}
-
-/* ---------------- Inventory detail ---------------- */
-function renderInventory(){
-  const q = (document.getElementById('invSearch').value||'').trim().toLowerCase();
-  const catF = document.getElementById('invCatFilter').value;
-  const statusF = document.getElementById('invStatusFilter').value;
-  let list = computeInventory();
-  if(catF) list = list.filter(p=>p.category===catF);
-  if(statusF==='low') list = list.filter(p=>p.low);
-  if(q) list = list.filter(p=> p.code.toLowerCase().includes(q) || p.name.toLowerCase().includes(q));
-
-  document.getElementById('invTbody').innerHTML = list.map(p=>`
-    <tr>
-      <td class="mono">${p.code}</td>
-      <td>${p.name}</td>
-      <td>${p.category||''}</td>
-      <td>${p.unit||''}</td>
-      <td class="mono">${p.inQty}</td>
-      <td class="mono">${p.outQty}</td>
-      <td class="mono">${p.balance}</td>
-      <td class="mono">${p.purchasePrice!=null?fmtMoney(p.purchasePrice):'-'}</td>
-      <td class="mono">${fmtMoney(p.balanceValue)}</td>
-      <td class="mono">${p.safetyStock!=null && p.safetyStock!==''?p.safetyStock:'-'}</td>
-      <td><span class="badge ${p.low?'low':'ok'}">${p.low?'⚠ 需补货':'正常'}</span></td>
-    </tr>`).join('') || `<tr><td colspan="11" style="text-align:center; color:var(--ink-faint); padding:20px;">没有匹配的商品</td></tr>`;
-}
-
-/* ---------------- Backup: export / import ---------------- */
-function downloadBlob(content, filename, mime){
-  const blob = new Blob([content], {type: mime});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = filename;
-  document.body.appendChild(a); a.click();
-  setTimeout(()=>{ document.body.removeChild(a); URL.revokeObjectURL(url); }, 300);
-}
-
-function exportJSON(){
-  const payload = { exportedAt: new Date().toISOString(), products: PRODUCTS, transactions: TX };
-  downloadBlob(JSON.stringify(payload, null, 2), `宏盛酒庄备份_${todayStr()}.json`, 'application/json');
-  showToast('JSON 备份已导出');
-}
-
-function exportExcel(){
-  if(typeof XLSX === 'undefined'){ showToast('导出组件加载失败，请稍后重试'); return; }
-  const inv = computeInventory();
-  const wb = XLSX.utils.book_new();
-
-  const prodRows = [['产品编码','商品名称','类目','规格','单位','参考进货价','参考零售价','安全库存']]
-    .concat(PRODUCTS.map(p=>[p.code,p.name,p.category||'',p.spec||'',p.unit||'',p.purchasePrice??'',p.retailPrice??'',p.safetyStock??'']));
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(prodRows), '商品档案');
-
-  const txRows = [['日期','类型','产品编码','商品名称','类目','数量','单价','金额','摘要']]
-    .concat(TX.map(t=>{
-      const p = findProduct(t.code)||{};
-      return [t.date,t.type,t.code,p.name||'',p.category||'',t.qty,t.price,(Number(t.qty)||0)*(Number(t.price)||0),t.memo||''];
-    }));
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(txRows), '出入库登记');
-
-  const invRows = [['产品编码','商品名称','类目','单位','累计入库','累计出库','结存数量','参考进货价','结存金额','安全库存','状态']]
-    .concat(inv.map(p=>[p.code,p.name,p.category||'',p.unit||'',p.inQty,p.outQty,p.balance,p.purchasePrice??'',p.balanceValue,p.safetyStock??'',p.low?'需补货':'正常']));
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(invRows), '库存明细');
-
-  XLSX.writeFile(wb, `宏盛酒庄进销存备份_${todayStr()}.xlsx`);
-  showToast('Excel 备份已导出');
-}
-
-function downloadTemplate(){
-  if(typeof XLSX === 'undefined'){ showToast('组件加载失败，请稍后重试'); return; }
-  const rows = [['日期','类型','产品编码','数量','单价','摘要'],['2026-08-20','入库','D1000101',12,1700,'采购入库 示例行，请删除']];
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), '出入库导入模板');
-  XLSX.writeFile(wb, '出入库导入模板.xlsx');
-}
-
-async function importJSONFile(file){
-  if(!file) return;
-  if(!confirm('导入会整体覆盖当前的商品档案和出入库数据，确定继续吗？')) return;
-  try{
-    const text = await file.text();
-    const data = JSON.parse(text);
-    if(!Array.isArray(data.products) || !Array.isArray(data.transactions)) throw new Error('格式不对');
-    PRODUCTS = data.products;
-    TX = data.transactions;
-    await persistProducts();
-    await persistTx();
-    fillCategoryFilters();
-    resetProductForm();
-    resetTxForm();
-    renderAll();
-    showToast(`恢复成功：商品 ${PRODUCTS.length} 个，流水 ${TX.length} 条`);
-  }catch(e){
-    alert('这个文件看起来不是有效的备份 JSON，导入失败。');
-  }
-}
-
-const HEADER_MAP = {
-  '日期':'date','date':'date',
-  '类型':'type','type':'type',
-  '产品编码':'code','编码':'code','code':'code',
-  '数量':'qty','qty':'qty',
-  '单价':'price','price':'price',
-  '摘要':'memo','备注':'memo','摘要/备注':'memo','memo':'memo'
-};
-
-function excelDateToStr(v){
-  if(v instanceof Date) {
-    const p = n=>String(n).padStart(2,'0');
-    return `${v.getFullYear()}-${p(v.getMonth()+1)}-${p(v.getDate())}`;
-  }
-  const s = String(v).trim();
-  const m = s.match(/^(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/);
-  if(m) return `${m[1]}-${m[2].padStart(2,'0')}-${m[3].padStart(2,'0')}`;
-  return s;
-}
-
-async function importTxFile(file){
-  if(!file) return;
-  if(typeof XLSX === 'undefined'){ showToast('组件加载失败，请稍后重试'); return; }
-  const resultBox = document.getElementById('importResult');
-  try{
-    const buf = await file.arrayBuffer();
-    const wb = XLSX.read(buf, {type:'array', cellDates:true});
-    const sheet = wb.Sheets[wb.SheetNames[0]];
-    const rows = XLSX.utils.sheet_to_json(sheet, {defval:''});
-    if(!rows.length){ resultBox.textContent = '文件里没有数据行。'; return; }
-
-    let ok=0, skipped=0, unknownCodes=new Set();
-    const newRows = [];
-    rows.forEach(row=>{
-      const norm = {};
-      Object.keys(row).forEach(k=>{
-        const key = HEADER_MAP[k.trim()] || HEADER_MAP[k.trim().toLowerCase()];
-        if(key) norm[key] = row[k];
-      });
-      const date = norm.date ? excelDateToStr(norm.date) : '';
-      const type = (norm.type||'').toString().trim();
-      const code = (norm.code||'').toString().trim();
-      const qty = Number(norm.qty);
-      const price = Number(norm.price);
-      const memo = (norm.memo||'').toString().trim();
-      if(!date || (type!=='入库' && type!=='出库') || !code || !qty || isNaN(price)){ skipped++; return; }
-      if(!findProduct(code)) unknownCodes.add(code);
-      newRows.push({ id:'tx_'+Date.now()+'_'+Math.random().toString(36).slice(2,7), date, type, code, qty, price, memo });
-      ok++;
-    });
-
-    if(!ok){ resultBox.innerHTML = `<span style="color:var(--warn);">没有能识别的数据行，请检查列名是否是：日期/类型/产品编码/数量/单价/摘要。</span>`; return; }
-
-    TX = TX.concat(newRows);
-    await persistTx();
-    renderAll();
-
-    let msg = `成功导入 ${ok} 条${skipped?`，跳过 ${skipped} 条（格式不完整）`:''}。`;
-    if(unknownCodes.size) msg += ` 注意：${[...unknownCodes].join('、')} 不在商品档案中，记录已导入但需要去补建档案。`;
-    resultBox.innerHTML = `<span style="color:var(--sage);">${msg}</span>`;
-    showToast(`已导入 ${ok} 条记录`);
-  }catch(e){
-    resultBox.innerHTML = `<span style="color:var(--warn);">读取文件失败，请确认是 .xlsx / .csv 格式。</span>`;
-  }
-}
-
-async function wipeAllData(){
-  if(!confirm('确定要清空全部商品和出入库数据吗？此操作不可恢复！')) return;
-  if(!confirm('再次确认：真的要清空全部数据吗？建议先导出备份。')) return;
-  PRODUCTS = [];
-  TX = [];
-  await persistProducts();
-  await persistTx();
-  resetProductForm();
-  resetTxForm();
-  renderAll();
-  showToast('数据已清空');
-}
-
-/* ---------------- Nav / boot ---------------- */
-function renderAll(){
-  renderDashboard();
-  renderProducts();
-  renderLedgerTable();
-  renderInventory();
-}
-
-function switchSection(name){
-  document.querySelectorAll('.navitem').forEach(el=>el.classList.toggle('active', el.dataset.section===name));
-  document.querySelectorAll('.section').forEach(el=>el.classList.remove('active'));
-  document.getElementById('sec-'+name).classList.add('active');
-}
-
-document.getElementById('navlist').addEventListener('click', e=>{
-  const item = e.target.closest('.navitem');
-  if(item) switchSection(item.dataset.section);
+function inventory(){const s=C.calc(data,today()).stocks;const ps=data.products.filter(p=>matches(p)&&(!stockFilter||s[p.code].available<=p.threshold));const trs=data.transactions.filter(t=>!t.void&&(!month||t.date.startsWith(month))&&(!txType||t.type===txType)&&matches(product(t.code)||{})).slice().sort((a,b)=>b.date.localeCompare(a.date)||b.seq-a.seq);return heading('INVENTORY & LEDGER','库存与流水','库存截至今天；流水可按月和业务筛选。原始记录保留来源行号。')+provisional()+`<div class="toolbar"><input id="search" value="${esc(search)}" placeholder="搜索商品编码或名称" aria-label="搜索库存"><select id="stockFilter" aria-label="库存范围"><option value="">全部库存</option><option value="low" ${stockFilter?'selected':''}>仅看预警</option></select><button data-action="inventoryCSV">导出库存 CSV</button></div><section class="card"><div class="cardhead"><h2>实时库存</h2><span class="muted">${ps.length} 个商品</span></div>${table(['商品','基础单位','实物数量','未提货占用','可用数量','预警线','成本状态'],ps.map(p=>{const v=s[p.code];return `<tr><td>${esc(p.name)}<small>${esc(p.code)}</small></td><td>${esc(p.unit)}</td><td>${num(v.qty)}</td><td>${num(v.reserved)}</td><td>${pill(num(v.available),v.available<=p.threshold?'red':'green')}</td><td>${num(p.threshold)}</td><td>${pill(v.uncertain||data.meta.opening!=='已核定'?'待核定':'按流水计算',v.uncertain?'red':'')}</td></tr>`;}))}</section><section class="card"><div class="cardhead"><h2>出入库流水</h2><span class="muted">${trs.length} 笔</span></div><div class="toolbar"><input id="month" aria-label="流水月份，留空显示全部" type="month" value="${esc(month)}"><select id="txType" aria-label="流水业务"><option value="">全部业务</option>${Object.entries(C.TYPES).map(([k,v])=>`<option value="${k}" ${txType===k?'selected':''}>${v}</option>`).join('')}</select><button data-action="clearFilter">清除筛选</button><span class="spacer"></span><button data-action="ledgerCSV">导出筛选流水 CSV</button></div>${table(['日期 / 编号','类型','商品','数量','单价','金额','备注 / 来源','操作'],trs.map(t=>`<tr><td>${esc(t.date)}<small>#${t.seq}</small></td><td>${kind(t.type)}</td><td>${esc(product(t.code)?.name)}<small>${esc(t.code)}</small></td><td>${num(t.qty)} ${esc(product(t.code)?.unit)}</td><td>${money(t.price)}</td><td class="amount">${money(t.qty*t.price)}</td><td class="wraptext">${esc(t.note)}<small>${esc(t.source||'工作台录入')}${t.review?' · 待核对':''}</small></td><td><button class="danger" data-action="void" data-id="${esc(t.id)}">作废</button></td></tr>`))}</section>`;}
+function reports(){const rows=C.report(data,dateMonth(),client),isSale=client==='sale',amount=rows.reduce((a,t)=>a+t.amount,0);const groups={};for(const t of rows){const g=groups[t.code]||(groups[t.code]={code:t.code,qty:0,amount:0});g.qty+=t.net;g.amount+=t.amount;}const title=isSale?'中建三局 · 月度销售统计':'老板自用 · 月度领用统计';return heading('MONTHLY STATEMENTS','月度统计','保存流水后自动归集；按业务发生月份展示退回和原单，不跨月覆盖。')+`<div class="toolbar">${monthInput()}<select id="client" aria-label="报表对象"><option value="sale" ${isSale?'selected':''}>中建三局</option><option value="self" ${!isSale?'selected':''}>老板自用</option></select><select id="reportTab" aria-label="明细或汇总"><option value="detail" ${tab==='detail'?'selected':''}>逐笔明细</option><option value="summary" ${tab==='summary'?'selected':''}>按商品汇总</option></select><span class="spacer"></span><button data-action="reportCSV">导出本表 CSV</button><button class="primary" data-action="print">打印 / 存为 PDF</button></div>${provisional()}<section class="card" id="reportPrint"><div class="reportheader"><div><div class="eyebrow">HONGSHENG CELLAR / MONTHLY REPORT</div><h2 class="reporttitle">${esc(title)}</h2><p class="sub">统计月份：${esc(dateMonth())}　·　${tab==='detail'?'逐笔明细':'按商品汇总'}</p></div><small>${isSale?'销售金额未包含独立对账价差':'按原流水记录单价计值'}<br>期初状态：${esc(data.meta.opening||'未核定')}</small></div>${tab==='detail'?table(['日期','类型','商品 / 编码','规格','单位','净数量','记录单价','净金额'],rows.map(t=>{const p=product(t.code);return `<tr><td>${esc(t.date)}</td><td>${esc(C.TYPES[t.type])}</td><td>${esc(p?.name)}<small>${esc(t.code)}</small></td><td>${esc(p?.spec||'待补充')}</td><td>${esc(p?.unit)}</td><td>${num(t.net)}</td><td>${money(t.price)}</td><td class="amount">${money(t.amount)}</td></tr>`;})):table(['商品 / 编码','规格','单位','净数量','净金额'],Object.values(groups).map(g=>{const p=product(g.code);return `<tr><td>${esc(p.name)}<small>${esc(g.code)}</small></td><td>${esc(p.spec||'待补充')}</td><td>${esc(p.unit)}</td><td>${num(g.qty)}</td><td class="amount">${money(g.amount)}</td></tr>`;}))}<div class="amountbox"><span>${rows.length} 笔记录 · ${Object.keys(groups).length} 种商品 · 退回以负数抵减</span><strong>¥ ${money(amount)}</strong></div><p class="sub" style="margin-top:15px">${isSale?'中建三局基础设施建设投资有限公司':'老板自用 / 盛总自用'} · 生成日期 ${today()}。库存成本和历史异常尚未确认前，不输出确定毛利。</p></section>`;}
+function orders(){const active=data.orders.filter(o=>!o.void);return heading('ORDERS & RECONCILIATION','对账与提货','订货占用可用库存；实际提货才扣实物库存。每次提货自动生成三局出库。','<button class="primary" data-action="order">＋ 新建待提货订单</button>')+`<div class="notice">本页管理新建订单。原表订货与实际提货的历史对应关系尚待核对，未自动迁移，避免重复扣库存。对外对账请到「月度统计」选择中建三局导出；旧表中的商品替换与价差未自动生成。</div><section class="card">${table(['订货日期 / 编号','商品','订货数量','已提净数量','剩余未提','结算单价','操作'],active.map(o=>{const d=C.delivered(data,o.id),p=product(o.code);return `<tr><td>${esc(o.date)}<small>${esc(o.id.slice(-8))}</small></td><td>${esc(p.name)}<small>${esc(p.code)}</small></td><td>${num(o.qty)} ${esc(p.unit)}</td><td>${num(d)}</td><td>${pill(num(o.qty-d),o.qty>d?'red':'green')}</td><td>${money(o.price)}</td><td>${o.qty>d?`<button data-action="fulfill" data-id="${esc(o.id)}">登记提货</button>`:pill('已提完','green')} <button class="danger" data-action="cancelOrder" data-id="${esc(o.id)}">关闭订单</button></td></tr>`;}))}</section><section class="card guide"><h2>两条计算规则</h2><p>① 下单后，实物数量不变，可用数量减少；分批提货会同步减少实物数量及未提货占用。</p><p>② 关闭订单只释放未提货占用，不撤销已发生的实际出库。退回货物请在「快速录单」关联原提货单。</p></section>`;}
+function orderModal(){showModal('新建待提货订单',`<form id="orderForm"><div class="fieldgrid"><div class="field"><label>订货日期</label><input name="date" type="date" value="${today()}" required></div><div class="field"><label>客户</label><input value="中建三局" readonly></div><div class="field full"><label>商品</label><select name="code" required><option value="">请选择商品</option>${data.products.map(p=>`<option value="${esc(p.code)}">${esc(p.code)} · ${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>订货数量（基础单位）</label><input name="qty" type="number" min="0.001" step="0.001" required></div><div class="field"><label>结算单价</label><input name="price" type="number" min="0" step="0.000001" required></div></div><div class="notice">保存后立即占用可用库存，库存不足时不能建立订单。</div><div class="formbuttons"><button class="primary" type="submit">保存订单</button></div></form>`);const f=$('#orderForm');f.elements.code.onchange=()=>f.elements.price.value=C.priceAt(data,f.elements.code.value,'sale',f.elements.date.value);f.onsubmit=e=>{e.preventDefault();const v=Object.fromEntries(new FormData(f)),o={...v,qty:+v.qty,price:+v.price,id:uid()};if(o.date>today())return toast('订货日期不能晚于今天。');const next=JSON.parse(JSON.stringify(data));next.orders.push(o);if(!noNewShortages(data,next))return toast('订单占用后库存不足，请先入库或核对历史库存。');if(commit(next,'建立待提货订单 '+o.id)){closeModal();render();toast('订单已保存，可用库存已更新。');}};}
+function fulfillModal(id){const o=data.orders.find(o=>o.id===id),p=product(o.code),remaining=o.qty-C.delivered(data,id);showModal('登记实际提货',`<form id="fulfillForm"><div class="productpreview"><strong>${esc(p.name)}</strong><p>剩余 ${num(remaining)} ${esc(p.unit)} · 单价 ¥${money(o.price)}</p></div><div class="fieldgrid"><div class="field"><label>实际提货日期</label><input name="date" type="date" value="${today()}" min="${esc(o.date)}" max="${today()}" required></div><div class="field"><label>本次提货数量</label><input name="qty" type="number" min="0.001" step="0.001" max="${remaining}" required></div></div><div class="formbuttons"><button class="primary" type="submit">确认提货并生成出库</button></div></form>`);$('#fulfillForm').onsubmit=e=>{e.preventDefault();const v=Object.fromEntries(new FormData(e.target));const next=JSON.parse(JSON.stringify(data));next.transactions.push({id:uid(),seq:Math.max(0,...data.transactions.map(t=>t.seq))+1,date:v.date,type:'sale',code:o.code,qty:+v.qty,price:o.price,orderId:id,note:'待提货订单实际提货'});if(!noNewShortages(data,next))return toast('库存不足，不能登记提货。');if(commit(next,'订单实际提货 '+id)){closeModal();render();toast('已生成三局出库，月报同步更新。');}};}
+function settings(){return heading('DATA & PREFERENCES','数据与设置','数据留在当前浏览器。更新网页代码不会主动覆盖经营数据；更换网址、浏览器或清理缓存后需要恢复备份。')+`<div class="grid2"><div><section class="card"><div class="cardhead"><h2>导入与备份</h2>${pill('本机存储')}</div><p class="sub">${data.products.length} 个商品 · ${data.transactions.filter(t=>!t.void).length} 笔有效流水 · ${data.orders.filter(o=>!o.void).length} 张订单</p><div class="toolbar"><button class="primary" data-action="import">导入历史数据 / 恢复备份</button><button data-action="backup">导出完整 JSON 备份</button></div><div class="notice wine">JSON包含真实经营数据，只在工作台内导入，勿上传公开 GitHub 仓库。页面不含密码系统；能访问此浏览器的人可以查看本机数据。</div><p class="sub">恢复采用整份替换，导入前先下载现有备份。历史Excel已另行整理为专用JSON；当前版本不直接解析任意Excel。</p><button data-action="demo">打开演示数据（独立于真实记录）</button></section><section class="card"><div class="cardhead"><h2>历史数据核对</h2>${pill(data.meta.opening||'未核定','red')}</div><p class="sub">成本仅按现有流水暂算。确认期初库存应在业务核实后进行；确认状态不会调整任何数量。</p>${data.issues.length?data.issues.map((i,idx)=>`<div class="issue"><b>${pill(i.resolved?'已记录处理说明':'待核对',i.resolved?'green':'red')} ${esc(i.title)}</b><p>${esc(i.detail)}</p>${i.resolution?`<p>处理说明：${esc(i.resolution)}</p>`:''}<button data-action="issue" data-id="${idx}">${i.resolved?'修改处理说明':'记录处理说明'}</button></div>`).join(''):'<div class="empty">没有待导入的历史核对项。</div>'}<div class="toolbar"><button data-action="opening">记录期初核定状态</button></div></section></div><div><section class="card guide"><h2>本机版的使用边界</h2><p>适合单人、固定浏览器日常使用。保存成功后，页面即时重新计算；多个标签页会提示重新加载。</p><p>不同设备、不同浏览器的数据不会自动同步。建议每天结束时导出完整JSON备份；恢复时选择最近一次备份。</p><p>本版已实现商品档案、出入库、库存、两类月报、CSV导出、提货订单、作废留痕和异常核对。</p><p>完整收付款、账期催收、财务损益、旧表特殊对账价差和自动箱瓶换算尚未接入。</p><button data-action="guide">查看部署与使用说明</button></section><section class="card"><div class="cardhead"><h2>最近操作</h2></div>${(data.audit||[]).slice(-10).reverse().map(a=>`<div class="auditrow">${esc(a.action)}<small class="muted" style="display:block">${esc(new Date(a.time).toLocaleString('zh-CN'))}</small></div>`).join('')||'<p class="sub">暂无操作记录</p>'}</section></div></div>`;}
+function showModal(title,body){$('#modalTitle').textContent=title;$('#modalBody').innerHTML=body;$('#modal').showModal();}
+function closeModal(){$('#modal').close();}
+function confirmModal(title,text,fn){showModal(title,`<p>${esc(text)}</p><div class="formbuttons"><button data-action="close">取消</button><button class="primary" id="confirmAction">确认</button></div>`);$('#confirmAction').onclick=()=>{closeModal();fn();};}
+function download(name,text,type='application/json'){const u=URL.createObjectURL(new Blob([text],{type})),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
+function backup(){download(`宏盛酒庄_完整备份_${today()}.json`,JSON.stringify(data,null,2));toast('备份已交给浏览器下载，请妥善保存。');}
+function csv(name,rows){const cell=v=>{const s=String(v??'');return '"'+(/^[=+@\t\r]/.test(s)||/^-\D/.test(s)?"'":'')+s.replace(/"/g,'""')+'"';};download(name,'\ufeff'+rows.map(r=>r.map(cell).join(',')).join('\r\n'),'text/csv;charset=utf-8');}
+function exportReport(){const rows=C.report(data,dateMonth(),client);if(tab==='summary'){const g={};for(const t of rows){const a=g[t.code]||(g[t.code]={qty:0,amount:0});a.qty+=t.net;a.amount+=t.amount;}csv(`${dateMonth()}_${client==='sale'?'三局销售':'老板自用'}_汇总.csv`,[['商品编码','商品名称','规格','单位','净数量','净金额'],...Object.entries(g).map(([code,v])=>{const p=product(code);return [code,p.name,p.spec,p.unit,v.qty,C.round(v.amount)];})]);}else csv(`${dateMonth()}_${client==='sale'?'三局销售':'老板自用'}_明细.csv`,[['日期','类型','编码','商品','规格','单位','净数量','单价','净金额'],...rows.map(t=>{const p=product(t.code);return [t.date,C.TYPES[t.type],t.code,p.name,p.spec,p.unit,t.net,t.price,t.amount];})]);}
+function parseCSV(text){const rows=[];let row=[],cell='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i];if(c==='"'){if(quoted&&text[i+1]==='"'){cell+='"';i++;}else quoted=!quoted;}else if(c===','&&!quoted){row.push(cell);cell='';}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&text[i+1]==='\n')i++;row.push(cell);if(row.some(c=>c.trim()))rows.push(row);row=[];cell='';}else cell+=c;}if(quoted)throw Error('CSV引号未闭合');row.push(cell);if(row.some(c=>c.trim()))rows.push(row);return rows;}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(!b)return;const action=b.dataset.action,id=b.dataset.id;
+ if(action==='new'){txType=b.dataset.type||'purchase';if(page==='entry')render();else location.hash='entry';}
+ else if(action==='product')productModal(id);
+ else if(action==='close')closeModal();
+ else if(action==='backup')backup();
+ else if(action==='import'){$('#jsonFile').value='';$('#jsonFile').click();}
+ else if(action==='csvImport'){$('#csvFile').value='';$('#csvFile').click();}
+ else if(action==='print')window.print();
+ else if(action==='clearFilter'){month='';txType='';search='';stockFilter='';render();}
+ else if(action==='reportCSV')exportReport();
+ else if(action==='productCSV')csv('商品档案.csv',[['商品编码','商品名称','类别','规格','单位','参考采购价','三局参考价','预警线'],...data.products.map(p=>[p.code,p.name,p.category,p.spec,p.unit,p.purchasePrice,p.salePrice,p.threshold])]);
+ else if(action==='inventoryCSV'){const stocks=C.calc(data,today()).stocks;csv('库存_'+today()+'.csv',[['商品编码','商品名称','单位','实物数量','未提货占用','可用数量','预警线'],...data.products.filter(matches).map(p=>[p.code,p.name,p.unit,stocks[p.code].qty,stocks[p.code].reserved,stocks[p.code].available,p.threshold])]);}
+ else if(action==='ledgerCSV')csv('出入库流水.csv',[['日期','类型','商品编码','商品名称','单位','数量','单价','金额','备注','来源'],...data.transactions.filter(t=>!t.void&&(!month||t.date.startsWith(month))&&(!txType||t.type===txType)&&matches(product(t.code)||{})).map(t=>[t.date,C.TYPES[t.type],t.code,product(t.code)?.name,product(t.code)?.unit,t.qty,t.price,C.round(t.qty*t.price),t.note,t.source])]);
+ else if(action==='void'){const t=data.transactions.find(t=>t.id===id);if(data.transactions.some(r=>!r.void&&r.original===id))return toast('原单有有效退回记录，请先作废关联退回。');confirmModal('作废这笔流水？',`#${t.seq} ${C.TYPES[t.type]} ${product(t.code).name} ${num(t.qty)}。原记录将保留，作废后重新计算库存与月报。`,()=>{const next=JSON.parse(JSON.stringify(data));next.transactions.find(t=>t.id===id).void=true;if(!noNewShortages(data,next))return toast('作废会造成库存不足或订单超额，请先处理后续业务。');if(commit(next,'作废流水 #'+t.seq)){render();toast('已作废并重新计算。');}});}
+ else if(action==='order')orderModal();
+ else if(action==='fulfill')fulfillModal(id);
+ else if(action==='cancelOrder')confirmModal('关闭待提货订单？','只释放剩余占用，已提货记录继续保留。',()=>{if(mutate(d=>d.orders.find(o=>o.id===id).void=true,'关闭订单 '+id))render();});
+ else if(action==='issue'){const i=data.issues[+id];showModal('记录核对说明',`<form id="issueForm"><h3>${esc(i.title)}</h3><p class="sub">${esc(i.detail)}</p><div class="field"><label>处理说明</label><textarea name="resolution" rows="4" required maxlength="1000">${esc(i.resolution||'')}</textarea></div><p class="sub">此操作只保存说明，不修改历史流水、编码或价格。</p><div class="formbuttons"><button class="primary">保存说明</button></div></form>`);$('#issueForm').onsubmit=e=>{e.preventDefault();const r=e.target.elements.resolution.value.trim();if(!r)return;if(mutate(d=>{d.issues[+id].resolved=true;d.issues[+id].resolution=r;},'记录异常核对说明')){closeModal();render();}};}
+ else if(action==='opening'){showModal('期初核定状态',`<form id="openingForm"><p class="sub">请完成实物盘点和历史差异核对。此处不会自动补库存，若需要期初数量，请在正式上线前整理准确的期初及切换日期。</p><div class="field"><label>核定状态</label><select name="opening"><option>未核定</option><option>已核定</option></select></div><div class="field"><label>核对说明 / 盘点依据</label><textarea name="note" required rows="3"></textarea></div><div class="formbuttons"><button class="primary">记录状态</button></div></form>`);$('#openingForm').onsubmit=e=>{e.preventDefault();const v=Object.fromEntries(new FormData(e.target));if(v.opening==='已核定'&&data.issues.some(i=>!i.resolved))return toast('仍有未处理的历史核对项，请先记录处理说明。');if(mutate(d=>{d.meta.opening=v.opening;d.meta.openingNote=v.note;},'记录期初状态 '+v.opening)){closeModal();render();}};}
+ else if(action==='guide')showModal('部署与使用',`<div class="guide"><ol><li>解压网页包，将 index.html、style.css、core.js、app.js、.nojekyll 上传到 GitHub 仓库根目录。</li><li>仓库 Settings → Pages → Deploy from a branch → main / (root) → Save。</li><li>打开 Pages 地址，进入数据与设置，导入单独下载的历史JSON。该JSON不要上传GitHub。</li><li>先核对异常、商品规格及期初库存，再录入正式新业务。浏览器默认统计当前月份，可手动切到2026年10月查看历史。</li><li>每天导出完整备份；CSV用于查看和交接，完整恢复需要JSON。</li></ol></div>`);
+ else if(action==='demo')confirmModal('切换到演示数据？','将先下载当前完整备份，然后使用虚构商品演示。请确认备份下载成功后，再恢复真实数据。',()=>{backup();const d=empty();d.meta={name:'演示',opening:'已核定'};d.products=[{code:'DEMO01',name:'演示 · 珍藏红葡萄酒',category:'红酒',spec:'750ml / 瓶',unit:'瓶',purchasePrice:180,salePrice:280,threshold:6}];d.transactions=[{id:'demo-in',seq:1,date:today(),type:'purchase',code:'DEMO01',qty:24,price:180,note:'虚构演示数据'},{id:'demo-sale',seq:2,date:today(),type:'sale',code:'DEMO01',qty:6,price:280,note:'虚构演示数据'},{id:'demo-self',seq:3,date:today(),type:'self',code:'DEMO01',qty:2,price:180,note:'虚构演示数据'}];if(commit(d,'加载虚构演示数据')){month=today().slice(0,7);render();toast('当前为虚构演示，恢复真实JSON可切回。');}});
 });
-
-document.getElementById('p_save').addEventListener('click', saveProduct);
-document.getElementById('p_cancel').addEventListener('click', resetProductForm);
-document.getElementById('prodSearch').addEventListener('input', renderProducts);
-document.getElementById('prodCatFilter').addEventListener('change', renderProducts);
-
-document.getElementById('t_code').addEventListener('change', e=>{
-  document.getElementById('t_name').value = e.target.value;
-  document.getElementById('t_price').dataset.userEdited='';
-  updateLedgerPreview();
-});
-document.getElementById('t_name').addEventListener('change', e=>{
-  document.getElementById('t_code').value = e.target.value;
-  document.getElementById('t_price').dataset.userEdited='';
-  updateLedgerPreview();
-});
-document.getElementById('t_type').addEventListener('change', updateLedgerPreview);
-document.getElementById('t_price').addEventListener('input', e=> e.target.dataset.userEdited='1');
-document.getElementById('t_save').addEventListener('click', saveTransaction);
-document.getElementById('txSearch').addEventListener('input', renderLedgerTable);
-document.getElementById('txTypeFilter').addEventListener('change', renderLedgerTable);
-document.getElementById('txSort').addEventListener('change', renderLedgerTable);
-
-document.getElementById('invSearch').addEventListener('input', renderInventory);
-document.getElementById('invCatFilter').addEventListener('change', renderInventory);
-document.getElementById('invStatusFilter').addEventListener('change', renderInventory);
-
-document.getElementById('t_cancel').addEventListener('click', resetTxForm);
-
-document.getElementById('exportExcelBtn').addEventListener('click', exportExcel);
-document.getElementById('exportJsonBtn').addEventListener('click', exportJSON);
-document.getElementById('importJsonFile').addEventListener('change', e=>{ importJSONFile(e.target.files[0]); e.target.value=''; });
-document.getElementById('downloadTemplateBtn').addEventListener('click', downloadTemplate);
-document.getElementById('importTxFile').addEventListener('change', e=>{ importTxFile(e.target.files[0]); e.target.value=''; });
-document.getElementById('wipeBtn').addEventListener('click', wipeAllData);
-
-(async function init(){
-  try{
-    await loadData();
-    fillCategoryFilters();
-    document.getElementById('t_date').value = todayStr();
-    refreshLedgerCodeSelect();
-    renderAll();
-  }catch(err){
-    console.error(err);
-    document.querySelector('main').insertAdjacentHTML('afterbegin',
-      `<div style="background:#F6E2D8;border:1px solid #EAC2AC;border-radius:10px;padding:16px 18px;margin-bottom:20px;color:#7A2A31;font-size:13px;">
-        工作台加载时出了点问题：${(err && err.message) || err}。请尝试刷新页面；如果还是空白，把这段文字发给我，我来修。
-      </div>`);
-  }
-})();
-</script>
-</body>
-</html>
+document.addEventListener('change',e=>{if(e.target.id==='month'){month=e.target.value;render();}else if(e.target.id==='client'){client=e.target.value;render();}else if(e.target.id==='txType'){txType=e.target.value;render();}else if(e.target.id==='stockFilter'){stockFilter=e.target.value;render();}else if(e.target.id==='reportTab'){tab=e.target.value;render();}});
+let searchTimer;document.addEventListener('input',e=>{if(e.target.id==='search'){const pos=e.target.selectionStart;search=e.target.value;clearTimeout(searchTimer);searchTimer=setTimeout(()=>{render();const inp=$('#search');if(inp){inp.focus();inp.setSelectionRange(pos,pos);}},180);}});
+$('#jsonFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{if(f.size>20*1024*1024)throw Error('文件超过20MB');const next=C.valid(JSON.parse(await f.text()));showModal('确认导入数据',`<p>检测到 <b>${next.products.length}</b> 个商品、<b>${next.transactions.length}</b> 笔流水、<b>${next.orders.length}</b> 张订单。</p><div class="notice wine">导入会整体替换当前数据。请先下载当前备份；不合并重复记录。</div><div class="formbuttons"><button data-action="backup">先下载当前备份</button><button id="acceptImport" class="primary">确认替换并导入</button></div>`);$('#acceptImport').onclick=()=>{if(commit(next,'导入完整数据 '+f.name)){closeModal();month='';search='';render();toast('导入成功。可切换月份查看历史报表。');}};}catch(err){toast('导入失败：'+err.message);}};
+$('#csvFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const rows=parseCSV((await f.text()).replace(/^\ufeff/,''));const hdr=['商品编码','商品名称','类别','规格','单位','参考采购价','三局参考价','预警线'];if(JSON.stringify(rows.shift())!==JSON.stringify(hdr))throw Error('列名不匹配，请先导出商品CSV作为模板');const next=JSON.parse(JSON.stringify(data)),seen=new Set();for(const r of rows){if(r.length!==8)throw Error('列数必须为8');const code=r[0].trim();if(!/^[A-Za-z0-9_-]+$/.test(code)||seen.has(code))throw Error('编码无效或文件中重复');seen.add(code);if(next.products.some(p=>p.code===code))throw Error('编码 '+code+' 已存在，CSV仅用于新增商品');const numbers=r.slice(5).map(Number);if(numbers.some(n=>!Number.isFinite(n)||n<0))throw Error('价格或预警线不是有效数字');next.products.push({code,name:r[1].trim(),category:r[2].trim(),spec:r[3].trim(),unit:r[4].trim(),purchasePrice:numbers[0],salePrice:numbers[1],threshold:numbers[2],review:false});}C.valid(next);confirmModal('导入商品CSV？',`将新增 ${rows.length} 个商品，不修改现有档案。`,()=>{if(commit(next,'CSV新增商品')){render();toast('商品CSV已导入。');}});}catch(err){toast('CSV未导入：'+err.message);}};
+$('#closeModal').onclick=closeModal;$('#menutoggle').onclick=()=>document.body.classList.toggle('navopen');
+window.addEventListener('hashchange',()=>{page=location.hash.slice(1)||'dashboard';search='';txType=page==='entry'?txType:'';document.body.classList.remove('navopen');render();window.scrollTo(0,0);});
+window.addEventListener('storage',e=>{if(e.key===KEY){load();closeModal();render();toast('另一个标签页已更新数据，当前页面已重新加载。');}});
+load();$('#today').textContent=new Date().toLocaleDateString('zh-CN',{month:'long',day:'numeric',weekday:'short'});page=location.hash.slice(1)||'dashboard';render();
+</script></body></html>

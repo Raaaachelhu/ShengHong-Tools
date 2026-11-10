@@ -1,0 +1,4820 @@
+{
+  "version": "wanda-history-20261110",
+  "files": [
+    "2026年出纳资金分解新表.2026.10.9.xlsx",
+    "店铺押金租金统计表2026.8.14备份.xlsx"
+  ],
+  "merchants": [
+    {
+      "id": "wh-a1",
+      "name": "孜然部落（窦磊）",
+      "unit": "A-1",
+      "start": null,
+      "end": "2026-12-31",
+      "monthlyRent": 12000,
+      "depositReceived": 36000,
+      "depositReturned": 0,
+      "depositBalance": 36000,
+      "infoNote": "2026年到10月份租金已收",
+      "rentNote": "2026年到10月份租金已收",
+      "sourceRow": 3
+    },
+    {
+      "id": "wh-a2",
+      "name": "牛爷烧（刘尤成）",
+      "unit": "A-2",
+      "start": null,
+      "end": null,
+      "monthlyRent": 6667,
+      "depositReceived": 18000,
+      "depositReturned": 0,
+      "depositBalance": 18000,
+      "infoNote": "2026年到12月份租金已收",
+      "rentNote": "2026年到12月份租金已收",
+      "sourceRow": 4
+    },
+    {
+      "id": "wh-a3",
+      "name": "鲜目录（徐国亮）",
+      "unit": "A-3",
+      "start": null,
+      "end": null,
+      "monthlyRent": 6000,
+      "depositReceived": 12000,
+      "depositReturned": 0,
+      "depositBalance": 12000,
+      "infoNote": "2026年到10月份租金已收",
+      "rentNote": "2026年到10月份租金已收",
+      "sourceRow": 5
+    },
+    {
+      "id": "wh-a4",
+      "name": "阿佑米粉（熊凯）",
+      "unit": "A-4",
+      "start": null,
+      "end": null,
+      "monthlyRent": 9000,
+      "depositReceived": 24000,
+      "depositReturned": 0,
+      "depositBalance": 24000,
+      "infoNote": "2026年到7月份租金已收",
+      "rentNote": "2026年8月份租金已收",
+      "sourceRow": 6
+    },
+    {
+      "id": "wh-a6",
+      "name": "延约拿紫菜卷（张琦）",
+      "unit": "A-6",
+      "start": null,
+      "end": "2026-06-30",
+      "monthlyRent": 5000,
+      "depositReceived": 10000,
+      "depositReturned": 10000,
+      "depositBalance": 0,
+      "infoNote": "2026年6月底已撤店",
+      "rentNote": "押金抵扣2026年5月至6月份租金，已于2026年6月撤店。",
+      "sourceRow": 8,
+      "closed": true
+    },
+    {
+      "id": "wh-a7",
+      "name": "临榆炸鸡（李江林）",
+      "unit": "A-7",
+      "start": null,
+      "end": null,
+      "monthlyRent": 10000,
+      "depositReceived": 20000,
+      "depositReturned": 0,
+      "depositBalance": 20000,
+      "infoNote": "2026年到10月份租金已收",
+      "rentNote": "2026年到10月份租金已收",
+      "sourceRow": 9
+    },
+    {
+      "id": "wh-a8",
+      "name": "爷爷不泡茶",
+      "unit": "A-8",
+      "start": null,
+      "end": null,
+      "monthlyRent": 12000,
+      "depositReceived": 24000,
+      "depositReturned": null,
+      "depositBalance": 24000,
+      "infoNote": "合同约定2026年8月份装修免租金，2026年11月份免租金；2027年租金调整为12600元，减免2027年8月及2027年11月两个月租金",
+      "rentNote": "2026年已收到11月份，合同约定2026年8月份装修免租金，2026年11月份免租金；2027年租金调整为12600元，减免2027年8月及2027年11月两个月租金。",
+      "sourceRow": 10
+    }
+  ],
+  "rentSchedule": [
+    {
+      "merchantId": "wh-a1",
+      "name": "孜然部落（窦磊）",
+      "unit": "A-1",
+      "months": [
+        12000,
+        12000,
+        12000,
+        12000,
+        12000,
+        12000,
+        12000,
+        12000,
+        12000,
+        12000,
+        null,
+        null
+      ],
+      "reportedTotal": 120000,
+      "sumOfMonths": 120000,
+      "note": "2026年到10月份租金已收",
+      "sourceRow": 3
+    },
+    {
+      "merchantId": "wh-a2",
+      "name": "牛爷烧（刘尤成）",
+      "unit": "A-2",
+      "months": [
+        6667,
+        6667,
+        6667,
+        6667,
+        6667,
+        6667,
+        6667,
+        6667,
+        6667,
+        6667,
+        6667,
+        6667
+      ],
+      "reportedTotal": 80000,
+      "sumOfMonths": 80004,
+      "note": "2026年到12月份租金已收",
+      "sourceRow": 4
+    },
+    {
+      "merchantId": "wh-a3",
+      "name": "鲜目录（徐国亮）",
+      "unit": "A-3",
+      "months": [
+        6000,
+        6000,
+        6000,
+        6000,
+        6000,
+        6000,
+        6000,
+        6000,
+        6000,
+        6000,
+        null,
+        null
+      ],
+      "reportedTotal": 60000,
+      "sumOfMonths": 60000,
+      "note": "2026年到10月份租金已收",
+      "sourceRow": 5
+    },
+    {
+      "merchantId": "wh-a4",
+      "name": "阿佑米粉（熊凯）",
+      "unit": "A-4",
+      "months": [
+        9000,
+        9000,
+        9000,
+        9000,
+        9000,
+        9000,
+        9000,
+        9000,
+        null,
+        null,
+        null,
+        null
+      ],
+      "reportedTotal": 72000,
+      "sumOfMonths": 72000,
+      "note": "2026年8月份租金已收",
+      "sourceRow": 6
+    },
+    {
+      "merchantId": "wh-a6",
+      "name": "延约拿紫菜卷（张琦）",
+      "unit": "A-6",
+      "months": [
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        5000,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "reportedTotal": 30000,
+      "sumOfMonths": 30000,
+      "note": "押金抵扣2026年5月至6月份租金，已于2026年6月撤店。",
+      "sourceRow": 8
+    },
+    {
+      "merchantId": "wh-a7",
+      "name": "临榆炸鸡（李江林）",
+      "unit": "A-7",
+      "months": [
+        10000,
+        10000,
+        10000,
+        10000,
+        10000,
+        10000,
+        10000,
+        10500,
+        10500,
+        10500,
+        null,
+        null
+      ],
+      "reportedTotal": 101500,
+      "sumOfMonths": 101500,
+      "note": "2026年到10月份租金已收",
+      "sourceRow": 9
+    },
+    {
+      "merchantId": "wh-a8",
+      "name": "爷爷不泡茶",
+      "unit": "A-8",
+      "months": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        12000,
+        12000,
+        0,
+        null
+      ],
+      "reportedTotal": 24000,
+      "sumOfMonths": 24000,
+      "note": "2026年已收到11月份，合同约定2026年8月份装修免租金，2026年11月份免租金；2027年租金调整为12600元，减免2027年8月及2027年11月两个月租金。",
+      "sourceRow": 10
+    }
+  ],
+  "electricitySchedule": [
+    {
+      "name": "孜然部落（窦磊、祝瑞阳）",
+      "unit": "A-1",
+      "months": [
+        null,
+        null,
+        null,
+        2942.35,
+        3755.3,
+        2859,
+        5202.8,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "reportedTotal": 14759.45,
+      "sumOfMonths": 14759.45,
+      "note": "",
+      "sourceRow": 3
+    },
+    {
+      "name": "牛爷烧（刘尤成）",
+      "unit": "A-2",
+      "months": [
+        null,
+        null,
+        null,
+        1023.85,
+        1068,
+        1738.6,
+        1721.3,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "reportedTotal": 5551.75,
+      "sumOfMonths": 5551.75,
+      "note": "",
+      "sourceRow": 4
+    },
+    {
+      "name": "鲜目录（徐国亮）",
+      "unit": "A-3",
+      "months": [
+        null,
+        null,
+        null,
+        null,
+        964.1,
+        772.9,
+        1412.9,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "reportedTotal": 3149.9,
+      "sumOfMonths": 3149.9,
+      "note": "在装修，和五月份一起收",
+      "sourceRow": 5
+    },
+    {
+      "name": "阿佑米粉（熊凯）",
+      "unit": "A-4",
+      "months": [
+        null,
+        null,
+        null,
+        3023,
+        4799.8,
+        3206.2,
+        5335,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "reportedTotal": 16364,
+      "sumOfMonths": 16364.0,
+      "note": "",
+      "sourceRow": 6
+    },
+    {
+      "name": "延约拿紫菜卷（张琦）",
+      "unit": "A-6",
+      "months": [
+        null,
+        null,
+        null,
+        990.9,
+        1472.9,
+        918.3,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "reportedTotal": 3382.1,
+      "sumOfMonths": 3382.1,
+      "note": "已撤店",
+      "sourceRow": 8
+    },
+    {
+      "name": "临榆炸鸡（李江林）",
+      "unit": "A-7",
+      "months": [
+        null,
+        null,
+        null,
+        1599.1,
+        3495.4,
+        2453,
+        3802.6,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "reportedTotal": 11350.1,
+      "sumOfMonths": 11350.1,
+      "note": "",
+      "sourceRow": 9
+    },
+    {
+      "name": "兵哥烧烤（张红兵）",
+      "unit": "A-8",
+      "months": [
+        null,
+        null,
+        null,
+        398,
+        695,
+        471,
+        356,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "reportedTotal": 1920,
+      "sumOfMonths": 1920,
+      "note": "",
+      "sourceRow": 10
+    }
+  ],
+  "ledger": [
+    {
+      "id": "wc-2026-01-25",
+      "date": "2026-01-26",
+      "rawDate": "2026.1.26",
+      "month": "2026-01",
+      "account": "宏盛广诚贸易公司",
+      "description": "6668卡转入",
+      "income": 20000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表1月  ",
+      "sourceRow": 25,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-01-26",
+      "date": "2026-01-26",
+      "rawDate": "2026.1.26",
+      "month": "2026-01",
+      "account": "宏盛广诚贸易公司",
+      "description": "缴纳万达街区2025年12月份电费",
+      "income": 0,
+      "expense": 5711.47,
+      "sourceSheet": "账户汇总明细表1月  ",
+      "sourceRow": 26,
+      "allocation": [
+        {
+          "period": "2025-12",
+          "kind": "expense",
+          "category": "水电费",
+          "amount": 5711.47,
+          "basis": "原摘要明确所属月份"
+        }
+      ],
+      "review": [],
+      "category": "水电实付"
+    },
+    {
+      "id": "wc-2026-01-27",
+      "date": "2026-01-26",
+      "rawDate": "2026.1.26",
+      "month": "2026-01",
+      "account": "宏盛广诚贸易公司",
+      "description": "银行手续费",
+      "income": 0,
+      "expense": 4.5,
+      "sourceSheet": "账户汇总明细表1月  ",
+      "sourceRow": 27,
+      "allocation": [
+        {
+          "period": "2026-01",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 4.5,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-01-32",
+      "date": "2026-01-09",
+      "rawDate": "2026.1.9",
+      "month": "2026-01",
+      "account": "6668卡",
+      "description": "姜志远报销",
+      "income": 0,
+      "expense": 998.06,
+      "sourceSheet": "账户汇总明细表1月  ",
+      "sourceRow": 32,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "报销待核用途"
+    },
+    {
+      "id": "wc-2026-01-34",
+      "date": "2026-01-15",
+      "rawDate": "2026.1.15",
+      "month": "2026-01",
+      "account": "6668卡",
+      "description": "短信服务费",
+      "income": 0,
+      "expense": 3,
+      "sourceSheet": "账户汇总明细表1月  ",
+      "sourceRow": 34,
+      "allocation": [
+        {
+          "period": "2026-01",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 3,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-01-35",
+      "date": null,
+      "rawDate": "2026.1.219",
+      "month": "2026-01",
+      "account": "6668卡",
+      "description": "牛爷烧收刘尤成水电费",
+      "income": 978.2,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表1月  ",
+      "sourceRow": 35,
+      "allocation": [],
+      "review": [
+        "原日期无效，仅按所在工作表确定月份，未补造具体日期",
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-01-38",
+      "date": "2026-01-26",
+      "rawDate": "2026.1.26",
+      "month": "2026-01",
+      "account": "6668卡",
+      "description": "转入贸易公司账户",
+      "income": 0,
+      "expense": 20000,
+      "sourceSheet": "账户汇总明细表1月  ",
+      "sourceRow": 38,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-01-39",
+      "date": "2026-01-26",
+      "rawDate": "2026.1.26",
+      "month": "2026-01",
+      "account": "6668卡",
+      "description": "支付万达保洁邓治国费用",
+      "income": 0,
+      "expense": 3000,
+      "sourceSheet": "账户汇总明细表1月  ",
+      "sourceRow": 39,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "工资保洁实付"
+    },
+    {
+      "id": "wc-2026-01-40",
+      "date": "2026-01-26",
+      "rawDate": "2026.1.26",
+      "month": "2026-01",
+      "account": "6668卡",
+      "description": "支付万达项目审计资料费用",
+      "income": 0,
+      "expense": 3000,
+      "sourceSheet": "账户汇总明细表1月  ",
+      "sourceRow": 40,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "运营费用实付"
+    },
+    {
+      "id": "wc-2026-02-19",
+      "date": "2026-02-05",
+      "rawDate": "2026-02-05",
+      "month": "2026-02",
+      "account": "宏盛广诚贸易公司",
+      "description": "6668卡转入",
+      "income": 10000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表2月   ",
+      "sourceRow": 19,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-02-22",
+      "date": "2026-02-24",
+      "rawDate": "2026-02-24",
+      "month": "2026-02",
+      "account": "宏盛广诚贸易公司",
+      "description": "6668卡转入",
+      "income": 20000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表2月   ",
+      "sourceRow": 22,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-02-23",
+      "date": "2026-02-24",
+      "rawDate": "2026-02-24",
+      "month": "2026-02",
+      "account": "宏盛广诚贸易公司",
+      "description": "万达街区1月份电费",
+      "income": 0,
+      "expense": 7695.93,
+      "sourceSheet": "账户汇总明细表2月   ",
+      "sourceRow": 23,
+      "allocation": [
+        {
+          "period": "2026-01",
+          "kind": "expense",
+          "category": "水电费",
+          "amount": 7695.93,
+          "basis": "原摘要明确所属月份"
+        }
+      ],
+      "review": [],
+      "category": "水电实付"
+    },
+    {
+      "id": "wc-2026-02-27",
+      "date": "2026-02-03",
+      "rawDate": "2026-02-03",
+      "month": "2026-02",
+      "account": "6668卡",
+      "description": "榆林炸鸡李江林2026.2-2026.4三个月租金",
+      "income": 30000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表2月   ",
+      "sourceRow": 27,
+      "allocation": [],
+      "review": [],
+      "category": "商户租金实收",
+      "receiptCoverage": [
+        "2026-02",
+        "2026-03",
+        "2026-04"
+      ]
+    },
+    {
+      "id": "wc-2026-02-28",
+      "date": "2026-02-05",
+      "rawDate": "2026-02-05",
+      "month": "2026-02",
+      "account": "6668卡",
+      "description": "短信服务费",
+      "income": 0,
+      "expense": 3,
+      "sourceSheet": "账户汇总明细表2月   ",
+      "sourceRow": 28,
+      "allocation": [
+        {
+          "period": "2026-02",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 3,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-02-29",
+      "date": "2026-02-05",
+      "rawDate": "2026-02-05",
+      "month": "2026-02",
+      "account": "6668卡",
+      "description": "转入宏盛广诚贸易公司",
+      "income": 0,
+      "expense": 10000,
+      "sourceSheet": "账户汇总明细表2月   ",
+      "sourceRow": 29,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-02-31",
+      "date": "2026-02-06",
+      "rawDate": "2026-02-06",
+      "month": "2026-02",
+      "account": "6668卡",
+      "description": "牛爷烧刘尤成转入水电费",
+      "income": 923.4,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表2月   ",
+      "sourceRow": 31,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-02-32",
+      "date": "2026-02-24",
+      "rawDate": "2026-02-24",
+      "month": "2026-02",
+      "account": "6668卡",
+      "description": "转入宏盛广诚贸易公司",
+      "income": 0,
+      "expense": 20000,
+      "sourceSheet": "账户汇总明细表2月   ",
+      "sourceRow": 32,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-02-33",
+      "date": "2026-02-24",
+      "rawDate": "2026-02-24",
+      "month": "2026-02",
+      "account": "6668卡",
+      "description": "支付保洁工资",
+      "income": 0,
+      "expense": 3000,
+      "sourceSheet": "账户汇总明细表2月   ",
+      "sourceRow": 33,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "工资保洁实付"
+    },
+    {
+      "id": "wc-2026-02-34",
+      "date": "2026-02-24",
+      "rawDate": "2026-02-24",
+      "month": "2026-02",
+      "account": "6668卡",
+      "description": "姜志远报销",
+      "income": 0,
+      "expense": 800,
+      "sourceSheet": "账户汇总明细表2月   ",
+      "sourceRow": 34,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "报销待核用途"
+    },
+    {
+      "id": "wc-2026-03-19",
+      "date": "2026-03-05",
+      "rawDate": "2026-03-05",
+      "month": "2026-03",
+      "account": "宏盛广诚贸易公司",
+      "description": "姜志远收前期商户电费（截止2026.2.28）",
+      "income": 50000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 19,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-03-20",
+      "date": "2026-03-05",
+      "rawDate": "2026-03-05",
+      "month": "2026-03",
+      "account": "宏盛广诚贸易公司",
+      "description": "姜志远收前期商户电费（截止2026.2.28）",
+      "income": 11366,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 20,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-03-21",
+      "date": "2026-03-05",
+      "rawDate": "2026-03-05",
+      "month": "2026-03",
+      "account": "宏盛广诚贸易公司",
+      "description": "收阿佑生烫米粉2个半月租金（同步万达到2026.4月）",
+      "income": 10000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 21,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "商户租金实收"
+    },
+    {
+      "id": "wc-2026-03-22",
+      "date": "2026-03-05",
+      "rawDate": "2026-03-05",
+      "month": "2026-03",
+      "account": "宏盛广诚贸易公司",
+      "description": "收阿佑生烫米粉2个半月租金（同步万达到2026.4月）",
+      "income": 12500,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 22,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "商户租金实收"
+    },
+    {
+      "id": "wc-2026-03-23",
+      "date": "2026-03-05",
+      "rawDate": "2026-03-05",
+      "month": "2026-03",
+      "account": "宏盛广诚贸易公司",
+      "description": "收孜然部落1个月租金（同步万达到2026.4月）",
+      "income": 12000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 23,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "商户租金实收"
+    },
+    {
+      "id": "wc-2026-03-24",
+      "date": "2026-03-05",
+      "rawDate": "2026-03-05",
+      "month": "2026-03",
+      "account": "宏盛广诚贸易公司",
+      "description": "收延约拿1个半月租金（同步万达到2026.4月）",
+      "income": 7500,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 24,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "商户租金实收"
+    },
+    {
+      "id": "wc-2026-03-26",
+      "date": "2026-03-06",
+      "rawDate": "2026-03-06",
+      "month": "2026-03",
+      "account": "6668卡",
+      "description": "收刘尤成转入电费",
+      "income": 920.35,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 26,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-03-27",
+      "date": "2026-03-11",
+      "rawDate": "2026-03-11",
+      "month": "2026-03",
+      "account": "6668卡",
+      "description": "短信费",
+      "income": 0,
+      "expense": 3,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 27,
+      "allocation": [
+        {
+          "period": "2026-03",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 3,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-03-28",
+      "date": "2026-03-21",
+      "rawDate": "2026-03-21",
+      "month": "2026-03",
+      "account": "6668卡",
+      "description": "利息入账",
+      "income": 7.46,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 28,
+      "allocation": [],
+      "review": [],
+      "category": "利息收入"
+    },
+    {
+      "id": "wc-2026-03-29",
+      "date": "2026-03-26",
+      "rawDate": "2026-03-26",
+      "month": "2026-03",
+      "account": "6668卡",
+      "description": "鲜目录徐国亮转入",
+      "income": 33000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 29,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "收款用途待确认"
+    },
+    {
+      "id": "wc-2026-03-30",
+      "date": "2026-03-27",
+      "rawDate": "2026-03-27",
+      "month": "2026-03",
+      "account": "6668卡",
+      "description": "转入宏盛广诚贸易",
+      "income": 0,
+      "expense": 20000,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 30,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-03-31",
+      "date": "2026-03-27",
+      "rawDate": "2026-03-27",
+      "month": "2026-03",
+      "account": "6668卡",
+      "description": "经崔振转万达业务费",
+      "income": 0,
+      "expense": 3000,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 31,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "运营费用实付"
+    },
+    {
+      "id": "wc-2026-03-33",
+      "date": "2026-03-27",
+      "rawDate": "2026-03-27",
+      "month": "2026-03",
+      "account": "6668卡",
+      "description": "转邓志国保洁费用",
+      "income": 0,
+      "expense": 3000,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 33,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "工资保洁实付"
+    },
+    {
+      "id": "wc-2026-03-36",
+      "date": "2026-03-27",
+      "rawDate": "2026-03-27",
+      "month": "2026-03",
+      "account": "6668卡",
+      "description": "转姜志远报销款",
+      "income": 0,
+      "expense": 2034,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 36,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "报销待核用途"
+    },
+    {
+      "id": "wc-2026-03-43",
+      "date": "2026-03-05",
+      "rawDate": "2026-03-05",
+      "month": "2026-03",
+      "account": "宏盛广诚贸易公司",
+      "description": "转万达项目租金及保证金",
+      "income": 0,
+      "expense": 77000,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 43,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "场租保证金合付待拆"
+    },
+    {
+      "id": "wc-2026-03-44",
+      "date": "2026-03-05",
+      "rawDate": "2026-03-05",
+      "month": "2026-03",
+      "account": "宏盛广诚贸易公司",
+      "description": "转万达项目租金及保证金应付90095，少转10元，转电费时加",
+      "income": 0,
+      "expense": 90085,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 44,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "场租保证金合付待拆"
+    },
+    {
+      "id": "wc-2026-03-45",
+      "date": "2026-03-05",
+      "rawDate": "2026-03-05",
+      "month": "2026-03",
+      "account": "宏盛广诚贸易公司",
+      "description": "手续费",
+      "income": 0,
+      "expense": 48,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 45,
+      "allocation": [
+        {
+          "period": "2026-03",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 48,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-03-48",
+      "date": "2026-03-27",
+      "rawDate": "2026-03-27",
+      "month": "2026-03",
+      "account": "宏盛广诚贸易公司",
+      "description": "6668卡转入",
+      "income": 20000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 48,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-03-49",
+      "date": "2026-03-27",
+      "rawDate": "2026-03-27",
+      "month": "2026-03",
+      "account": "宏盛广诚贸易公司",
+      "description": "万达电费6145.13+10元价差",
+      "income": 0,
+      "expense": 6155.13,
+      "sourceSheet": "账户汇总明细表3月 ",
+      "sourceRow": 49,
+      "allocation": [],
+      "review": [
+        "6155.13含电费6145.13和前次少付10元，所属月及10元性质待核，未计入月费用"
+      ],
+      "category": "水电实付"
+    },
+    {
+      "id": "wc-2026-04-19",
+      "date": "2026-04-06",
+      "rawDate": "2026.4.6",
+      "month": "2026-04",
+      "account": "6668卡",
+      "description": "张红兵转入兵哥烧烤电费",
+      "income": 486,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 19,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-04-20",
+      "date": "2026-04-07",
+      "rawDate": "2026.4.7",
+      "month": "2026-04",
+      "account": "6668卡",
+      "description": "祝瑞阳转入孜然部落电费",
+      "income": 2523.7,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 20,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-04-21",
+      "date": "2026-04-04",
+      "rawDate": "2026.4.4",
+      "month": "2026-04",
+      "account": "6668卡",
+      "description": "啊佑电费",
+      "income": 2250,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 21,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-04-22",
+      "date": "2026-04-06",
+      "rawDate": "2026.4.6",
+      "month": "2026-04",
+      "account": "6668卡",
+      "description": "张琦转入延约拿电费",
+      "income": 820.9,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 22,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-04-23",
+      "date": "2026-04-06",
+      "rawDate": "2026.4.6",
+      "month": "2026-04",
+      "account": "6668卡",
+      "description": "李江林转入临榆电费",
+      "income": 1982.4,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 23,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-04-24",
+      "date": "2026-04-07",
+      "rawDate": "2026.4.7",
+      "month": "2026-04",
+      "account": "6668卡",
+      "description": "刘尤成转入牛爷烧电费",
+      "income": 981.95,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 24,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-04-26",
+      "date": "2026-04-15",
+      "rawDate": "2026.4.15",
+      "month": "2026-04",
+      "account": "6668卡",
+      "description": "转入宏盛广诚贸易公司账户",
+      "income": 0,
+      "expense": 10000,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 26,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-04-29",
+      "date": "2026-04-15",
+      "rawDate": "2026.4.15",
+      "month": "2026-04",
+      "account": "6668卡",
+      "description": "姜志远报销费用",
+      "income": 0,
+      "expense": 1289,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 29,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "报销待核用途"
+    },
+    {
+      "id": "wc-2026-04-30",
+      "date": "2026-04-17",
+      "rawDate": "2026.4.17",
+      "month": "2026-04",
+      "account": "6668卡",
+      "description": "短信费",
+      "income": 0,
+      "expense": 3,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 30,
+      "allocation": [
+        {
+          "period": "2026-04",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 3,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-04-31",
+      "date": "2026-04-21",
+      "rawDate": "2026.4.21",
+      "month": "2026-04",
+      "account": "6668卡",
+      "description": "转入宏盛广诚贸易公司账户",
+      "income": 0,
+      "expense": 20000,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 31,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-04-32",
+      "date": "2026-04-21",
+      "rawDate": "2026.4.21",
+      "month": "2026-04",
+      "account": "6668卡",
+      "description": "转邓治国保洁费用",
+      "income": 0,
+      "expense": 3000,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 32,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "工资保洁实付"
+    },
+    {
+      "id": "wc-2026-04-37",
+      "date": "2026-04-29",
+      "rawDate": "2026.4.29",
+      "month": "2026-04",
+      "account": "6668卡",
+      "description": "收阿佑一个半月租金",
+      "income": 13500,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 37,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "商户租金实收"
+    },
+    {
+      "id": "wc-2026-04-38",
+      "date": "2026-04-29",
+      "rawDate": "2026.4.29",
+      "month": "2026-04",
+      "account": "宏盛广诚贸易公司",
+      "description": "收李江林临榆三个月租金",
+      "income": 30000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 38,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "商户租金实收"
+    },
+    {
+      "id": "wc-2026-04-39",
+      "date": "2026-04-29",
+      "rawDate": "2026.4.29",
+      "month": "2026-04",
+      "account": "宏盛广诚贸易公司",
+      "description": "收窦磊孜然部落三个月租金",
+      "income": 36000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 39,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "商户租金实收"
+    },
+    {
+      "id": "wc-2026-04-40",
+      "date": "2026-04-13",
+      "rawDate": "2026.4.13",
+      "month": "2026-04",
+      "account": "宏盛广诚贸易公司",
+      "description": "账户管理费",
+      "income": 0,
+      "expense": 30,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 40,
+      "allocation": [
+        {
+          "period": "2026-04",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 30,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-04-41",
+      "date": "2026-04-15",
+      "rawDate": "2026.4.15",
+      "month": "2026-04",
+      "account": "宏盛广诚贸易公司",
+      "description": "6668卡转入",
+      "income": 10000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 41,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-04-48",
+      "date": "2026-04-21",
+      "rawDate": "2026.4.21",
+      "month": "2026-04",
+      "account": "宏盛广诚贸易公司",
+      "description": "6668卡转入",
+      "income": 20000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 48,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-04-52",
+      "date": "2026-04-24",
+      "rawDate": "2026.4.24",
+      "month": "2026-04",
+      "account": "宏盛广诚贸易公司",
+      "description": "支付万达街区项目2026年3月份电费",
+      "income": 0,
+      "expense": 6430.02,
+      "sourceSheet": "账户汇总明细表4月 ",
+      "sourceRow": 52,
+      "allocation": [
+        {
+          "period": "2026-03",
+          "kind": "expense",
+          "category": "水电费",
+          "amount": 6430.02,
+          "basis": "原摘要明确所属月份"
+        }
+      ],
+      "review": [],
+      "category": "水电实付"
+    },
+    {
+      "id": "wc-2026-05-19",
+      "date": "2026-05-11",
+      "rawDate": "2026.5.11",
+      "month": "2026-05",
+      "account": "宏盛广诚贸易公司",
+      "description": "6668卡转入贸易公司户",
+      "income": 10000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表5月  ",
+      "sourceRow": 19,
+      "allocation": [],
+      "review": [
+        "内部转账同月同额，双方日期不同，待核"
+      ],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-05-20",
+      "date": "2026-05-11",
+      "rawDate": "2026.5.11",
+      "month": "2026-05",
+      "account": "宏盛广诚贸易公司",
+      "description": "万达街区5、6、7月份租金",
+      "income": 0,
+      "expense": 75657,
+      "sourceSheet": "账户汇总明细表5月  ",
+      "sourceRow": 20,
+      "allocation": [
+        {
+          "period": "2026-05",
+          "kind": "expense",
+          "category": "场地租金",
+          "amount": 25219,
+          "basis": "原摘要明确三个月，等额分摊"
+        },
+        {
+          "period": "2026-06",
+          "kind": "expense",
+          "category": "场地租金",
+          "amount": 25219,
+          "basis": "原摘要明确三个月，等额分摊"
+        },
+        {
+          "period": "2026-07",
+          "kind": "expense",
+          "category": "场地租金",
+          "amount": 25219,
+          "basis": "原摘要明确三个月，等额分摊"
+        }
+      ],
+      "review": [],
+      "category": "场地租金实付"
+    },
+    {
+      "id": "wc-2026-05-21",
+      "date": "2026-05-12",
+      "rawDate": "2026.5.12",
+      "month": "2026-05",
+      "account": "宏盛广诚贸易公司",
+      "description": "手续费",
+      "income": 0,
+      "expense": 9,
+      "sourceSheet": "账户汇总明细表5月  ",
+      "sourceRow": 21,
+      "allocation": [
+        {
+          "period": "2026-05",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 9,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-05-26",
+      "date": "2026-05-21",
+      "rawDate": "2026.5.21",
+      "month": "2026-05",
+      "account": "宏盛广诚贸易公司",
+      "description": "盛总转入",
+      "income": 16000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表5月  ",
+      "sourceRow": 26,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "股东转入待确认"
+    },
+    {
+      "id": "wc-2026-05-27",
+      "date": "2026-05-21",
+      "rawDate": "2026.5.21",
+      "month": "2026-05",
+      "account": "宏盛广诚贸易公司",
+      "description": "支付2026年4月份电费",
+      "income": 0,
+      "expense": 6285.44,
+      "sourceSheet": "账户汇总明细表5月  ",
+      "sourceRow": 27,
+      "allocation": [
+        {
+          "period": "2026-04",
+          "kind": "expense",
+          "category": "水电费",
+          "amount": 6285.44,
+          "basis": "原摘要明确所属月份"
+        }
+      ],
+      "review": [],
+      "category": "水电实付"
+    },
+    {
+      "id": "wc-2026-05-39",
+      "date": "2026-05-01",
+      "rawDate": "2026.5.1",
+      "month": "2026-05",
+      "account": "6668卡",
+      "description": "6668卡转入贸易公司户",
+      "income": 0,
+      "expense": 10000,
+      "sourceSheet": "账户汇总明细表5月  ",
+      "sourceRow": 39,
+      "allocation": [],
+      "review": [
+        "内部转账同月同额，双方日期不同，待核"
+      ],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-05-40",
+      "date": "2026-05-08",
+      "rawDate": "2026.5.8",
+      "month": "2026-05",
+      "account": "6668卡",
+      "description": "张红兵转入电费",
+      "income": 398,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表5月  ",
+      "sourceRow": 40,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-05-41",
+      "date": "2026-05-08",
+      "rawDate": "2026.5.8",
+      "month": "2026-05",
+      "account": "6668卡",
+      "description": "张琦转入电费",
+      "income": 990.9,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表5月  ",
+      "sourceRow": 41,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-05-42",
+      "date": "2026-05-11",
+      "rawDate": "2026.5.11",
+      "month": "2026-05",
+      "account": "6668卡",
+      "description": "短信服务费",
+      "income": 0,
+      "expense": 3,
+      "sourceSheet": "账户汇总明细表5月  ",
+      "sourceRow": 42,
+      "allocation": [
+        {
+          "period": "2026-05",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 3,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-05-43",
+      "date": "2026-05-11",
+      "rawDate": "2026.5.11",
+      "month": "2026-05",
+      "account": "6668卡",
+      "description": "祝瑞阳转入电费",
+      "income": 2942.35,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表5月  ",
+      "sourceRow": 43,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-05-44",
+      "date": "2026-05-13",
+      "rawDate": "2026.5.13",
+      "month": "2026-05",
+      "account": "6668卡",
+      "description": "刘尤成转入电费",
+      "income": 1023.85,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表5月  ",
+      "sourceRow": 44,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-05-45",
+      "date": "2026-05-18",
+      "rawDate": "2026.5.18",
+      "month": "2026-05",
+      "account": "6668卡",
+      "description": "阿佑电费",
+      "income": 3023,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表5月  ",
+      "sourceRow": 45,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-05-46",
+      "date": "2026-05-18",
+      "rawDate": "2026.5.18",
+      "month": "2026-05",
+      "account": "6668卡",
+      "description": "阿佑一个半月租金",
+      "income": 13500,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表5月  ",
+      "sourceRow": 46,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "商户租金实收"
+    },
+    {
+      "id": "wc-2026-05-47",
+      "date": "2026-05-19",
+      "rawDate": "2026.5.19",
+      "month": "2026-05",
+      "account": "6668卡",
+      "description": "李江林转入电费",
+      "income": 1599.1,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表5月  ",
+      "sourceRow": 47,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-05-48",
+      "date": "2026-05-19",
+      "rawDate": "2026.5.19",
+      "month": "2026-05",
+      "account": "6668卡",
+      "description": "转邓治国保洁费",
+      "income": 0,
+      "expense": 3000,
+      "sourceSheet": "账户汇总明细表5月  ",
+      "sourceRow": 48,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "工资保洁实付"
+    },
+    {
+      "id": "wc-2026-05-49",
+      "date": "2026-05-21",
+      "rawDate": "2026.5.21",
+      "month": "2026-05",
+      "account": "6668卡",
+      "description": "转姜志远报销款",
+      "income": 0,
+      "expense": 984.8,
+      "sourceSheet": "账户汇总明细表5月  ",
+      "sourceRow": 49,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "报销待核用途"
+    },
+    {
+      "id": "wc-2026-06-20",
+      "date": "2026-06-21",
+      "rawDate": "2026-06-21",
+      "month": "2026-06",
+      "account": "宏盛广诚贸易公司",
+      "description": "利息入账",
+      "income": 0.58,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表6月  ",
+      "sourceRow": 20,
+      "allocation": [],
+      "review": [],
+      "category": "利息收入"
+    },
+    {
+      "id": "wc-2026-06-21",
+      "date": "2026-06-24",
+      "rawDate": "2026-06-24",
+      "month": "2026-06",
+      "account": "宏盛广诚贸易公司",
+      "description": "银行手续费",
+      "income": 0,
+      "expense": 5,
+      "sourceSheet": "账户汇总明细表6月  ",
+      "sourceRow": 21,
+      "allocation": [
+        {
+          "period": "2026-06",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 5,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-06-22",
+      "date": "2026-06-24",
+      "rawDate": "2026-06-24",
+      "month": "2026-06",
+      "account": "宏盛广诚贸易公司",
+      "description": "6668卡转入",
+      "income": 14000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表6月  ",
+      "sourceRow": 22,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-06-23",
+      "date": "2026-06-24",
+      "rawDate": "2026-06-24",
+      "month": "2026-06",
+      "account": "宏盛广诚贸易公司",
+      "description": "支付万达银河街区5月份电费",
+      "income": 0,
+      "expense": 8002.76,
+      "sourceSheet": "账户汇总明细表6月  ",
+      "sourceRow": 23,
+      "allocation": [
+        {
+          "period": "2026-05",
+          "kind": "expense",
+          "category": "水电费",
+          "amount": 8002.76,
+          "basis": "原摘要明确所属月份"
+        }
+      ],
+      "review": [],
+      "category": "水电实付"
+    },
+    {
+      "id": "wc-2026-06-29",
+      "date": "2026-06-05",
+      "rawDate": "2026-06-05",
+      "month": "2026-06",
+      "account": "6668卡",
+      "description": "收祝瑞阳转来孜然部落电费",
+      "income": 3755.3,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表6月  ",
+      "sourceRow": 29,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-06-30",
+      "date": "2026-06-05",
+      "rawDate": "2026-06-05",
+      "month": "2026-06",
+      "account": "6668卡",
+      "description": "收鲜目录电费",
+      "income": 964.1,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表6月  ",
+      "sourceRow": 30,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-06-31",
+      "date": "2026-06-05",
+      "rawDate": "2026-06-05",
+      "month": "2026-06",
+      "account": "6668卡",
+      "description": "收张红兵转来兵哥烧烤电费",
+      "income": 695,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表6月  ",
+      "sourceRow": 31,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-06-32",
+      "date": "2026-06-05",
+      "rawDate": "2026-06-05",
+      "month": "2026-06",
+      "account": "6668卡",
+      "description": "收张琦转来紫菜卷电费",
+      "income": 1472.9,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表6月  ",
+      "sourceRow": 32,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-06-33",
+      "date": "2026-06-07",
+      "rawDate": "2026-06-07",
+      "month": "2026-06",
+      "account": "6668卡",
+      "description": "收李江林转来电费",
+      "income": 3495.4,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表6月  ",
+      "sourceRow": 33,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-06-34",
+      "date": "2026-06-09",
+      "rawDate": "2026-06-09",
+      "month": "2026-06",
+      "account": "6668卡",
+      "description": "收刘尤成转入牛爷烧电费",
+      "income": 1068,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表6月  ",
+      "sourceRow": 34,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-06-35",
+      "date": "2026-06-17",
+      "rawDate": "2026-06-17",
+      "month": "2026-06",
+      "account": "6668卡",
+      "description": "收阿佑电费支付宝转账4799.8元，实际到账4795元",
+      "income": 4795,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表6月  ",
+      "sourceRow": 35,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-06-36",
+      "date": "2026-06-19",
+      "rawDate": "2026-06-19",
+      "month": "2026-06",
+      "account": "6668卡",
+      "description": "银行短信服务费",
+      "income": 0,
+      "expense": 3,
+      "sourceSheet": "账户汇总明细表6月  ",
+      "sourceRow": 36,
+      "allocation": [
+        {
+          "period": "2026-06",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 3,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-06-37",
+      "date": "2026-06-21",
+      "rawDate": "2026-06-21",
+      "month": "2026-06",
+      "account": "6668卡",
+      "description": "利息入账",
+      "income": 3.64,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表6月  ",
+      "sourceRow": 37,
+      "allocation": [],
+      "review": [],
+      "category": "利息收入"
+    },
+    {
+      "id": "wc-2026-06-38",
+      "date": "2026-06-24",
+      "rawDate": "2026-06-24",
+      "month": "2026-06",
+      "account": "6668卡",
+      "description": "转贸易公司公户",
+      "income": 0,
+      "expense": 14000,
+      "sourceSheet": "账户汇总明细表6月  ",
+      "sourceRow": 38,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-06-40",
+      "date": "2026-06-24",
+      "rawDate": "2026-06-24",
+      "month": "2026-06",
+      "account": "6668卡",
+      "description": "转姜志远报销款",
+      "income": 0,
+      "expense": 878.5,
+      "sourceSheet": "账户汇总明细表6月  ",
+      "sourceRow": 40,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "报销待核用途"
+    },
+    {
+      "id": "wc-2026-06-41",
+      "date": "2026-06-24",
+      "rawDate": "2026-06-24",
+      "month": "2026-06",
+      "account": "6668卡",
+      "description": "转肖丽华保洁费用",
+      "income": 0,
+      "expense": 3000,
+      "sourceSheet": "账户汇总明细表6月  ",
+      "sourceRow": 41,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "工资保洁实付"
+    },
+    {
+      "id": "wc-2026-07-22",
+      "date": "2026-07-11",
+      "rawDate": "2026-07-11",
+      "month": "2026-07",
+      "account": "6668卡",
+      "description": "收鲜目录6月份电费",
+      "income": 772.9,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 22,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-07-23",
+      "date": "2026-07-11",
+      "rawDate": "2026-07-11",
+      "month": "2026-07",
+      "account": "6668卡",
+      "description": "收兵哥烧烤6月份电费",
+      "income": 471,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 23,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-07-24",
+      "date": "2026-07-11",
+      "rawDate": "2026-07-11",
+      "month": "2026-07",
+      "account": "6668卡",
+      "description": "收延约拿紫菜卷6月份电费",
+      "income": 918.3,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 24,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-07-25",
+      "date": "2026-07-12",
+      "rawDate": "2026-07-12",
+      "month": "2026-07",
+      "account": "6668卡",
+      "description": "收李江林转榆林炸鸡6月份电费",
+      "income": 2453,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 25,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-07-26",
+      "date": "2026-07-12",
+      "rawDate": "2026-07-12",
+      "month": "2026-07",
+      "account": "6668卡",
+      "description": "收祝瑞阳孜然部落六月份电费",
+      "income": 2859,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 26,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-07-27",
+      "date": "2026-07-13",
+      "rawDate": "2026-07-13",
+      "month": "2026-07",
+      "account": "6668卡",
+      "description": "收刘尤成牛爷烧6月份电费",
+      "income": 1738.6,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 27,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-07-28",
+      "date": "2026-07-17",
+      "rawDate": "2026-07-17",
+      "month": "2026-07",
+      "account": "6668卡",
+      "description": "银行短信费",
+      "income": 0,
+      "expense": 3,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 28,
+      "allocation": [
+        {
+          "period": "2026-07",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 3,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-07-32",
+      "date": "2026-07-20",
+      "rawDate": "2026-07-20",
+      "month": "2026-07",
+      "account": "6668卡",
+      "description": "收阿佑米粉6月份电费",
+      "income": 3203,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 32,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-07-33",
+      "date": "2026-07-23",
+      "rawDate": "2026-07-23",
+      "month": "2026-07",
+      "account": "6668卡",
+      "description": "收牛爷烧租金",
+      "income": 40000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 33,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "商户租金实收"
+    },
+    {
+      "id": "wc-2026-07-34",
+      "date": "2026-07-24",
+      "rawDate": "2026-07-24",
+      "month": "2026-07",
+      "account": "6668卡",
+      "description": "支付万达保洁费",
+      "income": 0,
+      "expense": 3000,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 34,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "工资保洁实付"
+    },
+    {
+      "id": "wc-2026-07-35",
+      "date": "2026-07-24",
+      "rawDate": "2026-07-24",
+      "month": "2026-07",
+      "account": "6668卡",
+      "description": "姜志远报销款",
+      "income": 0,
+      "expense": 1127,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 35,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "报销待核用途"
+    },
+    {
+      "id": "wc-2026-07-36",
+      "date": "2026-07-24",
+      "rawDate": "2026-07-24",
+      "month": "2026-07",
+      "account": "6668卡",
+      "description": "转入贸易公司公户",
+      "income": 0,
+      "expense": 10000,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 36,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-07-37",
+      "date": "2026-07-29",
+      "rawDate": "2026-07-29",
+      "month": "2026-07",
+      "account": "6668卡",
+      "description": "转入贸易公司公户",
+      "income": 0,
+      "expense": 25000,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 37,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-07-38",
+      "date": "2026-07-30",
+      "rawDate": "2026-07-30",
+      "month": "2026-07",
+      "account": "6668卡",
+      "description": "收窦磊转入孜然部落租金",
+      "income": 36000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 38,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "商户租金实收"
+    },
+    {
+      "id": "wc-2026-07-39",
+      "date": "2026-07-31",
+      "rawDate": "2026-07-31",
+      "month": "2026-07",
+      "account": "6668卡",
+      "description": "收爷爷不泡茶租金及押金",
+      "income": 48000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 39,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "租金押金合收待拆"
+    },
+    {
+      "id": "wc-2026-07-51",
+      "date": "2026-07-24",
+      "rawDate": "2026-07-24",
+      "month": "2026-07",
+      "account": "宏盛广诚贸易公司",
+      "description": "6668卡转入",
+      "income": 10000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 51,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-07-52",
+      "date": "2026-07-24",
+      "rawDate": "2026-07-24",
+      "month": "2026-07",
+      "account": "宏盛广诚贸易公司",
+      "description": "支付万达6月份电费",
+      "income": 0,
+      "expense": 9231.28,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 52,
+      "allocation": [
+        {
+          "period": "2026-06",
+          "kind": "expense",
+          "category": "水电费",
+          "amount": 9231.28,
+          "basis": "原摘要明确所属月份"
+        }
+      ],
+      "review": [],
+      "category": "水电实付"
+    },
+    {
+      "id": "wc-2026-07-53",
+      "date": "2026-07-24",
+      "rawDate": "2026-07-24",
+      "month": "2026-07",
+      "account": "宏盛广诚贸易公司",
+      "description": "收徐国亮鲜目录租金",
+      "income": 18000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 53,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "商户租金实收"
+    },
+    {
+      "id": "wc-2026-07-54",
+      "date": "2026-07-24",
+      "rawDate": "2026-07-24",
+      "month": "2026-07",
+      "account": "宏盛广诚贸易公司",
+      "description": "银行手续费",
+      "income": 0,
+      "expense": 4.5,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 54,
+      "allocation": [
+        {
+          "period": "2026-07",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 4.5,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-07-56",
+      "date": "2026-07-28",
+      "rawDate": "2026-07-28",
+      "month": "2026-07",
+      "account": "宏盛广诚贸易公司",
+      "description": "收李江林转榆林炸鸡租金",
+      "income": 31500,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 56,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "商户租金实收"
+    },
+    {
+      "id": "wc-2026-07-57",
+      "date": "2026-07-29",
+      "rawDate": "2026-07-29",
+      "month": "2026-07",
+      "account": "宏盛广诚贸易公司",
+      "description": "6668卡转入",
+      "income": 25000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 57,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-07-58",
+      "date": "2026-07-29",
+      "rawDate": "2026-07-29",
+      "month": "2026-07",
+      "account": "宏盛广诚贸易公司",
+      "description": "支付万达8、9、10三个月租金",
+      "income": 0,
+      "expense": 75657,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 58,
+      "allocation": [
+        {
+          "period": "2026-08",
+          "kind": "expense",
+          "category": "场地租金",
+          "amount": 25219,
+          "basis": "原摘要明确三个月，等额分摊"
+        },
+        {
+          "period": "2026-09",
+          "kind": "expense",
+          "category": "场地租金",
+          "amount": 25219,
+          "basis": "原摘要明确三个月，等额分摊"
+        },
+        {
+          "period": "2026-10",
+          "kind": "expense",
+          "category": "场地租金",
+          "amount": 25219,
+          "basis": "原摘要明确三个月，等额分摊"
+        }
+      ],
+      "review": [],
+      "category": "场地租金实付"
+    },
+    {
+      "id": "wc-2026-07-59",
+      "date": "2026-07-29",
+      "rawDate": "2026-07-29",
+      "month": "2026-07",
+      "account": "宏盛广诚贸易公司",
+      "description": "银行手续费",
+      "income": 0,
+      "expense": 9,
+      "sourceSheet": "账户汇总明细表7月",
+      "sourceRow": 59,
+      "allocation": [
+        {
+          "period": "2026-07",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 9,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-08-21",
+      "date": "2026-08-21",
+      "rawDate": "2026.8.21",
+      "month": "2026-08",
+      "account": "宏盛广诚贸易公司",
+      "description": "6668卡转入贸易公司账户",
+      "income": 20000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表8月 ",
+      "sourceRow": 21,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-08-24",
+      "date": "2026-08-21",
+      "rawDate": "2026.8.21",
+      "month": "2026-08",
+      "account": "宏盛广诚贸易公司",
+      "description": "支付万达街区7月份电费",
+      "income": 0,
+      "expense": 8638.17,
+      "sourceSheet": "账户汇总明细表8月 ",
+      "sourceRow": 24,
+      "allocation": [
+        {
+          "period": "2026-07",
+          "kind": "expense",
+          "category": "水电费",
+          "amount": 8638.17,
+          "basis": "原摘要明确所属月份"
+        }
+      ],
+      "review": [],
+      "category": "水电实付"
+    },
+    {
+      "id": "wc-2026-08-25",
+      "date": "2026-08-21",
+      "rawDate": "2026.8.21",
+      "month": "2026-08",
+      "account": "宏盛广诚贸易公司",
+      "description": "银行手续费",
+      "income": 0,
+      "expense": 4.5,
+      "sourceSheet": "账户汇总明细表8月 ",
+      "sourceRow": 25,
+      "allocation": [
+        {
+          "period": "2026-08",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 4.5,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-08-31",
+      "date": "2026-08-01",
+      "rawDate": "2026.8.1",
+      "month": "2026-08",
+      "account": "6668卡",
+      "description": "转盛总5880卡用于项目分红",
+      "income": 0,
+      "expense": 60000,
+      "sourceSheet": "账户汇总明细表8月 ",
+      "sourceRow": 31,
+      "allocation": [],
+      "review": [],
+      "category": "项目分红"
+    },
+    {
+      "id": "wc-2026-08-33",
+      "date": "2026-08-08",
+      "rawDate": "2026.8.8",
+      "month": "2026-08",
+      "account": "6668卡",
+      "description": "鲜目录转入电费",
+      "income": 1412.9,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表8月 ",
+      "sourceRow": 33,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-08-34",
+      "date": "2026-08-08",
+      "rawDate": "2026.8.8",
+      "month": "2026-08",
+      "account": "6668卡",
+      "description": "兵哥烧烤张红兵转入电费",
+      "income": 356,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表8月 ",
+      "sourceRow": 34,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-08-35",
+      "date": "2026-08-10",
+      "rawDate": "2026.8.10",
+      "month": "2026-08",
+      "account": "6668卡",
+      "description": "转王玉国备用金",
+      "income": 0,
+      "expense": 20000,
+      "sourceSheet": "账户汇总明细表8月 ",
+      "sourceRow": 35,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "备用金往来"
+    },
+    {
+      "id": "wc-2026-08-36",
+      "date": "2026-08-10",
+      "rawDate": "2026.8.10",
+      "month": "2026-08",
+      "account": "6668卡",
+      "description": "临榆李江林转入电费",
+      "income": 3802.6,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表8月 ",
+      "sourceRow": 36,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-08-37",
+      "date": "2026-08-11",
+      "rawDate": "2026.8.11",
+      "month": "2026-08",
+      "account": "6668卡",
+      "description": "孜然部落祝瑞阳转入电费",
+      "income": 5202.8,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表8月 ",
+      "sourceRow": 37,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-08-38",
+      "date": "2026-08-14",
+      "rawDate": "2026.8.14",
+      "month": "2026-08",
+      "account": "6668卡",
+      "description": "银行手续费",
+      "income": 0,
+      "expense": 3,
+      "sourceSheet": "账户汇总明细表8月 ",
+      "sourceRow": 38,
+      "allocation": [
+        {
+          "period": "2026-08",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 3,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-08-40",
+      "date": "2026-08-15",
+      "rawDate": "2026.8.15",
+      "month": "2026-08",
+      "account": "6668卡",
+      "description": "牛爷烧刘尤成转入电费",
+      "income": 1721.3,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表8月 ",
+      "sourceRow": 40,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-08-41",
+      "date": "2026-08-18",
+      "rawDate": "2026.8.18",
+      "month": "2026-08",
+      "account": "6668卡",
+      "description": "阿佑转入8月份房租",
+      "income": 9000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表8月 ",
+      "sourceRow": 41,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "商户租金实收"
+    },
+    {
+      "id": "wc-2026-08-44",
+      "date": "2026-08-21",
+      "rawDate": "2026.8.21",
+      "month": "2026-08",
+      "account": "6668卡",
+      "description": "6668卡转入贸易公司账户",
+      "income": 0,
+      "expense": 20000,
+      "sourceSheet": "账户汇总明细表8月 ",
+      "sourceRow": 44,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-08-45",
+      "date": "2026-08-21",
+      "rawDate": "2026.8.21",
+      "month": "2026-08",
+      "account": "6668卡",
+      "description": "转李秀丽保洁费",
+      "income": 0,
+      "expense": 3000,
+      "sourceSheet": "账户汇总明细表8月 ",
+      "sourceRow": 45,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "工资保洁实付"
+    },
+    {
+      "id": "wc-2026-08-47",
+      "date": "2026-08-21",
+      "rawDate": "2026.8.21",
+      "month": "2026-08",
+      "account": "6668卡",
+      "description": "姜总报销款",
+      "income": 0,
+      "expense": 937.61,
+      "sourceSheet": "账户汇总明细表8月 ",
+      "sourceRow": 47,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "报销待核用途"
+    },
+    {
+      "id": "wc-2026-08-51",
+      "date": "2026-08-21",
+      "rawDate": "2026.8.21",
+      "month": "2026-08",
+      "account": "6668卡",
+      "description": "转王玉国备用金",
+      "income": 0,
+      "expense": 20000,
+      "sourceSheet": "账户汇总明细表8月 ",
+      "sourceRow": 51,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "备用金往来"
+    },
+    {
+      "id": "wc-2026-08-53",
+      "date": "2026-08-27",
+      "rawDate": "2026.8.27",
+      "month": "2026-08",
+      "account": "6668卡",
+      "description": "熊凯阿佑转入8月份电费",
+      "income": 5335,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表8月 ",
+      "sourceRow": 53,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-09-28",
+      "date": "2026-09-09",
+      "rawDate": "2026.9.9",
+      "month": "2026-09",
+      "account": "宏盛广诚贸易公司",
+      "description": "6668卡转入",
+      "income": 22000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表9月  ",
+      "sourceRow": 28,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-09-33",
+      "date": "2026-09-22",
+      "rawDate": "2026.9.22",
+      "month": "2026-09",
+      "account": "宏盛广诚贸易公司",
+      "description": "6668卡转入",
+      "income": 20000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表9月  ",
+      "sourceRow": 33,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-09-34",
+      "date": "2026-09-22",
+      "rawDate": "2026.9.22",
+      "month": "2026-09",
+      "account": "宏盛广诚贸易公司",
+      "description": "支付万达项目8月份电费",
+      "income": 0,
+      "expense": 9274.14,
+      "sourceSheet": "账户汇总明细表9月  ",
+      "sourceRow": 34,
+      "allocation": [
+        {
+          "period": "2026-08",
+          "kind": "expense",
+          "category": "水电费",
+          "amount": 9274.14,
+          "basis": "原摘要明确所属月份"
+        }
+      ],
+      "review": [],
+      "category": "水电实付"
+    },
+    {
+      "id": "wc-2026-09-43",
+      "date": "2026-09-09",
+      "rawDate": "2026.9.9",
+      "month": "2026-09",
+      "account": "6668卡",
+      "description": "转入贸易公司公户",
+      "income": 0,
+      "expense": 22000,
+      "sourceSheet": "账户汇总明细表9月  ",
+      "sourceRow": 43,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-09-44",
+      "date": "2026-09-09",
+      "rawDate": "2026.9.9",
+      "month": "2026-09",
+      "account": "6668卡",
+      "description": "鲜目录水电费",
+      "income": 983.3,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表9月  ",
+      "sourceRow": 44,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-09-45",
+      "date": "2026-09-09",
+      "rawDate": "2026.9.9",
+      "month": "2026-09",
+      "account": "6668卡",
+      "description": "收兵哥烧烤张红兵转入",
+      "income": 308,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表9月  ",
+      "sourceRow": 45,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "收款用途待确认"
+    },
+    {
+      "id": "wc-2026-09-46",
+      "date": "2026-09-09",
+      "rawDate": "2026.9.9",
+      "month": "2026-09",
+      "account": "6668卡",
+      "description": "收牛爷烧刘尤成转入",
+      "income": 1810.1,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表9月  ",
+      "sourceRow": 46,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "收款用途待确认"
+    },
+    {
+      "id": "wc-2026-09-47",
+      "date": "2026-09-12",
+      "rawDate": "2026.9.12",
+      "month": "2026-09",
+      "account": "6668卡",
+      "description": "收临榆炸鸡李江林转入",
+      "income": 3414.2,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表9月  ",
+      "sourceRow": 47,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "收款用途待确认"
+    },
+    {
+      "id": "wc-2026-09-48",
+      "date": "2026-09-14",
+      "rawDate": "2026.9.14",
+      "month": "2026-09",
+      "account": "6668卡",
+      "description": "收孜然部落祝瑞阳转入",
+      "income": 4017.5,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表9月  ",
+      "sourceRow": 48,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "收款用途待确认"
+    },
+    {
+      "id": "wc-2026-09-49",
+      "date": "2026-09-16",
+      "rawDate": "2026.9.16",
+      "month": "2026-09",
+      "account": "6668卡",
+      "description": "收阿有米粉熊凯水电费",
+      "income": 4239,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表9月  ",
+      "sourceRow": 49,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-09-50",
+      "date": "2026-09-17",
+      "rawDate": "2026.9.17",
+      "month": "2026-09",
+      "account": "6668卡",
+      "description": "手续费",
+      "income": 0,
+      "expense": 3,
+      "sourceSheet": "账户汇总明细表9月  ",
+      "sourceRow": 50,
+      "allocation": [
+        {
+          "period": "2026-09",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 3,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-09-51",
+      "date": "2026-09-21",
+      "rawDate": "2026.9.21",
+      "month": "2026-09",
+      "account": "6668卡",
+      "description": "利息入账",
+      "income": 2.44,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表9月  ",
+      "sourceRow": 51,
+      "allocation": [],
+      "review": [],
+      "category": "利息收入"
+    },
+    {
+      "id": "wc-2026-09-55",
+      "date": "2026-09-22",
+      "rawDate": "2026.9.22",
+      "month": "2026-09",
+      "account": "6668卡",
+      "description": "转入贸易公司公户",
+      "income": 0,
+      "expense": 20000,
+      "sourceSheet": "账户汇总明细表9月  ",
+      "sourceRow": 55,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-09-56",
+      "date": "2026-09-22",
+      "rawDate": "2026.9.22",
+      "month": "2026-09",
+      "account": "6668卡",
+      "description": "支付万达项目8月份保洁费用",
+      "income": 0,
+      "expense": 3000,
+      "sourceSheet": "账户汇总明细表9月  ",
+      "sourceRow": 56,
+      "allocation": [
+        {
+          "period": "2026-08",
+          "kind": "expense",
+          "category": "工资",
+          "amount": 3000,
+          "basis": "原摘要明确所属月份"
+        }
+      ],
+      "review": [],
+      "category": "工资保洁实付"
+    },
+    {
+      "id": "wc-2026-09-57",
+      "date": "2026-09-22",
+      "rawDate": "2026.9.22",
+      "month": "2026-09",
+      "account": "6668卡",
+      "description": "支付万达项目姜总报销款",
+      "income": 0,
+      "expense": 2894.52,
+      "sourceSheet": "账户汇总明细表9月  ",
+      "sourceRow": 57,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "报销待核用途"
+    },
+    {
+      "id": "wc-2026-10-31",
+      "date": "2026-10-21",
+      "rawDate": "2026.10.21",
+      "month": "2026-10",
+      "account": "宏盛广诚贸易公司",
+      "description": "6668卡转入",
+      "income": 7000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 31,
+      "allocation": [],
+      "review": [
+        "内部转账同月同额，双方日期不同，待核"
+      ],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-10-32",
+      "date": "2026-10-21",
+      "rawDate": "2026.10.21",
+      "month": "2026-10",
+      "account": "宏盛广诚贸易公司",
+      "description": "支付万达项目9月份电费",
+      "income": 0,
+      "expense": 6905,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 32,
+      "allocation": [
+        {
+          "period": "2026-09",
+          "kind": "expense",
+          "category": "水电费",
+          "amount": 6905,
+          "basis": "原摘要明确所属月份"
+        }
+      ],
+      "review": [],
+      "category": "水电实付"
+    },
+    {
+      "id": "wc-2026-10-33",
+      "date": "2026-10-28",
+      "rawDate": "2026.10.28",
+      "month": "2026-10",
+      "account": "宏盛广诚贸易公司",
+      "description": "支付万达项目中山市英拓光电公司货款30%预付款",
+      "income": 0,
+      "expense": 3300,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 33,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "采购预付款待核定"
+    },
+    {
+      "id": "wc-2026-10-34",
+      "date": "2026-10-28",
+      "rawDate": "2026.10.28",
+      "month": "2026-10",
+      "account": "宏盛广诚贸易公司",
+      "description": "手续费",
+      "income": 0,
+      "expense": 22.5,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 34,
+      "allocation": [
+        {
+          "period": "2026-10",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 22.5,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-10-37",
+      "date": "2026-10-28",
+      "rawDate": "2026.10.28",
+      "month": "2026-10",
+      "account": "宏盛广诚贸易公司",
+      "description": "6668卡转入",
+      "income": 40000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 37,
+      "allocation": [],
+      "review": [
+        "内部转账同月同额，双方日期不同，待核"
+      ],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-10-38",
+      "date": "2026-10-25",
+      "rawDate": "2026.10.25",
+      "month": "2026-10",
+      "account": "宏盛广诚贸易公司",
+      "description": "支付万达项目2026.11-2027.1租金",
+      "income": 0,
+      "expense": 75657,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 38,
+      "allocation": [
+        {
+          "period": "2026-11",
+          "kind": "expense",
+          "category": "场地租金",
+          "amount": 25219,
+          "basis": "原摘要明确三个月，等额分摊"
+        },
+        {
+          "period": "2026-12",
+          "kind": "expense",
+          "category": "场地租金",
+          "amount": 25219,
+          "basis": "原摘要明确三个月，等额分摊"
+        },
+        {
+          "period": "2027-01",
+          "kind": "expense",
+          "category": "场地租金",
+          "amount": 25219,
+          "basis": "原摘要明确三个月，等额分摊"
+        }
+      ],
+      "review": [],
+      "category": "场地租金实付"
+    },
+    {
+      "id": "wc-2026-10-45",
+      "date": "2026-10-30",
+      "rawDate": "2026.10.30",
+      "month": "2026-10",
+      "account": "宏盛广诚贸易公司",
+      "description": "6668卡转入",
+      "income": 5000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 45,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-10-46",
+      "date": "2026-10-27",
+      "rawDate": "2026.10.27",
+      "month": "2026-10",
+      "account": "6668卡",
+      "description": "爷爷不泡茶转入电费",
+      "income": 3337.5,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 46,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-10-47",
+      "date": "2026-10-27",
+      "rawDate": "2026.10.27",
+      "month": "2026-10",
+      "account": "6668卡",
+      "description": "爷爷不泡茶转入租金",
+      "income": 24000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 47,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "商户租金实收"
+    },
+    {
+      "id": "wc-2026-10-48",
+      "date": "2026-10-21",
+      "rawDate": "2026.10.21",
+      "month": "2026-10",
+      "account": "宏盛广诚贸易公司",
+      "description": "鲜目录谭红素租金转入贸易公司公户",
+      "income": 18000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 48,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "商户租金实收"
+    },
+    {
+      "id": "wc-2026-10-49",
+      "date": "2026-10-08",
+      "rawDate": "2026.10.8",
+      "month": "2026-10",
+      "account": "6668卡",
+      "description": "鲜目录水电费",
+      "income": 572.3,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 49,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-10-50",
+      "date": "2026-10-09",
+      "rawDate": "2026.10.9",
+      "month": "2026-10",
+      "account": "6668卡",
+      "description": "收兵哥烧烤张红兵转入水电费",
+      "income": 385,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 50,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-10-51",
+      "date": "2026-10-10",
+      "rawDate": "2026.10.10",
+      "month": "2026-10",
+      "account": "6668卡",
+      "description": "收牛爷烧刘尤成转入",
+      "income": 987.4,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 51,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "收款用途待确认"
+    },
+    {
+      "id": "wc-2026-10-52",
+      "date": "2026-10-12",
+      "rawDate": "2026.10.12",
+      "month": "2026-10",
+      "account": "6668卡",
+      "description": "收临榆炸鸡李江林转入水电费",
+      "income": 2779.5,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 52,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-10-53",
+      "date": "2026-10-11",
+      "rawDate": "2026.10.11",
+      "month": "2026-10",
+      "account": "6668卡",
+      "description": "收孜然部落祝瑞阳转入水电费",
+      "income": 2960.6,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 53,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-10-54",
+      "date": "2026-10-18",
+      "rawDate": "2026.10.18",
+      "month": "2026-10",
+      "account": "6668卡",
+      "description": "收阿有米粉熊凯水电费扣减2.85手续费",
+      "income": 2845,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 54,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "水电实收"
+    },
+    {
+      "id": "wc-2026-10-55",
+      "date": "2026-10-25",
+      "rawDate": "2026.10.25",
+      "month": "2026-10",
+      "account": "6668卡",
+      "description": "收孜然部落窦磊转入租金",
+      "income": 36000,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 55,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "商户租金实收"
+    },
+    {
+      "id": "wc-2026-10-56",
+      "date": "2026-10-24",
+      "rawDate": "2026.10.24",
+      "month": "2026-10",
+      "account": "宏盛广诚贸易公司",
+      "description": "临榆炸鸡租金",
+      "income": 31500,
+      "expense": 0,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 56,
+      "allocation": [],
+      "review": [
+        "现金日期已保留，未唯一确定经营所属月份，不重复录入月度发生额"
+      ],
+      "category": "商户租金实收"
+    },
+    {
+      "id": "wc-2026-10-58",
+      "date": "2026-10-21",
+      "rawDate": "2026.10.21",
+      "month": "2026-10",
+      "account": "6668卡",
+      "description": "短信服务费",
+      "income": 0,
+      "expense": 3,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 58,
+      "allocation": [
+        {
+          "period": "2026-10",
+          "kind": "expense",
+          "category": "运营费用",
+          "amount": 3,
+          "basis": "当期银行/短信服务费，按发生月列示"
+        }
+      ],
+      "review": [],
+      "category": "银行服务费用"
+    },
+    {
+      "id": "wc-2026-10-60",
+      "date": "2026-10-24",
+      "rawDate": "2026.10.24",
+      "month": "2026-10",
+      "account": "6668卡",
+      "description": "转入贸易公司公户",
+      "income": 0,
+      "expense": 7000,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 60,
+      "allocation": [],
+      "review": [
+        "内部转账同月同额，双方日期不同，待核"
+      ],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-10-61",
+      "date": "2026-10-25",
+      "rawDate": "2026.10.25",
+      "month": "2026-10",
+      "account": "6668卡",
+      "description": "支付万达项目9月份保洁费用",
+      "income": 0,
+      "expense": 3000,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 61,
+      "allocation": [
+        {
+          "period": "2026-09",
+          "kind": "expense",
+          "category": "工资",
+          "amount": 3000,
+          "basis": "原摘要明确所属月份"
+        }
+      ],
+      "review": [],
+      "category": "工资保洁实付"
+    },
+    {
+      "id": "wc-2026-10-62",
+      "date": "2026-10-25",
+      "rawDate": "2026.10.25",
+      "month": "2026-10",
+      "account": "6668卡",
+      "description": "支付万达项目姜总报销款",
+      "income": 0,
+      "expense": 1965,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 62,
+      "allocation": [],
+      "review": [
+        "用途、组成或归属期需核对，未直接计入利润"
+      ],
+      "category": "报销待核用途"
+    },
+    {
+      "id": "wc-2026-10-68",
+      "date": "2026-10-27",
+      "rawDate": "2026.10.27",
+      "month": "2026-10",
+      "account": "6668卡",
+      "description": "转入贸易公司公户",
+      "income": 0,
+      "expense": 40000,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 68,
+      "allocation": [],
+      "review": [
+        "内部转账同月同额，双方日期不同，待核"
+      ],
+      "category": "内部转账"
+    },
+    {
+      "id": "wc-2026-10-74",
+      "date": "2026-10-30",
+      "rawDate": "2026.10.30",
+      "month": "2026-10",
+      "account": "6668卡",
+      "description": "转贸易公司账户",
+      "income": 0,
+      "expense": 5000,
+      "sourceSheet": "账户汇总明细表10月   ",
+      "sourceRow": 74,
+      "allocation": [],
+      "review": [],
+      "category": "内部转账"
+    }
+  ],
+  "openingBalances": [
+    {
+      "month": "2026-01",
+      "account": "6668卡",
+      "balance": 272487.29,
+      "source": "账户汇总明细表1月  !5"
+    },
+    {
+      "month": "2026-01",
+      "account": "宏盛广诚贸易公司",
+      "balance": -2424.73,
+      "source": "账户汇总明细表1月  !12"
+    },
+    {
+      "month": "2026-02",
+      "account": "6668卡",
+      "balance": 246464.43,
+      "source": "账户汇总明细表2月   !5"
+    },
+    {
+      "month": "2026-02",
+      "account": "宏盛广诚贸易公司",
+      "balance": 11859.3,
+      "source": "账户汇总明细表2月   !12"
+    },
+    {
+      "month": "2026-03",
+      "account": "6668卡",
+      "balance": 243584.83,
+      "source": "账户汇总明细表3月 !5"
+    },
+    {
+      "month": "2026-03",
+      "account": "宏盛广诚贸易公司",
+      "balance": 34163.37,
+      "source": "账户汇总明细表3月 !12"
+    },
+    {
+      "month": "2026-04",
+      "account": "6668卡",
+      "balance": 249475.64,
+      "source": "账户汇总明细表4月 !5"
+    },
+    {
+      "month": "2026-04",
+      "account": "宏盛广诚贸易公司",
+      "balance": -15758.76,
+      "source": "账户汇总明细表4月 !12"
+    },
+    {
+      "month": "2026-05",
+      "account": "6668卡",
+      "balance": 237728.59,
+      "source": "账户汇总明细表5月  !5"
+    },
+    {
+      "month": "2026-05",
+      "account": "宏盛广诚贸易公司",
+      "balance": 73781.22,
+      "source": "账户汇总明细表5月  !12"
+    },
+    {
+      "month": "2026-06",
+      "account": "6668卡",
+      "balance": 247217.99,
+      "source": "账户汇总明细表6月  !5"
+    },
+    {
+      "month": "2026-06",
+      "account": "宏盛广诚贸易公司",
+      "balance": 17829.78,
+      "source": "账户汇总明细表6月  !12"
+    },
+    {
+      "month": "2026-07",
+      "account": "6668卡",
+      "balance": 245585.83,
+      "source": "账户汇总明细表7月!5"
+    },
+    {
+      "month": "2026-07",
+      "account": "宏盛广诚贸易公司",
+      "balance": 23822.6,
+      "source": "账户汇总明细表7月!12"
+    },
+    {
+      "month": "2026-08",
+      "account": "6668卡",
+      "balance": 342871.63,
+      "source": "账户汇总明细表8月 !5"
+    },
+    {
+      "month": "2026-08",
+      "account": "宏盛广诚贸易公司",
+      "balance": 23420.82,
+      "source": "账户汇总明细表8月 !12"
+    },
+    {
+      "month": "2026-09",
+      "account": "6668卡",
+      "balance": 245761.62,
+      "source": "账户汇总明细表9月  !5"
+    },
+    {
+      "month": "2026-09",
+      "account": "宏盛广诚贸易公司",
+      "balance": 34778.15,
+      "source": "账户汇总明细表9月  !12"
+    },
+    {
+      "month": "2026-10",
+      "account": "6668卡",
+      "balance": 212638.64,
+      "source": "账户汇总明细表10月   !5"
+    },
+    {
+      "month": "2026-10",
+      "account": "宏盛广诚贸易公司",
+      "balance": 67504.01,
+      "source": "账户汇总明细表10月   !12"
+    }
+  ],
+  "transferPairs": [
+    {
+      "incoming": "wc-2026-01-25",
+      "outgoing": "wc-2026-01-38",
+      "amount": 20000,
+      "sameDate": true
+    },
+    {
+      "incoming": "wc-2026-02-19",
+      "outgoing": "wc-2026-02-29",
+      "amount": 10000,
+      "sameDate": true
+    },
+    {
+      "incoming": "wc-2026-02-22",
+      "outgoing": "wc-2026-02-32",
+      "amount": 20000,
+      "sameDate": true
+    },
+    {
+      "incoming": "wc-2026-03-48",
+      "outgoing": "wc-2026-03-30",
+      "amount": 20000,
+      "sameDate": true
+    },
+    {
+      "incoming": "wc-2026-04-41",
+      "outgoing": "wc-2026-04-26",
+      "amount": 10000,
+      "sameDate": true
+    },
+    {
+      "incoming": "wc-2026-04-48",
+      "outgoing": "wc-2026-04-31",
+      "amount": 20000,
+      "sameDate": true
+    },
+    {
+      "incoming": "wc-2026-05-19",
+      "outgoing": "wc-2026-05-39",
+      "amount": 10000,
+      "sameDate": false
+    },
+    {
+      "incoming": "wc-2026-06-22",
+      "outgoing": "wc-2026-06-38",
+      "amount": 14000,
+      "sameDate": true
+    },
+    {
+      "incoming": "wc-2026-07-51",
+      "outgoing": "wc-2026-07-36",
+      "amount": 10000,
+      "sameDate": true
+    },
+    {
+      "incoming": "wc-2026-07-57",
+      "outgoing": "wc-2026-07-37",
+      "amount": 25000,
+      "sameDate": true
+    },
+    {
+      "incoming": "wc-2026-08-21",
+      "outgoing": "wc-2026-08-44",
+      "amount": 20000,
+      "sameDate": true
+    },
+    {
+      "incoming": "wc-2026-09-28",
+      "outgoing": "wc-2026-09-43",
+      "amount": 22000,
+      "sameDate": true
+    },
+    {
+      "incoming": "wc-2026-09-33",
+      "outgoing": "wc-2026-09-55",
+      "amount": 20000,
+      "sameDate": true
+    },
+    {
+      "incoming": "wc-2026-10-31",
+      "outgoing": "wc-2026-10-60",
+      "amount": 7000,
+      "sameDate": false
+    },
+    {
+      "incoming": "wc-2026-10-37",
+      "outgoing": "wc-2026-10-68",
+      "amount": 40000,
+      "sameDate": false
+    },
+    {
+      "incoming": "wc-2026-10-45",
+      "outgoing": "wc-2026-10-74",
+      "amount": 5000,
+      "sameDate": true
+    }
+  ],
+  "duplicates": [],
+  "issues": [
+    {
+      "title": "日期错误",
+      "detail": "账户汇总明细表1月第35行日期为2026.1.219，978.20元水电收款仅能确认在1月，具体日期留空。"
+    },
+    {
+      "title": "牛爷烧租金相差4元",
+      "detail": "每月6667元×12=80004元，原表累计80000元；按明细保留80004元、保留累计80000元，不自动改成一致。"
+    },
+    {
+      "title": "租金统计累计口径",
+      "detail": "原表租金累计合计487500元，逐月明细合计487504元，相差4元。总计行部分月份存在空白，不用总计行代替商户逐月明细。"
+    },
+    {
+      "title": "阿佑收租截止冲突",
+      "detail": "信息统计备注写收到7月，租金表写收到8月，且出纳8月18日记录收到8月房租9000元。保留最新凭据和原备注差异；未生成无依据欠租。"
+    },
+    {
+      "title": "临榆炸鸡租金调价",
+      "detail": "月租字段10000元，但8—10月逐月记录10500元；不能沿用10000元自动生成后续账单。"
+    },
+    {
+      "title": "A-8前后商户",
+      "detail": "租金表A-8为爷爷不泡茶，电费表A-8为兵哥烧烤；分别保留，不能按铺位号合并为同一商户。爷爷不泡茶2026年8月和11月免租，2027年月租12600，8月和11月免租。"
+    },
+    {
+      "title": "紫菜卷押金处理冲突",
+      "detail": "信息表写已退押金10000元，租金备注写押金抵扣2026年5—6月租金；余额均为0，但不把抵租虚构成现金退款。"
+    },
+    {
+      "title": "合收与合付款",
+      "detail": "7月31日爷爷不泡茶租金及押金48000元，结合押金表24000元可形成拆分线索，仍需确认租金所属期；3月两笔77000元和90085元含场租及保证金，未拆完前不全额计费用。"
+    },
+    {
+      "title": "水电差额",
+      "detail": "阿佑5月电费表4799.80元、6月现金到账4795元，差4.80元；6月电费表3206.20元、7月现金到账3203元，差3.20元。分别保留应计与实收。"
+    },
+    {
+      "title": "数据期间与完整性",
+      "detail": "文件名写10月9日，但实际包含10月30日流水；租金表文件名写8月14日，表内已含后续月份与2027年条款。以内容为准。合同起始日期大量缺失，账单与场租保证金尚未完整分摊，完整月度利润待核定。"
+    }
+  ],
+  "monthly": [
+    {
+      "month": "2026-01",
+      "cashIncome": 20978.2,
+      "cashExpense": 32717.03,
+      "transferIn": 20000,
+      "transferOut": 20000,
+      "rentFilled": 48667,
+      "rentFilledCount": 6,
+      "powerFilled": null,
+      "allocatedExpense": 7703.43,
+      "reviewCount": 4,
+      "cashRows": 9,
+      "profit": null
+    },
+    {
+      "month": "2026-02",
+      "cashIncome": 60923.4,
+      "cashExpense": 41498.93,
+      "transferIn": 30000,
+      "transferOut": 30000,
+      "rentFilled": 48667,
+      "rentFilledCount": 6,
+      "powerFilled": null,
+      "allocatedExpense": 3,
+      "reviewCount": 3,
+      "cashRows": 10,
+      "profit": null
+    },
+    {
+      "month": "2026-03",
+      "cashIncome": 157293.81,
+      "cashExpense": 201325.13,
+      "transferIn": 20000,
+      "transferOut": 20000,
+      "rentFilled": 48667,
+      "rentFilledCount": 6,
+      "powerFilled": null,
+      "allocatedExpense": 6481.02,
+      "reviewCount": 14,
+      "cashRows": 19,
+      "profit": null
+    },
+    {
+      "month": "2026-04",
+      "cashIncome": 118544.95,
+      "cashExpense": 40752.02,
+      "transferIn": 30000,
+      "transferOut": 30000,
+      "rentFilled": 48667,
+      "rentFilledCount": 6,
+      "powerFilled": 9977.2,
+      "allocatedExpense": 6318.44,
+      "reviewCount": 11,
+      "cashRows": 18,
+      "profit": null
+    },
+    {
+      "month": "2026-05",
+      "cashIncome": 49477.2,
+      "cashExpense": 95939.24,
+      "transferIn": 10000,
+      "transferOut": 10000,
+      "rentFilled": 48667,
+      "rentFilledCount": 6,
+      "powerFilled": 16250.5,
+      "allocatedExpense": 33233.76,
+      "reviewCount": 12,
+      "cashRows": 16,
+      "profit": null
+    },
+    {
+      "month": "2026-06",
+      "cashIncome": 30249.92,
+      "cashExpense": 25889.26,
+      "transferIn": 14000,
+      "transferOut": 14000,
+      "rentFilled": 48667,
+      "rentFilledCount": 6,
+      "powerFilled": 12419.0,
+      "allocatedExpense": 34458.28,
+      "reviewCount": 9,
+      "cashRows": 16,
+      "profit": null
+    },
+    {
+      "month": "2026-07",
+      "cashIncome": 220915.8,
+      "cashExpense": 124031.78,
+      "transferIn": 35000,
+      "transferOut": 35000,
+      "rentFilled": 43667,
+      "rentFilledCount": 5,
+      "powerFilled": 17830.6,
+      "allocatedExpense": 33873.67,
+      "reviewCount": 14,
+      "cashRows": 23,
+      "profit": null
+    },
+    {
+      "month": "2026-08",
+      "cashIncome": 46830.6,
+      "cashExpense": 132583.28,
+      "transferIn": 20000,
+      "transferOut": 20000,
+      "rentFilled": 44167,
+      "rentFilledCount": 5,
+      "powerFilled": null,
+      "allocatedExpense": 37500.64,
+      "reviewCount": 11,
+      "cashRows": 17,
+      "profit": null
+    },
+    {
+      "month": "2026-09",
+      "cashIncome": 56774.54,
+      "cashExpense": 57171.66,
+      "transferIn": 42000,
+      "transferOut": 42000,
+      "rentFilled": 47167,
+      "rentFilledCount": 5,
+      "powerFilled": null,
+      "allocatedExpense": 35127,
+      "reviewCount": 7,
+      "cashRows": 15,
+      "profit": null
+    },
+    {
+      "month": "2026-10",
+      "cashIncome": 175367.3,
+      "cashExpense": 142852.5,
+      "transferIn": 52000,
+      "transferOut": 52000,
+      "rentFilled": 47167,
+      "rentFilledCount": 5,
+      "powerFilled": null,
+      "allocatedExpense": 25244.5,
+      "reviewCount": 17,
+      "cashRows": 24,
+      "profit": null
+    },
+    {
+      "month": "2026-11",
+      "cashIncome": 0,
+      "cashExpense": 0,
+      "transferIn": 0,
+      "transferOut": 0,
+      "rentFilled": 6667,
+      "rentFilledCount": 2,
+      "powerFilled": null,
+      "allocatedExpense": 25219,
+      "reviewCount": 0,
+      "cashRows": 0,
+      "profit": null
+    },
+    {
+      "month": "2026-12",
+      "cashIncome": 0,
+      "cashExpense": 0,
+      "transferIn": 0,
+      "transferOut": 0,
+      "rentFilled": 6667,
+      "rentFilledCount": 1,
+      "powerFilled": null,
+      "allocatedExpense": 25219,
+      "reviewCount": 0,
+      "cashRows": 0,
+      "profit": null
+    }
+  ],
+  "snapshots": [
+    {
+      "file": "店铺押金租金统计表2026.8.14备份.xlsx",
+      "sheet": "信息统计",
+      "rows": [
+        {
+          "row": 1,
+          "cells": [
+            "万达银河街区项目租金/押金统计表",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": 2,
+          "cells": [
+            "序号",
+            "店铺名称",
+            "店铺号",
+            "合同有效期起",
+            "合同有效期止",
+            "已收押金",
+            "押金退还",
+            "押金余额",
+            "月租金",
+            "已收租金",
+            "备注"
+          ]
+        },
+        {
+          "row": 3,
+          "cells": [
+            1,
+            "孜然部落（窦磊）",
+            "A-1",
+            null,
+            "2026.12.31",
+            36000,
+            0,
+            36000,
+            12000,
+            null,
+            "2026年到10月份租金已收"
+          ]
+        },
+        {
+          "row": 4,
+          "cells": [
+            2,
+            "牛爷烧（刘尤成）",
+            "A-2",
+            null,
+            null,
+            18000,
+            0,
+            18000,
+            6667,
+            null,
+            "2026年到12月份租金已收"
+          ]
+        },
+        {
+          "row": 5,
+          "cells": [
+            3,
+            "鲜目录（徐国亮）",
+            "A-3",
+            null,
+            null,
+            12000,
+            0,
+            12000,
+            6000,
+            null,
+            "2026年到10月份租金已收"
+          ]
+        },
+        {
+          "row": 6,
+          "cells": [
+            4,
+            "阿佑米粉（熊凯）",
+            "A-4",
+            null,
+            null,
+            24000,
+            0,
+            24000,
+            9000,
+            null,
+            "2026年到7月份租金已收"
+          ]
+        },
+        {
+          "row": 7,
+          "cells": [
+            5,
+            null,
+            "A-5",
+            null,
+            null,
+            null,
+            0,
+            0,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": 8,
+          "cells": [
+            6,
+            "延约拿紫菜卷（张琦）",
+            "A-6",
+            null,
+            null,
+            10000,
+            10000,
+            0,
+            5000,
+            null,
+            "2026年6月底已撤店"
+          ]
+        },
+        {
+          "row": 9,
+          "cells": [
+            7,
+            "临榆炸鸡（李江林）",
+            "A-7",
+            null,
+            null,
+            20000,
+            0,
+            20000,
+            10000,
+            null,
+            "2026年到10月份租金已收"
+          ]
+        },
+        {
+          "row": 10,
+          "cells": [
+            8,
+            "爷爷不泡茶",
+            "A-8",
+            null,
+            null,
+            24000,
+            null,
+            24000,
+            12000,
+            null,
+            "合同约定2026年8月份装修免租金，2026年11月份免租金；2027年租金调整为12600元，减免2027年8月及2027年11月两个月租金"
+          ]
+        },
+        {
+          "row": 11,
+          "cells": [
+            9,
+            null,
+            "A-9",
+            null,
+            null,
+            null,
+            null,
+            0,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": 12,
+          "cells": [
+            "合计",
+            null,
+            null,
+            null,
+            null,
+            144000,
+            10000,
+            134000,
+            60667,
+            0,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "file": "店铺押金租金统计表2026.8.14备份.xlsx",
+      "sheet": "租金",
+      "rows": [
+        {
+          "row": 1,
+          "cells": [
+            "万达银河街区项目2026年度租金统计表",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": 2,
+          "cells": [
+            "序号",
+            "店铺名称",
+            "店铺号",
+            "合同有效期起",
+            "合同有效期止",
+            "已收押金",
+            "租金累计",
+            "1月份租金",
+            "2月份租金",
+            "3月份租金",
+            "4月份租金",
+            "5月份租金",
+            "6月份租金",
+            "7月份租金",
+            "8月份租金",
+            "9月份租金",
+            "10月份租金",
+            "11月份租金",
+            "12月份租金",
+            "月租金",
+            "已收租金",
+            "备注"
+          ]
+        },
+        {
+          "row": 3,
+          "cells": [
+            1,
+            "孜然部落（窦磊）",
+            "A-1",
+            null,
+            "2026.12.31",
+            36000,
+            120000,
+            12000,
+            12000,
+            12000,
+            12000,
+            12000,
+            12000,
+            12000,
+            12000,
+            12000,
+            12000,
+            null,
+            null,
+            12000,
+            null,
+            "2026年到10月份租金已收"
+          ]
+        },
+        {
+          "row": 4,
+          "cells": [
+            2,
+            "牛爷烧（刘尤成）",
+            "A-2",
+            null,
+            null,
+            18000,
+            80000,
+            6667,
+            6667,
+            6667,
+            6667,
+            6667,
+            6667,
+            6667,
+            6667,
+            6667,
+            6667,
+            6667,
+            6667,
+            6667,
+            null,
+            "2026年到12月份租金已收"
+          ]
+        },
+        {
+          "row": 5,
+          "cells": [
+            3,
+            "鲜目录（徐国亮）",
+            "A-3",
+            null,
+            null,
+            12000,
+            60000,
+            6000,
+            6000,
+            6000,
+            6000,
+            6000,
+            6000,
+            6000,
+            6000,
+            6000,
+            6000,
+            null,
+            null,
+            6000,
+            null,
+            "2026年到10月份租金已收"
+          ]
+        },
+        {
+          "row": 6,
+          "cells": [
+            4,
+            "阿佑米粉（熊凯）",
+            "A-4",
+            null,
+            null,
+            24000,
+            72000,
+            9000,
+            9000,
+            9000,
+            9000,
+            9000,
+            9000,
+            9000,
+            9000,
+            null,
+            null,
+            null,
+            null,
+            9000,
+            null,
+            "2026年8月份租金已收"
+          ]
+        },
+        {
+          "row": 7,
+          "cells": [
+            5,
+            null,
+            "A-5",
+            null,
+            null,
+            null,
+            0,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": 8,
+          "cells": [
+            6,
+            "延约拿紫菜卷（张琦）",
+            "A-6",
+            null,
+            null,
+            0,
+            30000,
+            5000,
+            5000,
+            5000,
+            5000,
+            5000,
+            5000,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            5000,
+            null,
+            "押金抵扣2026年5月至6月份租金，已于2026年6月撤店。"
+          ]
+        },
+        {
+          "row": 9,
+          "cells": [
+            7,
+            "临榆炸鸡（李江林）",
+            "A-7",
+            null,
+            null,
+            20000,
+            101500,
+            10000,
+            10000,
+            10000,
+            10000,
+            10000,
+            10000,
+            10000,
+            10500,
+            10500,
+            10500,
+            null,
+            null,
+            10000,
+            null,
+            "2026年到10月份租金已收"
+          ]
+        },
+        {
+          "row": 10,
+          "cells": [
+            8,
+            "爷爷不泡茶",
+            "A-8",
+            null,
+            null,
+            24000,
+            24000,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            12000,
+            12000,
+            0,
+            null,
+            12000,
+            null,
+            "2026年已收到11月份，合同约定2026年8月份装修免租金，2026年11月份免租金；2027年租金调整为12600元，减免2027年8月及2027年11月两个月租金。"
+          ]
+        },
+        {
+          "row": 11,
+          "cells": [
+            9,
+            null,
+            "A-9",
+            null,
+            null,
+            null,
+            0,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": 12,
+          "cells": [
+            "合计",
+            null,
+            null,
+            null,
+            null,
+            134000,
+            487500,
+            48667,
+            48667,
+            48667,
+            48667,
+            48667,
+            48667,
+            43667,
+            null,
+            null,
+            null,
+            null,
+            null,
+            60667,
+            0,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "file": "店铺押金租金统计表2026.8.14备份.xlsx",
+      "sheet": "电费",
+      "rows": [
+        {
+          "row": 1,
+          "cells": [
+            "万达银河街区项目2026年度电费统计表",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": 2,
+          "cells": [
+            "序号",
+            "店铺名称",
+            "店铺号",
+            "合同有效期起",
+            "合同有效期止",
+            "电费累计",
+            "1月份电费",
+            "2月份电费",
+            "3月份电费",
+            "4月份电费",
+            "5月份电费",
+            "6月份电费",
+            "7月份电费",
+            "8月份电费",
+            "9月份电费",
+            "10月份电费",
+            "11月份电费",
+            "12月份电费",
+            "备注"
+          ]
+        },
+        {
+          "row": 3,
+          "cells": [
+            1,
+            "孜然部落（窦磊、祝瑞阳）",
+            "A-1",
+            null,
+            "2026.12.31",
+            14759.45,
+            null,
+            null,
+            null,
+            2942.35,
+            3755.3,
+            2859,
+            5202.8,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": 4,
+          "cells": [
+            2,
+            "牛爷烧（刘尤成）",
+            "A-2",
+            null,
+            null,
+            5551.75,
+            null,
+            null,
+            null,
+            1023.85,
+            1068,
+            1738.6,
+            1721.3,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": 5,
+          "cells": [
+            3,
+            "鲜目录（徐国亮）",
+            "A-3",
+            null,
+            null,
+            3149.9,
+            null,
+            null,
+            null,
+            null,
+            964.1,
+            772.9,
+            1412.9,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "在装修，和五月份一起收"
+          ]
+        },
+        {
+          "row": 6,
+          "cells": [
+            4,
+            "阿佑米粉（熊凯）",
+            "A-4",
+            null,
+            null,
+            16364,
+            null,
+            null,
+            null,
+            3023,
+            4799.8,
+            3206.2,
+            5335,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": 7,
+          "cells": [
+            5,
+            null,
+            "A-5",
+            null,
+            null,
+            0,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": 8,
+          "cells": [
+            6,
+            "延约拿紫菜卷（张琦）",
+            "A-6",
+            null,
+            null,
+            3382.1,
+            null,
+            null,
+            null,
+            990.9,
+            1472.9,
+            918.3,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "已撤店"
+          ]
+        },
+        {
+          "row": 9,
+          "cells": [
+            7,
+            "临榆炸鸡（李江林）",
+            "A-7",
+            null,
+            null,
+            11350.1,
+            null,
+            null,
+            null,
+            1599.1,
+            3495.4,
+            2453,
+            3802.6,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": 10,
+          "cells": [
+            8,
+            "兵哥烧烤（张红兵）",
+            "A-8",
+            null,
+            null,
+            1920,
+            null,
+            null,
+            null,
+            398,
+            695,
+            471,
+            356,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": 11,
+          "cells": [
+            9,
+            null,
+            "A-9",
+            null,
+            null,
+            0,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": 12,
+          "cells": [
+            "合计",
+            null,
+            null,
+            null,
+            null,
+            56477.3,
+            0,
+            0,
+            0,
+            9977.2,
+            16250.5,
+            12419,
+            17830.6,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "水费3.8元/吨，电费0.85元/度"
+          ]
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "depositReceived": 144000,
+    "depositReturnedReported": 10000,
+    "depositBalance": 134000,
+    "rentReported": 487500,
+    "rentDetail": 487504,
+    "electricityDetail": 56477.3
+  },
+  "cashControl": {
+    "opening2026": 270062.56,
+    "incomeTotal": 937355.72,
+    "expenseTotal": 894760.83,
+    "closingCalculated": 312657.45,
+    "sourceOctoberClosing": 312657.45,
+    "monthly": [
+      {
+        "month": "2026-01",
+        "opening": 270062.56,
+        "income": 20978.2,
+        "expense": 32717.03,
+        "closingCalculated": 258323.73,
+        "nextOpening": 258323.73,
+        "gap": 0.0
+      },
+      {
+        "month": "2026-02",
+        "opening": 258323.73,
+        "income": 60923.4,
+        "expense": 41498.93,
+        "closingCalculated": 277748.2,
+        "nextOpening": 277748.2,
+        "gap": 0.0
+      },
+      {
+        "month": "2026-03",
+        "opening": 277748.2,
+        "income": 157293.81,
+        "expense": 201325.13,
+        "closingCalculated": 233716.88,
+        "nextOpening": 233716.88,
+        "gap": 0.0
+      },
+      {
+        "month": "2026-04",
+        "opening": 233716.88,
+        "income": 118544.95,
+        "expense": 40752.02,
+        "closingCalculated": 311509.81,
+        "nextOpening": 311509.81,
+        "gap": 0.0
+      },
+      {
+        "month": "2026-05",
+        "opening": 311509.81,
+        "income": 49477.2,
+        "expense": 95939.24,
+        "closingCalculated": 265047.77,
+        "nextOpening": 265047.77,
+        "gap": 0.0
+      },
+      {
+        "month": "2026-06",
+        "opening": 265047.77,
+        "income": 30249.92,
+        "expense": 25889.26,
+        "closingCalculated": 269408.43,
+        "nextOpening": 269408.43,
+        "gap": 0.0
+      },
+      {
+        "month": "2026-07",
+        "opening": 269408.43,
+        "income": 220915.8,
+        "expense": 124031.78,
+        "closingCalculated": 366292.45,
+        "nextOpening": 366292.45,
+        "gap": 0.0
+      },
+      {
+        "month": "2026-08",
+        "opening": 366292.45,
+        "income": 46830.6,
+        "expense": 132583.28,
+        "closingCalculated": 280539.77,
+        "nextOpening": 280539.77,
+        "gap": 0.0
+      },
+      {
+        "month": "2026-09",
+        "opening": 280539.77,
+        "income": 56774.54,
+        "expense": 57171.66,
+        "closingCalculated": 280142.65,
+        "nextOpening": 280142.65,
+        "gap": 0.0
+      },
+      {
+        "month": "2026-10",
+        "opening": 280142.65,
+        "income": 175367.3,
+        "expense": 142852.5,
+        "closingCalculated": 312657.45,
+        "nextOpening": null,
+        "gap": null
+      }
+    ]
+  },
+  "cashPeriod": "2026-01至2026-10",
+  "validCashDates": {
+    "from": "2026-01-09",
+    "to": "2026-10-30"
+  },
+  "sourcePolicy": "只以账户汇总明细表1—10月为出纳流水；透视、打印、Sheet副本及资金汇总不重复导入。两份表分别保存现金实收和租金/电费月份，不直接相加。"
+}
